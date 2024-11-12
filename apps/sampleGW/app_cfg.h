@@ -43,11 +43,11 @@ extern "C" {
 #define PA_ENABLE						0
 
 /* Debug mode */
-#define	UART_PRINTF_MODE				0
+#define	UART_PRINTF_MODE				1		//RD_EDIT: enable debug
 #define USB_PRINTF_MODE         		0
 
 /* HCI interface */
-#define	ZBHCI_UART						0
+#define	ZBHCI_UART						1      //RD_EDIT: enable hci
 #define ZBHCI_USB_CDC					0
 #define ZBHCI_USB_HID					0
 
@@ -163,7 +163,7 @@ extern "C" {
 #define FLASH_PROTECT_ENABLE						1
 
 /* Watch dog module */
-#define MODULE_WATCHDOG_ENABLE						0
+#define MODULE_WATCHDOG_ENABLE						1			//RD_EDIT: enable watchdog
 
 /* UART module */
 #if ZBHCI_UART

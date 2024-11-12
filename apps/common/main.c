@@ -25,6 +25,11 @@
 
 #include "zb_common.h"
 
+#include "rd_in_out/rd_in_out.h"
+#include "rd_log/rd_log.h"
+#include "../proj/os/ev_poll.h"
+#include "string.h"
+
 
 /*
  * main:
@@ -45,7 +50,10 @@ int main(void){
 	user_init(isRetention);
 
 	drv_enable_irq();
-
+	//////////-------rd_init---------//////////
+//	rd_init_gpio();
+//	rd_init_uart();
+//	ev_on_poll(EV_POLL_HCI,rd_test_task);
 #if (MODULE_WATCHDOG_ENABLE)
 	drv_wd_setInterval(600);
     drv_wd_start();
@@ -54,7 +62,7 @@ int main(void){
 #if VOLTAGE_DETECT_ENABLE
     u32 tick = clock_time();
 #endif
-
+    rd_log_uart("start prg\n");
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){
@@ -75,6 +83,17 @@ int main(void){
 
 		tl_zbTaskProcedure();
 
+//		rd_blink_led();
+//		tl_printf("test: %d %d\n",1,2);
+//		static u32 last_tick = 0;
+//		if(clock_time() - last_tick > 3 * 1000 *1000)
+//		{
+//			rd_log_uart("tesst: %d %d %d\n", 1,2,4);
+//			last_tick = clock_time();
+//		}
+//		drv_uart_tx_start((u8 *)"hi\n",3);
+//		rd_ev_log("hello\n");
+//		sprintf()
 #if	(MODULE_WATCHDOG_ENABLE)
 		drv_wd_clear();
 #endif

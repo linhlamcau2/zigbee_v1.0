@@ -29,6 +29,7 @@
 #include "bit.h"
 #include "bsp.h"
 
+//#include "../common/rd_log/rd_log.h"
 
 /**
  *  @brief  Define GPIO types

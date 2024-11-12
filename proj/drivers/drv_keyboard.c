@@ -24,7 +24,7 @@
  *******************************************************************************************************/
 
 #include "../tl_common.h"
-
+#include "../common/rd_log/rd_log.h"
 
 #if (defined(KB_DRIVE_PINS) && defined(KB_SCAN_PINS))
 
@@ -39,7 +39,7 @@
 #define	KB_LINE_MODE					1
 #endif
 #ifndef	KB_LINE_HIGH_VALID
-#define	KB_LINE_HIGH_VALID				0
+#define	KB_LINE_HIGH_VALID				1   //RD_EDIT: hight_valid but
 #endif
 #ifndef	KB_KEY_FLASH_PIN_MULTI_USE
 #define	KB_KEY_FLASH_PIN_MULTI_USE		0
@@ -80,6 +80,16 @@ kb_k_mp_t *kb_p_map[2] = {
 u32	scan_pin_need;
 static u8 kb_is_fn_pressed = 0;
 kb_k_mp_t *kb_k_mp;
+
+void rd_gpio_init()
+{
+	foreach_arr(i, scan_pins)
+	{
+		gpio_setup_up_down_resistor(scan_pins[i], PM_PIN_PULLDOWN_100K);
+		gpio_set_func(scan_pins[i], AS_GPIO);
+		gpio_set_input_en(scan_pins[i], 1);
+	}
+}
 
 void kb_rmv_ghost_key(u32 *pressed_matrix){
 	u32 mix_final = 0;
@@ -178,10 +188,37 @@ static u32 kb_key_pressed(u8 *gpio)
 #endif
 	drv_gpio_read_all(gpio);
 
+//	static unsigned char stt1 = 0;
+//	static unsigned char stt2 = 0;
+//	static unsigned char stt3 = 0;
+//	static unsigned char stt4 = 0;
+//	if(gpio[0] != stt1)
+//	{
+//		stt1 = gpio[0];
+//		rd_log_uart("port A: %d\n",stt1);
+//	}
+//	if(gpio[1] != stt2)
+//	{
+//		stt2 = gpio[1];
+//		rd_log_uart("port B: %d\n",stt2);
+//	}
+//	if(gpio[2] != stt3)
+//	{
+//		stt3 = gpio[2];
+//		rd_log_uart("port C: %d\n",stt3);
+//	}
+//	if(gpio[3] != stt4)
+//	{
+//		stt4 = gpio[3];
+//		rd_log_uart("port D: %d\n",stt4);
+//	}
 	u32 ret = 0;
 	static u8 release_cnt = 0;
 	static u32 ret_last = 0;
 
+//	static inline unsigned int gpio_read_cache(u32 pin, u8 *p){
+//		return p[pin>>8] & (pin & 0xff);
+//	}
 	foreach_arr(i, scan_pins){
 		if(KB_LINE_HIGH_VALID != !gpio_read_cache(scan_pins[i], gpio)){
 			ret |= (1 << i);
@@ -256,6 +293,7 @@ u32 kb_scan_key(int numlock_status, int read_key){
     scan_pin_need = kb_key_pressed(gpio);
 
 	if(scan_pin_need){
+//		rd_log_uart("scan_pin_need : %d",scan_pin_need);
 		kb_event.cnt = 0;
 		kb_event.ctrl_key = 0;
 		kb_is_fn_pressed = 0;
@@ -298,7 +336,6 @@ u32 kb_scan_key(int numlock_status, int read_key){
 		if(numlock_status & KB_NUMLOCK_STATUS_INVALID){
 			return 1;		//return empty key
 		}
-
 		////////// read out //////////
 		if(matrix_wptr == matrix_rptr || !read_key){
 			return 0;			//buffer empty, no data

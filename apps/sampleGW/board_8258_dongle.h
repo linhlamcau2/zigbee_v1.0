@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 
-#define DONGLE_8258_32				0
+#define DONGLE_8258_32				1				//RD_EDIT: enable dongle
 #define	DONGLE_8258_48				1
 
 #if defined DONGLE_8258_32 && (DONGLE_8258_32 == 1)
@@ -39,25 +39,28 @@ extern "C" {
 *********************8258Dongle with 32 Pins: Start*****************************************************
 *******************************************************************************************************/
 //KEY
-#define	BUTTON1 					GPIO_PD7
+//#define	BUTTON1 					GPIO_PD7
+#define	BUTTON1 					GPIO_PA1
 #define PD7_FUNC					AS_GPIO
 #define PD7_OUTPUT_ENABLE			0
 #define PD7_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PD7			PM_PIN_PULLUP_10K
 
-#define	BUTTON2 					GPIO_PA1
+#define	BUTTON2 					GPIO_PC3
 #define PA1_FUNC					AS_GPIO
 #define PA1_OUTPUT_ENABLE			0
 #define PA1_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PA1			PM_PIN_PULLUP_10K
 
 //LED
-#define LED_G						GPIO_PA0
+//#define LED_G						GPIO_PA0
+#define LED_G						GPIO_PB1
 #define PA0_FUNC					AS_GPIO
 #define PA0_OUTPUT_ENABLE			1
 #define PA0_INPUT_ENABLE			0
 
-#define LED_R						GPIO_PD4
+//#define LED_R						GPIO_PD4
+#define LED_R						GPIO_PC1
 #define PD4_FUNC					AS_GPIO
 #define PD4_OUTPUT_ENABLE			1
 #define PD4_INPUT_ENABLE			0
@@ -69,8 +72,11 @@ extern "C" {
 
 // UART
 #if ZBHCI_UART
-	#define UART_TX_PIN         	UART_TX_PB1
-	#define UART_RX_PIN         	UART_RX_PB7
+//	#define UART_TX_PIN         	UART_TX_PB1
+//	#define UART_RX_PIN         	UART_RX_PB7
+
+	#define UART_TX_PIN         	GPIO_PD7
+	#define UART_RX_PIN         	GPIO_PA0
 
 	#define UART_PIN_CFG()			uart_gpio_set(UART_TX_PIN, UART_RX_PIN);// uart tx/rx pin set
 #endif

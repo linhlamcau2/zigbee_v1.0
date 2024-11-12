@@ -35,6 +35,7 @@
 #include "app_ui.h"
 #include "gp.h"
 
+#include "../common/rd_log/rd_log.h"
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -137,7 +138,8 @@ void light_blink_stop(void)
 
 void buttonKeepPressed(u8 btNum){
 	if(btNum == VK_SW1){
-		//zb_factoryReset();
+		rd_log_uart("but 1 keep\n");
+		zb_factoryReset();
 	}else if(btNum == VK_SW2){
 
 	}
@@ -181,6 +183,7 @@ void brc_toggle(void)
 void buttonShortPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		if(zb_isDeviceJoinedNwk()){
+			rd_log_uart("joined net\n");
 #if POLL_CTRL_SUPPORT
 			sampleGW_zclFastPollStopCmdSend();
 #else
@@ -202,7 +205,9 @@ void buttonShortPressed(u8 btNum){
 #endif
 		}
 	}else if(btNum == VK_SW2){
+		rd_log_uart("but 2 press\n");
 		if(zb_isDeviceJoinedNwk()){
+			rd_log_uart("joined net\n");
 			u8 duration = zb_getMacAssocPermit() ? 0 : 180;
 #if 0
 			/* toggle local permit Joining */
@@ -225,6 +230,7 @@ void keyScan_keyPressedCB(kb_data_t *kbEvt){
 	buttonShortPressed(keyCode);
 
 	if(keyCode == VK_SW1){
+		rd_log_uart("but 1 press\n");
 		g_appGwCtx.keyPressedTime = clock_time();
 		g_appGwCtx.state = APP_FACTORY_NEW_SET_CHECK;
 	}

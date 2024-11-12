@@ -40,6 +40,8 @@
 #include "zbhci.h"
 #endif
 
+#include  "../common/rd_log/rd_log.h"
+
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -170,6 +172,15 @@ void user_app_init(void)
 
 void led_init(void)
 {
+	drv_gpio_func_set(LED_PERMIT);
+	drv_gpio_output_en(LED_PERMIT, 1); 		//enable output
+	drv_gpio_input_en(LED_PERMIT, 0);		//disable input
+//	drv_gpio_write(LED_PERMIT, 1);
+
+	drv_gpio_func_set(LED_POWER);
+	drv_gpio_output_en(LED_POWER, 1); 		//enable output
+	drv_gpio_input_en(LED_POWER, 0);
+
 	led_off(LED_PERMIT);
 	light_init();
 }
@@ -178,12 +189,21 @@ void app_task(void)
 {
 	static bool assocPermit = 0;
 	if(assocPermit != zb_getMacAssocPermit()){
+		rd_log_uart("assocPermit: %d\n", assocPermit);
 		assocPermit = zb_getMacAssocPermit();
 		if(assocPermit){
 			led_on(LED_PERMIT);
 		}else{
 			led_off(LED_PERMIT);
 		}
+	}
+
+	static u8 bdb_cr = 10;
+
+	if(BDB_STATE_GET() != bdb_cr)
+	{
+		bdb_cr = BDB_STATE_GET();
+		rd_log_uart("BDB_STATE_GET: %d\n", bdb_cr);
 	}
 
 	if(BDB_STATE_GET() == BDB_STATE_IDLE){
@@ -212,6 +232,7 @@ static void sampleGwSysException(void)
  *
  * @return  None
  */
+extern void rd_gpio_init();
 void user_init(bool isRetention)
 {
 	(void)isRetention;
@@ -226,6 +247,7 @@ void user_init(bool isRetention)
 	/* Initialize LEDs*/
 	led_init();
 
+	rd_gpio_init();   //RD_EDIT: GPIO_INIT
 #if PA_ENABLE
 	/* external RF PA used */
 	rf_paInit(PA_TX, PA_RX);

@@ -29,6 +29,10 @@
 #include "zb_task_queue.h"
 #include "../zbhci.h"
 
+
+#include "../common/rd_log/rd_log.h"
+
+
 #define UART_TX_BUF_SIZE    128
 #define UART_RX_BUF_SIZE    128
 
@@ -83,12 +87,16 @@ void uart_data_handler(void *arg){
 			st = ZBHCI_MSG_STATUS_ERROR_START_CHAR;
 		}
 	}
-
+//	rd_log_uart("st: %d\n",st);
 	u16 pktLen = (msg->msgLen16H << 8) | msg->msgLen16L;
 	u16 msgType = (msg->msgType16H<<8) + msg->msgType16L;
 	
 	if(st == SUCCESS){
 	    u8 crc8 = crc8Calculate(msgType, pktLen, msg->pData);
+//	    for(u8 i =0; i< rxData->dataLen; i++)
+//		{
+//			drv_uart_tx_start(&(rxData->dataPayload[i]),1);
+//		}
 	    if((msgType == ZBHCI_CMD_OTA_START_REQUEST) || (msgType == ZBHCI_CMD_OTA_BLOCK_RESPONSE)){
 	    	if(crc8 != msg->checkSum){
 	    		st = ZBHCI_MSG_STATUS_CRC_ERROR;
