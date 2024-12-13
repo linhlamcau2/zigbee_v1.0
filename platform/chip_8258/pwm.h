@@ -30,6 +30,8 @@
 #include "bit.h"
 #include "timer.h"
 
+//#include "../common/rd_log/rd_log.h"
+
 /**
  * @brief  enum variable, the number of PWM channels supported
  */
@@ -173,9 +175,12 @@ static inline void pwm_set_pulse_num(pwm_id id, unsigned short pulse_num){
  * @param[in] pwm_id - variable of enum to select the pwm number.
  * @return	  none.
  */
+
+extern int rd_log_uart(const char *format, ...);
 static inline void pwm_start(pwm_id id)
 {
 
+	rd_log_uart("pwm_start: %d\n",id);
 	if(PWM0_ID == id)
 	{
 		BM_SET(reg_pwm0_enable, BIT(0));

@@ -33,6 +33,7 @@
 #include "sampleLight.h"
 #include "sampleLightCtrl.h"
 
+#include "../common/rd_log/rd_log.h"
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -137,7 +138,8 @@ void hwLight_init(void)
  */
 void hwLight_onOffUpdate(u8 onOff)
 {
-	if(onOff){
+//	if(onOff){
+	if(onOff){							//RD_EDIT: change logic
 #if COLOR_RGB_SUPPORT
 		drv_pwm_start(R_LIGHT_PWM_CHANNEL);
 		drv_pwm_start(G_LIGHT_PWM_CHANNEL);

@@ -67,6 +67,19 @@ _CODE_ZCL_ void zcl_reportCfgInfoEntryClear(reportCfgInfo_t *pEntry)
  *
  * @return	NULL
  */
+extern int rd_log_uart(const char *format, ...);
+void rd_log_full_report()
+{
+	rd_log_uart("profileID: %d,clusterID: %d,attrID: %d,minIntDft: %d,maxIntDft: %d\n",reportingTab.reportCfgInfo[0].profileID,reportingTab.reportCfgInfo[0].clusterID,reportingTab.reportCfgInfo[0].attrID,reportingTab.reportCfgInfo[0].minIntDft,reportingTab.reportCfgInfo[0].maxIntDft);
+	rd_log_uart("minInterval: %d,maxInterval: %d,minIntCnt: %d,maxIntCnt: %d,endPoint: %d\n",reportingTab.reportCfgInfo[0].minInterval,reportingTab.reportCfgInfo[0].maxInterval,reportingTab.reportCfgInfo[0].minIntCnt,reportingTab.reportCfgInfo[0].maxIntCnt,reportingTab.reportCfgInfo[0].endPoint);
+	rd_log_uart("used: %d\n\n",reportingTab.reportCfgInfo[0].used);
+}
+void rd_print_reporting(void)
+{
+	rd_log_uart("reportNum: %d\n",reportingTab.reportNum);
+	rd_log_full_report();
+}
+
 _CODE_ZCL_ void zcl_reportingTabInit(void)
 {
 	if(zcl_reportingTab_restore() != NV_SUCC){
@@ -89,6 +102,8 @@ _CODE_ZCL_ void zcl_reportingTabInit(void)
  *
  * @return	Number of active reporting table
  */
+
+
 _CODE_ZCL_ u8 zcl_reportingEntryActiveNumGet(void)
 {
 	u8 cnt = 0;
@@ -382,17 +397,45 @@ _CODE_ZCL_ bool reportableChangeValueChk(u8 dataType, u8 *curValue, u8 *prevValu
  *
  * @return	NULL
  */
+typedef struct
+{
+	u16 short_addr;
+	u8	dstEp;
+}rd_save_client_t;
+
+rd_save_client_t rd_client = {0x00, 0x01};
+
+void rd_save_client(u16 short_addr,u8 dstEp)
+{
+	rd_client.dstEp = dstEp;
+	rd_client.short_addr = short_addr;
+}
+
 _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 {
-	if(!zb_bindingTblSearched(pEntry->clusterID, pEntry->endPoint)){
-		return;
-	}
-
+//	rd_log_uart("reportAttr step1\n");
+//	if(!zb_bindingTblSearched(pEntry->clusterID, pEntry->endPoint)){
+//		return;
+//	}
+//	rd_log_uart("reportAttr step2\n");
 	epInfo_t dstEpInfo;
 	TL_SETSTRUCTCONTENT(dstEpInfo, 0);
 
-	dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+
+//	dstEp.dstAddrMode = APS_SHORT_DSTADDR_WITHEP;
+//		dstEp.dstAddr.shortAddr = pApsdeInd->indInfo.src_short_addr;
+//		dstEp.dstEp = pApsdeInd->indInfo.src_ep;
+//		dstEp.profileId = pApsdeInd->indInfo.profile_id;
+//		dstEp.txOptions |= APS_TX_OPT_ACK_TX;
+
+//	dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+//	dstEpInfo.profileId = pEntry->profileID;
+
+	dstEpInfo.dstAddrMode = APS_SHORT_DSTADDR_WITHEP;
 	dstEpInfo.profileId = pEntry->profileID;
+	dstEpInfo.dstAddr.shortAddr = rd_client.short_addr;
+	dstEpInfo.dstEp = rd_client.dstEp;
+	dstEpInfo.txOptions |= APS_TX_OPT_ACK_TX;
 
 	zclAttrInfo_t *pAttrEntry = zcl_findAttribute(pEntry->endPoint, pEntry->clusterID, pEntry->attrID);
 	if(!pAttrEntry){
@@ -401,6 +444,7 @@ _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 		return;
 	}
 
+//	rd_log_uart("reportAttr step3\n");
 	u16 len = zcl_getAttrSize(pAttrEntry->type, pAttrEntry->data);
 
 	len = (len>8) ? (8):(len);
@@ -408,8 +452,11 @@ _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 	//store for next compare
 	memcpy(pEntry->prevData, pAttrEntry->data, len);
 
+	rd_log_uart("reportAttr succ\n");
 	zcl_sendReportCmd(pEntry->endPoint, &dstEpInfo,  TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
 					  pEntry->clusterID, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+//	zcl_sendReportCmd(pEntry->endPoint, &dstEpInfo,  FALSE, ZCL_FRAME_SERVER_CLIENT_DIR,
+//					  pEntry->clusterID, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
 }
 
 /*********************************************************************
@@ -438,12 +485,31 @@ _CODE_ZCL_ void reportNoMinLimit(void)
 					return;
 				}
 
+
 				len = zcl_getAttrSize(pAttrEntry->type, pAttrEntry->data);
 				len = (len>8) ? (8):(len);
+				static u8 x =0;
+				if(x==0)
+				{
+					x++;
+					rd_log_uart("endPoint: %d,clusterID: %d,attrID: %d\n",pEntry->endPoint,pEntry->clusterID, pEntry->attrID);
+					rd_log_uart("type: %d,data: ",pAttrEntry->type);
+					for(u8 t=0; t<len; t++)
+					{
+						rd_log_uart("%d ",pAttrEntry->data[t]);
+					}
+					rd_log_uart("\n");
+				}
+//				if(reportableChangeValueChk(pAttrEntry->type, pAttrEntry->data, pEntry->prevData, pEntry->reportableChange))
+//				{
+//					rd_log_uart("change logic stt 0\n");
+//				}
 
+//				if(
 				if((!zcl_analogDataType(pAttrEntry->type) && (memcmp(pEntry->prevData, pAttrEntry->data, len) != SUCCESS)) ||
 				   ((zcl_analogDataType(pAttrEntry->type) && reportableChangeValueChk(pAttrEntry->type, pAttrEntry->data, pEntry->prevData, pEntry->reportableChange)))
 				){
+					rd_log_uart("type: %d\n",pAttrEntry->type);
 					reportAttr(pEntry);
 
 					pEntry->minIntCnt = pEntry->minInterval;
@@ -528,7 +594,7 @@ _CODE_ZCL_ void reportAttrTimerStart(u16 seconds)
 			reportCfgInfo_t *pEntry = &reportingTab.reportCfgInfo[i];
 			if(pEntry->used && (pEntry->minInterval || (pEntry->maxInterval && (pEntry->maxInterval != 0xFFFF)))){
 				if(zb_bindingTblSearched(pEntry->clusterID, pEntry->endPoint)){
-					reportAttrTimerEvt = TL_ZB_TIMER_SCHEDULE(reportAttrTimerCb, NULL, seconds * 1000);
+					reportAttrTimerEvt = TL_ZB_TIMER_SCHEDULE(reportAttrTimerCb, NULL, seconds * 101);
 					break;
 				}
 			}

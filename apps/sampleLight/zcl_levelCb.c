@@ -33,6 +33,8 @@
 #include "sampleLight.h"
 #include "sampleLightCtrl.h"
 
+#include "../common/rd_log/rd_log.h"
+
 #ifdef ZCL_LEVEL_CTRL
 
 /**********************************************************************

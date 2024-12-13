@@ -19,15 +19,10 @@ typedef char *va_list;
 #define va_arg(ap,t)    	( *(t *)((ap += _INTSIZEOF(t)) - _INTSIZEOF(t)) )
 #define va_end(ap)      	( ap = (va_list)0 )
 
-//static char buff[10] = {0};
-//static char mess[500] = {0};
-//static int len_mess = 0;
 
 void rd_put_char(unsigned char byte)
 {
 	drv_uart_tx_start((u8 *)&byte,1);
-//    mess[len_mess] = byte;
-//    len_mess ++;
 }
 
 void int_to_str(int num) {
@@ -147,7 +142,7 @@ void rd_init_uart()
 
 	drv_uart_init(115200, moduleTest_uartRxBuf, sizeof(moduleTest_uartRxBuf)/sizeof(u8), module_test_uartRcvHandler);
 
-	drv_adc_init();
+//	drv_adc_init();
 }
 
 void rd_test_task()

@@ -30,6 +30,7 @@
 #include "../proj/os/ev_poll.h"
 #include "string.h"
 
+//#include "../sampleLight/sampleLight.h"
 
 /*
  * main:
@@ -46,13 +47,16 @@ int main(void){
 	moduleTest_start();
 #else
 
+	rd_init_uart();
+	extern void rd_gpio_init();
+	rd_gpio_init();   //RD_EDIT: GPIO_INIT
 	extern void user_init(bool isRetention);
 	user_init(isRetention);
 
 	drv_enable_irq();
 	//////////-------rd_init---------//////////
 //	rd_init_gpio();
-//	rd_init_uart();
+
 //	ev_on_poll(EV_POLL_HCI,rd_test_task);
 #if (MODULE_WATCHDOG_ENABLE)
 	drv_wd_setInterval(600);
@@ -62,7 +66,12 @@ int main(void){
 #if VOLTAGE_DETECT_ENABLE
     u32 tick = clock_time();
 #endif
+    drv_uart_tx_start((u8 *)"hi\n",3);
     rd_log_uart("start prg\n");
+    extern void rd_print_light(void);
+    rd_print_light();
+    extern void rd_print_reporting(void);
+    rd_print_reporting();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){

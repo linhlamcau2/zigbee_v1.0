@@ -232,7 +232,6 @@ static void sampleGwSysException(void)
  *
  * @return  None
  */
-extern void rd_gpio_init();
 void user_init(bool isRetention)
 {
 	(void)isRetention;
@@ -247,7 +246,6 @@ void user_init(bool isRetention)
 	/* Initialize LEDs*/
 	led_init();
 
-	rd_gpio_init();   //RD_EDIT: GPIO_INIT
 #if PA_ENABLE
 	/* external RF PA used */
 	rf_paInit(PA_TX, PA_RX);

@@ -39,7 +39,7 @@
 #define	KB_LINE_MODE					1
 #endif
 #ifndef	KB_LINE_HIGH_VALID
-#define	KB_LINE_HIGH_VALID				1   //RD_EDIT: hight_valid but
+#define	KB_LINE_HIGH_VALID				0   //RD_EDIT: hight_valid but
 #endif
 #ifndef	KB_KEY_FLASH_PIN_MULTI_USE
 #define	KB_KEY_FLASH_PIN_MULTI_USE		0
@@ -188,30 +188,30 @@ static u32 kb_key_pressed(u8 *gpio)
 #endif
 	drv_gpio_read_all(gpio);
 
-//	static unsigned char stt1 = 0;
-//	static unsigned char stt2 = 0;
-//	static unsigned char stt3 = 0;
-//	static unsigned char stt4 = 0;
-//	if(gpio[0] != stt1)
-//	{
-//		stt1 = gpio[0];
-//		rd_log_uart("port A: %d\n",stt1);
-//	}
-//	if(gpio[1] != stt2)
-//	{
-//		stt2 = gpio[1];
-//		rd_log_uart("port B: %d\n",stt2);
-//	}
-//	if(gpio[2] != stt3)
-//	{
-//		stt3 = gpio[2];
-//		rd_log_uart("port C: %d\n",stt3);
-//	}
-//	if(gpio[3] != stt4)
-//	{
-//		stt4 = gpio[3];
-//		rd_log_uart("port D: %d\n",stt4);
-//	}
+	static unsigned char stt1 = 0;
+	static unsigned char stt2 = 0;
+	static unsigned char stt3 = 0;
+	static unsigned char stt4 = 0;
+	if(gpio[0] != stt1)
+	{
+		stt1 = gpio[0];
+		rd_log_uart("port A: %d\n",stt1);
+	}
+	if(gpio[1] != stt2)
+	{
+		stt2 = gpio[1];
+		rd_log_uart("port B: %d\n",stt2);
+	}
+	if(gpio[2] != stt3)
+	{
+		stt3 = gpio[2];
+		rd_log_uart("port C: %d\n",stt3);
+	}
+	if(gpio[3] != stt4)
+	{
+		stt4 = gpio[3];
+		rd_log_uart("port D: %d\n",stt4);
+	}
 	u32 ret = 0;
 	static u8 release_cnt = 0;
 	static u32 ret_last = 0;
@@ -220,7 +220,7 @@ static u32 kb_key_pressed(u8 *gpio)
 //		return p[pin>>8] & (pin & 0xff);
 //	}
 	foreach_arr(i, scan_pins){
-		if(KB_LINE_HIGH_VALID != !gpio_read_cache(scan_pins[i], gpio)){
+		if(KB_LINE_HIGH_VALID != !gpio_read_cache(scan_pins[i], gpio)){   //RD_EDIT: read button
 			ret |= (1 << i);
 			release_cnt = 6;
 			ret_last = ret;

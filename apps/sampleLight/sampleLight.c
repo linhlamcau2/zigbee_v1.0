@@ -45,6 +45,8 @@
 #include "wwah.h"
 #endif
 
+#include "../common/rd_log/rd_log.h"
+
 /**********************************************************************
  * LOCAL CONSTANTS
  */
@@ -219,9 +221,11 @@ void sampleLightAttrsChk(void)
 void report_handler(void)
 {
 	if(zb_isDeviceJoinedNwk()){
+//		rd_log_uart("zb_isDeviceJoinedNwk\n");
 		if(zcl_reportingEntryActiveNumGet()){
 			u16 second = 1;//TODO: fix me
 
+//			rd_log_uart("EntryActiveNumGet\n");
 			reportNoMinLimit();
 
 			//start report timer
@@ -240,6 +244,7 @@ void app_task(void)
 	if(BDB_STATE_GET() == BDB_STATE_IDLE){
 		//factoryRst_handler();
 
+//		rd_log_uart("app_task: BDB_STATE_IDLE\n");
 		report_handler();
 
 #if 0/* NOTE: If set to '1', the latest status of lighting will be stored. */
@@ -274,9 +279,7 @@ void user_init(bool isRetention)
 	/* Initialize LEDs*/
 	led_init();
 	hwLight_init();
-
-	//factoryRst_init();
-
+//	factoryRst_init();
 	/* Initialize Stack */
 	stack_init();
 
@@ -301,7 +304,6 @@ void user_init(bool isRetention)
 		g_bdbCommissionSetting.linkKey.tcLinkKey.keyType = gLightCtx.tcLinkKey.keyType;
 		g_bdbCommissionSetting.linkKey.tcLinkKey.key = gLightCtx.tcLinkKey.key;
 	}
-
     /* Set default reporting configuration */
     u8 reportableChange = 0x00;
     bdb_defaultReportingCfg(SAMPLE_LIGHT_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_GEN_ON_OFF, ZCL_ATTRID_ONOFF,

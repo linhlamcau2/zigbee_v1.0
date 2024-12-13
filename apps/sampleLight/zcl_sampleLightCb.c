@@ -35,6 +35,8 @@
 #include "sampleLight.h"
 #include "sampleLightCtrl.h"
 
+#include "../common/rd_log/rd_log.h"
+
 /**********************************************************************
  * LOCAL CONSTANTS
  */
@@ -92,7 +94,7 @@ static ev_timer_event_t *identifyTimerEvt = NULL;
  */
 void sampleLight_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
 {
-//	printf("sampleLight_zclProcessIncomingMsg\n");
+	rd_log_uart("sampleLight_zclProcessIncomingMsg\n");
 
 	switch(pInHdlrMsg->hdr.cmd)
 	{

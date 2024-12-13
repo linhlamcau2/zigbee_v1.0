@@ -34,6 +34,9 @@
 #include "sampleLight.h"
 #include "app_ui.h"
 #include "gp.h"
+
+#include "../common/rd_log/rd_log.h"
+
 /**********************************************************************
  * LOCAL CONSTANTS
  */
@@ -80,6 +83,7 @@ void localPermitJoinState(void){
 void buttonKeepPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		gLightCtx.state = APP_FACTORY_NEW_DOING;
+		rd_log_uart("but keep reset\n");
 		zb_factoryReset();
 	}else if(btNum == VK_SW2){
 
@@ -89,19 +93,19 @@ void buttonKeepPressed(u8 btNum){
 void buttonShortPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		if(zb_isDeviceJoinedNwk()){
-			gLightCtx.sta = !gLightCtx.sta;
-			if(gLightCtx.sta){
-				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
-			}else{
-				sampleLight_onoff(ZCL_ONOFF_STATUS_OFF);
-			}
+//			gLightCtx.sta = !gLightCtx.sta;
+//			if(gLightCtx.sta){
+//				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
+//			}else{
+//				sampleLight_onoff(ZCL_ONOFF_STATUS_OFF);
+//			}
 		}
 	}else if(btNum == VK_SW2){
 		/* toggle local permit Joining */
-		u8 duration = zb_getMacAssocPermit() ? 0 : 180;
-		zb_nlmePermitJoiningRequest(duration);
-
-		gpsCommissionModeInvork();
+//		u8 duration = zb_getMacAssocPermit() ? 0 : 180;
+//		zb_nlmePermitJoiningRequest(duration);
+//
+//		gpsCommissionModeInvork();
 	}
 }
 

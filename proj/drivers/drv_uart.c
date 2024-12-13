@@ -230,7 +230,7 @@ static bool uart_is_idle(void)
 u8 drv_uart_tx_start(u8 *data, u32 len)
 {
 	if(!uart_is_idle()){
-		while(!uart_tx_done());
+//		while(!uart_tx_done());
 	}
 
 	if(!uartDrvTxBuf){

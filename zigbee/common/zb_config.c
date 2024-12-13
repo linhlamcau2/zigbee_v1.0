@@ -36,7 +36,7 @@ sys_diagnostics_t g_sysDiags;
  * ZDO_COORD to use this value as its PAN ID and
  * Routers and end devices to join PAN with this ID
  */
-#define DEFAULT_PANID		MAC_INVALID_PANID
+#define DEFAULT_PANID		MAC_INVALID_PANID						//RD_EDIT: rd_panID
 u16 TL_ZB_ASSOCJOIN_PERMIT_PANID = DEFAULT_PANID;
 
 /*

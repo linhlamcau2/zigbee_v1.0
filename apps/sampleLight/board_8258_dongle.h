@@ -222,17 +222,17 @@ extern "C" {
 #else
 
 //PWM configuration, LED_Y as warm light, LED_W as cool light.
-#define LED_Y						GPIO_PC1	//D3 -- yellow		PWM2
-#define LED_W						GPIO_PB1	//D5 -- white		PWM4
+#define LED_Y						GPIO_PB1	//D3 -- yellow		PWM2
+#define LED_W						GPIO_PC1	//D5 -- white		PWM4
 
-#define PWM_Y_CHANNEL				2//PWM2
+#define PWM_Y_CHANNEL				4//PWM2
 #define PWM_Y_CHANNEL_SET()			do{	\
-										gpio_set_func(LED_Y, AS_PWM2); 		\
+										gpio_set_func(LED_Y, AS_PWM4); 		\
 									}while(0)
 
-#define PWM_W_CHANNEL				4//PWM4
+#define PWM_W_CHANNEL				0//PWM4
 #define PWM_W_CHANNEL_SET()			do{	\
-										gpio_set_func(LED_W, AS_PWM4); 		\
+										gpio_set_func(LED_W, AS_PWM0); 		\
 									}while(0)
 
 #define WARM_LIGHT_PWM_CHANNEL		PWM_Y_CHANNEL

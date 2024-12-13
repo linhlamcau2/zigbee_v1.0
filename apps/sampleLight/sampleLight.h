@@ -227,6 +227,8 @@ nv_sts_t zcl_onOffAttr_save(void);
 nv_sts_t zcl_levelAttr_save(void);
 nv_sts_t zcl_colorCtrlAttr_save(void);
 
+//void rd_print_light(void);
+
 #if AF_TEST_ENABLE
 void afTest_rx_handler(void *arg);
 void afTest_dataSendConfirm(void *arg);

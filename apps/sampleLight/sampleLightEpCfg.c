@@ -32,6 +32,8 @@
 #include "zcl_include.h"
 #include "sampleLight.h"
 
+#include "../common/rd_log/rd_log.h"
+
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -461,6 +463,7 @@ nv_sts_t zcl_onOffAttr_restore(void)
 	if(st == NV_SUCC){
 		g_zcl_onOffAttrs.onOff = zcl_nv_onOff.onOff;
 		g_zcl_onOffAttrs.startUpOnOff = zcl_nv_onOff.startUpOnOff;
+		rd_log_uart("init on/off: %d, start: %d\n",g_zcl_onOffAttrs.onOff,g_zcl_onOffAttrs.startUpOnOff);
 	}
 #else
 	st = NV_ENABLE_PROTECT_ERROR;
@@ -532,6 +535,7 @@ nv_sts_t zcl_levelAttr_restore(void)
 	if(st == NV_SUCC){
 		g_zcl_levelAttrs.curLevel = zcl_nv_level.curLevel;
 		g_zcl_levelAttrs.startUpCurrentLevel = zcl_nv_level.startUpCurLevel;
+		rd_log_uart("init level: %d, start: %d\n",g_zcl_levelAttrs.curLevel,g_zcl_levelAttrs.startUpCurrentLevel);
 	}
 #else
 	st = NV_ENABLE_PROTECT_ERROR;
@@ -631,6 +635,7 @@ nv_sts_t zcl_colorCtrlAttr_restore(void)
 	if(st == NV_SUCC){
 		g_zcl_colorCtrlAttrs.colorTemperatureMireds = zcl_nv_colorCtrl.colorTemperatureMireds;
 		g_zcl_colorCtrlAttrs.startUpColorTemperatureMireds = zcl_nv_colorCtrl.startUpColorTemperatureMireds;
+		rd_log_uart("init color: %d, start: %d\n",g_zcl_colorCtrlAttrs.colorTemperatureMireds,g_zcl_colorCtrlAttrs.startUpColorTemperatureMireds);
 	}
 #endif
 
@@ -658,4 +663,10 @@ void zcl_sampleLightAttrsInit(void)
 	zcl_colorCtrlAttr_restore();
 }
 
+void rd_print_light(void)				//RD_EDIT: log_in4_light
+{
+	rd_log_uart("init on/off: %d, start: %d\n",g_zcl_onOffAttrs.onOff,g_zcl_onOffAttrs.startUpOnOff);
+	rd_log_uart("init level: %d, start: %d\n",g_zcl_levelAttrs.curLevel,g_zcl_levelAttrs.startUpCurrentLevel);
+	rd_log_uart("init color: %d, start: %d\n",g_zcl_colorCtrlAttrs.colorTemperatureMireds,g_zcl_colorCtrlAttrs.startUpColorTemperatureMireds);
+}
 #endif	/* __PROJECT_TL_DIMMABLE_LIGHT__ */
