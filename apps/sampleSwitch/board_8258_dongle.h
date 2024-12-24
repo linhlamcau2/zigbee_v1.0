@@ -85,13 +85,13 @@ extern "C" {
 *********************8258Dongle with 48 Pins: Start*****************************************************
 *******************************************************************************************************/
 //KEY
-#define	BUTTON1 					GPIO_PD6
+#define	BUTTON1 					GPIO_PA1
 #define PD6_FUNC					AS_GPIO
 #define PD6_OUTPUT_ENABLE			0
 #define PD6_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PD6			PM_PIN_PULLUP_10K
 
-#define	BUTTON2 					GPIO_PD5
+#define	BUTTON2 					GPIO_PC3
 #define PD5_FUNC					AS_GPIO
 #define PD5_OUTPUT_ENABLE			0
 #define PD5_INPUT_ENABLE			1
@@ -103,7 +103,7 @@ extern "C" {
 #define PA2_OUTPUT_ENABLE			1
 #define PA2_INPUT_ENABLE			0
 
-#define LED3						GPIO_PA3
+#define LED3						GPIO_PB1
 #define PA3_FUNC					AS_GPIO
 #define PA3_OUTPUT_ENABLE			1
 #define PA3_INPUT_ENABLE			0

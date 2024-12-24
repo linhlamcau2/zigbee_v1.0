@@ -68,10 +68,10 @@ int main(void){
 #endif
     drv_uart_tx_start((u8 *)"hi\n",3);
     rd_log_uart("start prg\n");
-    extern void rd_print_light(void);
-    rd_print_light();
-    extern void rd_print_reporting(void);
-    rd_print_reporting();
+//    extern void rd_print_light(void);
+//    rd_print_light();
+//    extern void rd_print_reporting(void);
+//    rd_print_reporting();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){

@@ -55,6 +55,11 @@
 /**********************************************************************
  * LOCAL FUNCTIONS
  */
+
+void rd_relay_set(u8 stt)
+{
+	drv_gpio_write(RELAY1_PIN, stt);
+}
 void led_on(u32 pin){
 	drv_gpio_write(pin, LED_ON);
 }
@@ -64,6 +69,10 @@ void led_off(u32 pin){
 }
 
 void led_init(void){
+	drv_gpio_func_set(RELAY1_PIN);
+	drv_gpio_output_en(RELAY1_PIN, 1); 		//enable output
+	drv_gpio_input_en(RELAY1_PIN, 0);		//disable input
+	drv_gpio_write(RELAY1_PIN, 0);
 	led_off(LED_POWER);
 	led_off(LED_PERMIT);
 }
@@ -93,19 +102,21 @@ void buttonKeepPressed(u8 btNum){
 void buttonShortPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		if(zb_isDeviceJoinedNwk()){
+			zcl_onOffAttr_t *pOnOff = zcl_onoffAttrGet();
+			u8 stt = !pOnOff->onOff;
 //			gLightCtx.sta = !gLightCtx.sta;
-//			if(gLightCtx.sta){
-//				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
-//			}else{
-//				sampleLight_onoff(ZCL_ONOFF_STATUS_OFF);
-//			}
+			if(stt){
+				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
+			}else{
+				sampleLight_onoff(ZCL_ONOFF_STATUS_OFF);
+			}
 		}
 	}else if(btNum == VK_SW2){
 		/* toggle local permit Joining */
-//		u8 duration = zb_getMacAssocPermit() ? 0 : 180;
-//		zb_nlmePermitJoiningRequest(duration);
-//
-//		gpsCommissionModeInvork();
+		u8 duration = zb_getMacAssocPermit() ? 0 : 180;
+		zb_nlmePermitJoiningRequest(duration);
+
+		gpsCommissionModeInvork();
 	}
 }
 
@@ -129,26 +140,26 @@ void keyScan_keyReleasedCB(u8 keyCode){
 
 volatile u8 T_keyPressedNum = 0;
 void app_key_handler(void){
-	static u8 valid_keyCode = 0xff;
-
-	if(gLightCtx.state == APP_FACTORY_NEW_SET_CHECK){
-		if(clock_time_exceed(gLightCtx.keyPressedTime, 5*1000*1000)){
-			buttonKeepPressed(VK_SW1);
-		}
-	}
-
-	if(kb_scan_key(0 , 1)){
-		T_keyPressedNum++;
-		if(kb_event.cnt){
-			keyScan_keyPressedCB(&kb_event);
-			if(kb_event.cnt == 1){
-				valid_keyCode = kb_event.keycode[0];
-			}
-		}else{
-			keyScan_keyReleasedCB(valid_keyCode);
-			valid_keyCode = 0xff;
-		}
-	}
+//	static u8 valid_keyCode = 0xff;
+//
+//	if(gLightCtx.state == APP_FACTORY_NEW_SET_CHECK){
+//		if(clock_time_exceed(gLightCtx.keyPressedTime, 5*1000*1000)){
+//			buttonKeepPressed(VK_SW1);
+//		}
+//	}
+//
+//	if(kb_scan_key(0 , 1)){
+//		T_keyPressedNum++;
+//		if(kb_event.cnt){
+//			keyScan_keyPressedCB(&kb_event);
+//			if(kb_event.cnt == 1){
+//				valid_keyCode = kb_event.keycode[0];
+//			}
+//		}else{
+//			keyScan_keyReleasedCB(valid_keyCode);
+//			valid_keyCode = 0xff;
+//		}
+//	}
 }
 
 #endif  /* __PROJECT_TL_DIMMABLE_LIGHT__ */

@@ -156,7 +156,7 @@ extern "C" {
 *********************8258Dongle with 48 Pins: Start*****************************************************
 *******************************************************************************************************/
 //KEY
-#define	BUTTON1 					GPIO_PA1
+#define	BUTTON1 					GPIO_PA1  //button reset
 #define PD6_FUNC					AS_GPIO
 #define PD6_OUTPUT_ENABLE			0
 #define PD6_INPUT_ENABLE			1
@@ -222,17 +222,21 @@ extern "C" {
 #else
 
 //PWM configuration, LED_Y as warm light, LED_W as cool light.
-#define LED_Y						GPIO_PB1	//D3 -- yellow		PWM2
-#define LED_W						GPIO_PC1	//D5 -- white		PWM4
+//#define LED_Y						GPIO_PB1	//D3 -- yellow		PWM2
+//#define LED_W						GPIO_PC1	//D5 -- white		PWM4
+#define LED_Y						GPIO_PB5	//D3 -- yellow		PWM2
+#define LED_W						GPIO_PB4	//D5 -- white		PWM4
 
-#define PWM_Y_CHANNEL				4//PWM2
+#define RELAY1_PIN					GPIO_PD2
+
+#define PWM_Y_CHANNEL				5//PWM2
 #define PWM_Y_CHANNEL_SET()			do{	\
-										gpio_set_func(LED_Y, AS_PWM4); 		\
+										gpio_set_func(LED_Y, AS_PWM5); 		\
 									}while(0)
 
-#define PWM_W_CHANNEL				0//PWM4
+#define PWM_W_CHANNEL				4//PWM4
 #define PWM_W_CHANNEL_SET()			do{	\
-										gpio_set_func(LED_W, AS_PWM0); 		\
+										gpio_set_func(LED_W, AS_PWM4); 		\
 									}while(0)
 
 #define WARM_LIGHT_PWM_CHANNEL		PWM_Y_CHANNEL
@@ -242,7 +246,7 @@ extern "C" {
 
 //LED_R and LED_G as GPIO.
 #define LED_R						GPIO_PA3
-#define LED_G						GPIO_PA2
+#define LED_G						GPIO_PC5
 
 #define PA3_FUNC					AS_GPIO
 #define PA3_OUTPUT_ENABLE			1

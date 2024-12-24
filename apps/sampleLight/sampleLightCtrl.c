@@ -136,8 +136,10 @@ void hwLight_init(void)
  *
  * @return  None
  */
+extern void rd_relay_set(u8 stt);
 void hwLight_onOffUpdate(u8 onOff)
 {
+//	rd_relay_set(!onOff);
 //	if(onOff){
 	if(onOff){							//RD_EDIT: change logic
 #if COLOR_RGB_SUPPORT
@@ -224,6 +226,7 @@ void hwLight_colorUpdate_colorTemperature(u16 colorTemperatureMireds, u8 level)
 
 	level = (level < 0x10) ? 0x10 : level;
 
+//	level = 0xff - level;		//RD_EDIT: convert level
 	temperatureToCW(colorTemperatureMireds, level, &C, &W);
 
 	u16 gammaCorrectC = ((u16)C * C) / ZCL_LEVEL_ATTR_MAX_LEVEL;
