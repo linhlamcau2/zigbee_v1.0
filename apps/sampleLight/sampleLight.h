@@ -34,6 +34,7 @@
 #define SAMPLE_LIGHT_ENDPOINT   0x01
 #define SAMPLE_TEST_ENDPOINT	0x02
 
+#define RD_SWITCH_ENDPOINT		0x03
 /**********************************************************************
  * TYPEDEFS
  */

@@ -622,6 +622,7 @@ _CODE_ZCL_ static u8 zcl_buildHdr(u8 *buf, u8 clusterSpec, u8 dir, u8 disDefRsp,
  */
 
 extern int rd_log_uart(const char *format, ...);
+extern int rd_log_data_with_len(u8 *data, u8 len);
 _CODE_ZCL_ status_t zcl_sendCmd(u8 srcEp, epInfo_t *pDstEpInfo, u16 clusterId, u8 cmd, u8 specific,
 				  	  	  	  	u8 direction, u8 disableDefaultRsp, u16 manuCode, u8 seqNo, u16 cmdPldLen, u8 *cmdPld)
 {
@@ -807,11 +808,13 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 			inMsg.pData = &pApsdeInd->asdu[3];
 			inMsg.dataLen = pApsdeInd->asduLen - 3;
 
-			rd_log_uart("type: %d,byte: %d,seqNum: %d,cmd: %d,dataLen: %d\n",inMsg.hdr.frmCtrl.bf.type,inMsg.hdr.frmCtrl.byte,inMsg.hdr.seqNum,inMsg.hdr.cmd,inMsg.dataLen);
+			rd_log_uart("type: %d,byte: %d,seqNum: %d,cmd: %d,dataLen: %d\n",inMsg.hdr.frmCtrl.bf.type,inMsg.hdr.frmCtrl.byte,inMsg.hdr.seqNum,inMsg.hdr.cmd,pApsdeInd->asduLen);
 		}else{
 			status = ZCL_STA_FAILURE;
 		}
 	}
+
+	rd_log_data_with_len(inMsg.pData, inMsg.dataLen);
 
 	if(status == ZCL_STA_FAILURE){
 		ev_buf_free(pCmd);

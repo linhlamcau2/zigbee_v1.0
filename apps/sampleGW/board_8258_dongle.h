@@ -31,7 +31,7 @@ extern "C" {
 #endif
 
 
-#define DONGLE_8258_32				1				//RD_EDIT: enable dongle
+#define DONGLE_8258_32				0				//RD_EDIT: enable dongle
 #define	DONGLE_8258_48				1
 
 #if defined DONGLE_8258_32 && (DONGLE_8258_32 == 1)
