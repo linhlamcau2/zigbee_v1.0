@@ -97500,9 +97500,10 @@ _start_data_():
   842164:	4c455406 	undefined instruction 0x4c455406
   842168:	004b4e49 	tsubeq	r4, fp, r9, asr #28
 	...
-  84217c:	534c5408 	tcmppl	ip, #134217728	; 0x8000000
-  842180:	78323852 	tloadmdavc	r2!, {r1, r4, r6, fp, ip, sp}
-  842184:	00000078 	tandeq	r0, r0, r8, ror r0
+  84217c:	6c61720d 	undefined instruction 0x6c61720d
+  842180:	67696c2e 	tstorerbvs	r6, [r9, -lr, lsr #24]!
+  842184:	632e7468 	teqvs	lr, #1744830464	; 0x68000000
+  842188:	00007463 	tandeq	r7, r0, r3, ror #8
 	...
   842194:	3231300a 	txorscc	r3, r1, #10
   842198:	32353032 	txorscc	r3, r5, #50	; 0x32

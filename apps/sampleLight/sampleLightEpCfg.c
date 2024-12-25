@@ -42,7 +42,8 @@
 #define ZCL_BASIC_MFG_NAME     		{6,'T','E','L','I','N','K'}
 #endif
 #ifndef ZCL_BASIC_MODEL_ID
-#define ZCL_BASIC_MODEL_ID	   		{8,'T','L','S','R','8','2','x','x'}
+#define ZCL_BASIC_MODEL_ID	   		{13,'r','a','l','.','l','i','g','h','t','.','c','c','t'}
+//#define ZCL_BASIC_MODEL_ID	   		{12,'r','a','l','.','s','w','i','t','c','h','.','1'}
 #endif
 #ifndef ZCL_BASIC_SW_BUILD_ID
 #define ZCL_BASIC_SW_BUILD_ID     	{10,'0','1','2','2','0','5','2','0','1','7'}
