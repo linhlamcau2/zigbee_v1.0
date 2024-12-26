@@ -161,7 +161,6 @@ void user_app_init(void)
 	/* Register endPoint */
 	af_endpointRegister(SAMPLE_LIGHT_ENDPOINT, (af_simple_descriptor_t *)&sampleLight_simpleDesc, zcl_rx_handler, NULL);
 
-//	af_endpointRegister(RD_SWITCH_ENDPOINT, (af_simple_descriptor_t *)&rd_sw_simpleDesc, zcl_rx_handler, NULL);
 #if AF_TEST_ENABLE
 	/* A sample of AF data handler. */
 	af_endpointRegister(SAMPLE_TEST_ENDPOINT, (af_simple_descriptor_t *)&sampleTestDesc, afTest_rx_handler, afTest_dataSendConfirm);
@@ -174,6 +173,8 @@ void user_app_init(void)
 	/* Register ZCL specific cluster information */
 	zcl_register(SAMPLE_LIGHT_ENDPOINT, SAMPLELIGHT_CB_CLUSTER_NUM, (zcl_specClusterInfo_t *)g_sampleLightClusterList);
 
+
+	rd_sw_init();
 #if ZCL_GP_SUPPORT
 	/* Initialize GP */
 	gp_init(SAMPLE_LIGHT_ENDPOINT);
