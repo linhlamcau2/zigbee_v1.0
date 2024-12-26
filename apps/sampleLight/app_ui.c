@@ -104,6 +104,7 @@ void buttonShortPressed(u8 btNum){
 		if(zb_isDeviceJoinedNwk()){
 			zcl_onOffAttr_t *pOnOff = zcl_onoffAttrGet();
 			u8 stt = !pOnOff->onOff;
+			rd_log_uart("press num1\n");
 //			gLightCtx.sta = !gLightCtx.sta;
 			if(stt){
 				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
@@ -140,26 +141,26 @@ void keyScan_keyReleasedCB(u8 keyCode){
 
 volatile u8 T_keyPressedNum = 0;
 void app_key_handler(void){
-//	static u8 valid_keyCode = 0xff;
-//
-//	if(gLightCtx.state == APP_FACTORY_NEW_SET_CHECK){
-//		if(clock_time_exceed(gLightCtx.keyPressedTime, 5*1000*1000)){
-//			buttonKeepPressed(VK_SW1);
-//		}
-//	}
-//
-//	if(kb_scan_key(0 , 1)){
-//		T_keyPressedNum++;
-//		if(kb_event.cnt){
-//			keyScan_keyPressedCB(&kb_event);
-//			if(kb_event.cnt == 1){
-//				valid_keyCode = kb_event.keycode[0];
-//			}
-//		}else{
-//			keyScan_keyReleasedCB(valid_keyCode);
-//			valid_keyCode = 0xff;
-//		}
-//	}
+	static u8 valid_keyCode = 0xff;
+
+	if(gLightCtx.state == APP_FACTORY_NEW_SET_CHECK){
+		if(clock_time_exceed(gLightCtx.keyPressedTime, 5*1000*1000)){
+			buttonKeepPressed(VK_SW1);
+		}
+	}
+
+	if(kb_scan_key(0 , 1)){
+		T_keyPressedNum++;
+		if(kb_event.cnt){
+			keyScan_keyPressedCB(&kb_event);
+			if(kb_event.cnt == 1){
+				valid_keyCode = kb_event.keycode[0];
+			}
+		}else{
+			keyScan_keyReleasedCB(valid_keyCode);
+			valid_keyCode = 0xff;
+		}
+	}
 }
 
 #endif  /* __PROJECT_TL_DIMMABLE_LIGHT__ */

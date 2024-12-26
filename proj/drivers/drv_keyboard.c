@@ -39,7 +39,7 @@
 #define	KB_LINE_MODE					1
 #endif
 #ifndef	KB_LINE_HIGH_VALID
-#define	KB_LINE_HIGH_VALID				0   //RD_EDIT: hight_valid but
+#define	KB_LINE_HIGH_VALID				1   //RD_EDIT: hight_valid but
 #endif
 #ifndef	KB_KEY_FLASH_PIN_MULTI_USE
 #define	KB_KEY_FLASH_PIN_MULTI_USE		0
