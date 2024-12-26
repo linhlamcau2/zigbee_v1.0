@@ -45520,44 +45520,44 @@ hwLight_onOffUpdate():
    15dcc:	6510      	tpush	{r4, lr}
    15dce:	f604      	tshftls	r4, r0, #24
    15dd0:	fe24      	tshftrs	r4, r4, #24
-   15dd2:	0260      	tnegs	r0, r4
-   15dd4:	0160      	taddcs	r0, r4
-   15dd6:	97ff 9e41 	tjl	15a5c <rd_relay_set>
-   15dda:	ac00      	tcmp	r4, #0
-   15ddc:	c10a      	tjne.n	15df4 <hwLight_onOffUpdate+0x28>
-   15dde:	0b11      	tloadr	r3, [pc, #68]	; (15e24 <hwLight_onOffUpdate+0x58>)
-   15de0:	481a      	tloadrb	r2, [r3, #0]
-   15de2:	a101      	tmovs	r1, #1
-   15de4:	038a      	tbclrs	r2, r1
-   15de6:	401a      	tstorerb	r2, [r3, #0]
-   15de8:	bb01      	tsubs	r3, #1
-   15dea:	481a      	tloadrb	r2, [r3, #0]
-   15dec:	a110      	tmovs	r1, #16
-   15dee:	038a      	tbclrs	r2, r1
-   15df0:	401a      	tstorerb	r2, [r3, #0]
-   15df2:	6d10      	tpop	{r4, pc}
-   15df4:	0c0c      	tloadr	r4, [pc, #48]	; (15e28 <hwLight_onOffUpdate+0x5c>)
-   15df6:	ec20      	tadds	r0, r4, #0
-   15df8:	a100      	tmovs	r1, #0
-   15dfa:	9001 98bb 	tjl	16f74 <rd_log_uart>
-   15dfe:	0b09      	tloadr	r3, [pc, #36]	; (15e24 <hwLight_onOffUpdate+0x58>)
-   15e00:	4819      	tloadrb	r1, [r3, #0]
-   15e02:	a201      	tmovs	r2, #1
-   15e04:	030a      	tors	r2, r1
-   15e06:	f612      	tshftls	r2, r2, #24
-   15e08:	fe12      	tshftrs	r2, r2, #24
-   15e0a:	401a      	tstorerb	r2, [r3, #0]
-   15e0c:	ec20      	tadds	r0, r4, #0
-   15e0e:	a104      	tmovs	r1, #4
-   15e10:	9001 98b0 	tjl	16f74 <rd_log_uart>
-   15e14:	0b05      	tloadr	r3, [pc, #20]	; (15e2c <hwLight_onOffUpdate+0x60>)
-   15e16:	4819      	tloadrb	r1, [r3, #0]
-   15e18:	a210      	tmovs	r2, #16
-   15e1a:	030a      	tors	r2, r1
-   15e1c:	f612      	tshftls	r2, r2, #24
-   15e1e:	fe12      	tshftrs	r2, r2, #24
-   15e20:	401a      	tstorerb	r2, [r3, #0]
-   15e22:	87e6      	tj.n	15df2 <hwLight_onOffUpdate+0x26>
+   15dd2:	ec20      	tadds	r0, r4, #0
+   15dd4:	97ff 9e42 	tjl	15a5c <rd_relay_set>
+   15dd8:	ac00      	tcmp	r4, #0
+   15dda:	c00a      	tjeq.n	15df2 <hwLight_onOffUpdate+0x26>
+   15ddc:	0b11      	tloadr	r3, [pc, #68]	; (15e24 <hwLight_onOffUpdate+0x58>)
+   15dde:	481a      	tloadrb	r2, [r3, #0]
+   15de0:	a101      	tmovs	r1, #1
+   15de2:	038a      	tbclrs	r2, r1
+   15de4:	401a      	tstorerb	r2, [r3, #0]
+   15de6:	bb01      	tsubs	r3, #1
+   15de8:	481a      	tloadrb	r2, [r3, #0]
+   15dea:	a110      	tmovs	r1, #16
+   15dec:	038a      	tbclrs	r2, r1
+   15dee:	401a      	tstorerb	r2, [r3, #0]
+   15df0:	6d10      	tpop	{r4, pc}
+   15df2:	0c0d      	tloadr	r4, [pc, #52]	; (15e28 <hwLight_onOffUpdate+0x5c>)
+   15df4:	ec20      	tadds	r0, r4, #0
+   15df6:	a100      	tmovs	r1, #0
+   15df8:	9001 98bc 	tjl	16f74 <rd_log_uart>
+   15dfc:	0b09      	tloadr	r3, [pc, #36]	; (15e24 <hwLight_onOffUpdate+0x58>)
+   15dfe:	4819      	tloadrb	r1, [r3, #0]
+   15e00:	a201      	tmovs	r2, #1
+   15e02:	030a      	tors	r2, r1
+   15e04:	f612      	tshftls	r2, r2, #24
+   15e06:	fe12      	tshftrs	r2, r2, #24
+   15e08:	401a      	tstorerb	r2, [r3, #0]
+   15e0a:	ec20      	tadds	r0, r4, #0
+   15e0c:	a104      	tmovs	r1, #4
+   15e0e:	9001 98b1 	tjl	16f74 <rd_log_uart>
+   15e12:	0b06      	tloadr	r3, [pc, #24]	; (15e2c <hwLight_onOffUpdate+0x60>)
+   15e14:	4819      	tloadrb	r1, [r3, #0]
+   15e16:	a210      	tmovs	r2, #16
+   15e18:	030a      	tors	r2, r1
+   15e1a:	f612      	tshftls	r2, r2, #24
+   15e1c:	fe12      	tshftrs	r2, r2, #24
+   15e1e:	401a      	tstorerb	r2, [r3, #0]
+   15e20:	87e6      	tj.n	15df0 <hwLight_onOffUpdate+0x24>
+   15e22:	46c0      	tnop			; (mov r8, r8)
    15e24:	00800781 	taddeq	r0, r0, r1, lsl #15
    15e28:	00030b08 	tandeq	r0, r3, r8, lsl #22
    15e2c:	00800780 	taddeq	r0, r0, r0, lsl #15
