@@ -174,7 +174,7 @@ void user_app_init(void)
 	zcl_register(SAMPLE_LIGHT_ENDPOINT, SAMPLELIGHT_CB_CLUSTER_NUM, (zcl_specClusterInfo_t *)g_sampleLightClusterList);
 
 
-	rd_sw_init();
+//	rd_sw_init();
 #if ZCL_GP_SUPPORT
 	/* Initialize GP */
 	gp_init(SAMPLE_LIGHT_ENDPOINT);
