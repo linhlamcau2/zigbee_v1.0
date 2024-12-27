@@ -55,7 +55,11 @@ _CODE_ZCL_ status_t zcl_group_register(u8 endpoint, u16 manuCode, u8 arrtNum, co
 {
     return zcl_registerCluster(endpoint, ZCL_CLUSTER_GEN_GROUPS, manuCode, arrtNum, attrTbl, zcl_group_cmdHandler, cb);
 }
-
+_CODE_ZCL_ status_t zcl_rd_sw(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 seqNo,u8 *par)
+{
+	return zcl_sendCmd(srcEp, pDstEpInfo, ZCL_CLUSTER_RD_SW, 0x01, TRUE,
+					ZCL_FRAME_CLIENT_SERVER_DIR, disableDefaultRsp, 0, seqNo, 8, par);
+}
 
 _CODE_ZCL_ status_t zcl_group_add(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 seqNo, u16 groupId, u8 *groupName)
 {

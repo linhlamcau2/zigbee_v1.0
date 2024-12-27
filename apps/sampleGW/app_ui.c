@@ -183,7 +183,6 @@ void brc_toggle(void)
 void buttonShortPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		if(zb_isDeviceJoinedNwk()){
-			rd_log_uart("joined net\n");
 #if POLL_CTRL_SUPPORT
 			sampleGW_zclFastPollStopCmdSend();
 #else
@@ -205,9 +204,7 @@ void buttonShortPressed(u8 btNum){
 #endif
 		}
 	}else if(btNum == VK_SW2){
-		rd_log_uart("but 2 press\n");
 		if(zb_isDeviceJoinedNwk()){
-			rd_log_uart("joined net\n");
 			u8 duration = zb_getMacAssocPermit() ? 0 : 180;
 #if 0
 			/* toggle local permit Joining */
@@ -243,26 +240,26 @@ void keyScan_keyReleasedCB(u8 keyCode){
 
 volatile u8 T_keyPressedNum = 0;
 void app_key_handler(void){
-	static u8 valid_keyCode = 0xff;
-
-	if(g_appGwCtx.state == APP_FACTORY_NEW_SET_CHECK){
-		if(clock_time_exceed(g_appGwCtx.keyPressedTime, 5*1000*1000)){
-			buttonKeepPressed(VK_SW1);
-		}
-	}
-
-	if(kb_scan_key(0 , 1)){
-		T_keyPressedNum++;
-		if(kb_event.cnt){
-			keyScan_keyPressedCB(&kb_event);
-			if(kb_event.cnt == 1){
-				valid_keyCode = kb_event.keycode[0];
-			}
-		}else{
-			keyScan_keyReleasedCB(valid_keyCode);
-			valid_keyCode = 0xff;
-		}
-	}
+//	static u8 valid_keyCode = 0xff;
+//
+//	if(g_appGwCtx.state == APP_FACTORY_NEW_SET_CHECK){
+//		if(clock_time_exceed(g_appGwCtx.keyPressedTime, 5*1000*1000)){
+//			buttonKeepPressed(VK_SW1);
+//		}
+//	}
+//
+//	if(kb_scan_key(0 , 1)){
+//		T_keyPressedNum++;
+//		if(kb_event.cnt){
+//			keyScan_keyPressedCB(&kb_event);
+//			if(kb_event.cnt == 1){
+//				valid_keyCode = kb_event.keycode[0];
+//			}
+//		}else{
+//			keyScan_keyReleasedCB(valid_keyCode);
+//			valid_keyCode = 0xff;
+//		}
+//	}
 }
 
 #endif  /* __PROJECT_TL_GW__ */

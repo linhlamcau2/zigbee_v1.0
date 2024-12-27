@@ -47,7 +47,7 @@ int main(void){
 	moduleTest_start();
 #else
 
-	rd_init_uart();
+//	rd_init_uart();
 	extern void rd_gpio_init();
 	rd_gpio_init();   //RD_EDIT: GPIO_INIT
 	extern void user_init(bool isRetention);

@@ -2,7 +2,7 @@
 #include "../../proj/drivers/drv_putchar.h"
 
 
-#define RD_ENABLE_UART		1
+#define RD_ENABLE_UART		0
 
 typedef struct{
 	u32 dataLen;

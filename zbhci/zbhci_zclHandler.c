@@ -110,6 +110,7 @@ void zbhci_zclIdentifyCmdHandle(void *arg){ //u16 cmdId, u8 *pCmd){
  * cluster of ON/OFF handler
  *
  * */
+
 void zbhci_zclOnoffCmdHandle(void *arg){ //(u8 *p, u8 *seqNum){
 	zbhci_cmdHandler_t *cmdInfo = arg;
 	u16 cmdId = cmdInfo->cmdId;
@@ -328,6 +329,24 @@ void zbhci_zclColorCtrlCmdHandle(void *arg){ //(u8 *p, u8 *seqNum){
  * cluster of GROUP handler
  *
  * */
+
+void zbhci_rd_sw_CmdHandle(void *arg){ //(u8 *p, u8 *seqNum){
+	zbhci_cmdHandler_t *cmdInfo = arg;
+//	u16 cmdId = cmdInfo->cmdId;
+	u8 *p = cmdInfo->payload;
+
+	u8 *ptr = p;
+	epInfo_t dstEpInfo;
+	u8 srcEp;
+	TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+	zbhciTxClusterCmdAddrResolve(&dstEpInfo,&srcEp,&ptr);
+
+	zcl_rd_sw_Cmd(srcEp,&dstEpInfo,0,ptr);
+
+	ev_buf_free(arg);
+}
+
 void zbhci_clusterGroupHandle(void *arg){ //u16 cmdId, u8 *pCmd){
 	zbhci_cmdHandler_t *cmdInfo = arg;
 	u16 cmdId = cmdInfo->cmdId;

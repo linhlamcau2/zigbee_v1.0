@@ -74,7 +74,7 @@ extern void zbhci_clusterSceneHandle(void *arg);
 extern void zbhci_clusterOTAHandle(void *arg);
 extern void zbhci_clusterBasicHandle(void *arg);
 extern void zbhci_clusterCommonCmdHandle(void *arg);
-
+extern void zbhci_rd_sw_CmdHandle(void *arg);
 
 /**********************************************************************
  * FUNCTIONS
@@ -1387,6 +1387,10 @@ void zbhciCmdHandler(u16 msgType, u16 msgLen, u8 *p){
 			case ZBHCI_CMD_OTA_BLOCK_RESPONSE:
 				cmdInfo->payloadLen = msgLen;
 				TL_SCHEDULE_TASK(zbhci_uartOTAHandle, cmdInfo);
+				break;
+
+			case ZBHCI_CMD_RD_ON_OFF_SWITCH:
+				TL_SCHEDULE_TASK(zbhci_rd_sw_CmdHandle, cmdInfo);
 				break;
 
 			default:

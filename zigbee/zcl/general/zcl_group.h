@@ -186,6 +186,8 @@ status_t zcl_group_register(u8 endpoint, u16 manuCode, u8 arrtNum, const zclAttr
 status_t zcl_group_add(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 seqNo, u16 groupId, u8 *groupName);
 #define zcl_group_addCmd(a,b,c,d,e)		(zcl_group_add((a), (b), (c), ZCL_SEQ_NUM, (d), (e)))
 
+status_t zcl_rd_sw(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 seqNo, u8 *par);
+#define zcl_rd_sw_Cmd(a,b,c,d)		(zcl_rd_sw((a), (b), (c), ZCL_SEQ_NUM, (d)))
 /**
  * @brief       API to send View command in Group cluster
  *
