@@ -156,6 +156,8 @@
 #define ZCL_CLUSTER_TELINK_SDK_TEST_CLEAR_REQ			  0xFF03
 #define ZCL_CLUSTER_TELINK_SDK_TEST_CLEAR_RSP			  0xFF04
 
+
+#define ZCL_CLUSTER_RD_SW   								0x00C0
 /** @} end of group zcl_cluster_id */
 
 

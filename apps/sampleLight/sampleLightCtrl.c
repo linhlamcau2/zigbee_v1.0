@@ -136,10 +136,8 @@ void hwLight_init(void)
  *
  * @return  None
  */
-extern void rd_relay_set(u8 stt);
 void hwLight_onOffUpdate(u8 onOff)
 {
-//	rd_relay_set(!onOff);
 //	if(onOff){
 	if(onOff){							//RD_EDIT: change logic
 #if COLOR_RGB_SUPPORT

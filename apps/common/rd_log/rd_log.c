@@ -46,23 +46,13 @@ void int_to_str(int num) {
     }
 }
 
-//void rd_clear_mess()
-//{
-//    memset((void *)mess, 0, sizeof(mess));
-//    len_mess = 0;
-//}
-
 int rd_log_uart(const char *format, ...){
 
 #if(RD_ENABLE_UART)
 	char span;
 	long m;
-
 	va_list arg_ptr;
 	va_start(arg_ptr, format);
-
-//    rd_clear_mess();
-
 	while((span = *(format++)))
     {
 		if(span != '%')
@@ -135,25 +125,12 @@ void module_test_uartRcvHandler(void){
 	}
 }
 
-//void rd_ev_log(const char *format, ...)
-//{
-//	va_list args;
-//	va_start(args, format);
-//	vsnprintf(out, 1024, format, args);
-//	va_end(args);
-////	print(&out, format, args);
-//	drv_uart_tx_start((u8 *)out,(u32 )strlen(out));
-////	free(out);
-//}
-
-
 void rd_init_uart()
 {
 	UART_PIN_INIT();
 
 	drv_uart_init(115200, moduleTest_uartRxBuf, sizeof(moduleTest_uartRxBuf)/sizeof(u8), module_test_uartRcvHandler);
 
-//	drv_adc_init();
 }
 
 void rd_test_task()
