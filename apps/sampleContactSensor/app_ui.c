@@ -140,25 +140,33 @@ void light_blink_stop(void)
  *
  */
 void buttonKeepPressed(u8 btNum){
+	rd_log_uart("keep but:%d\n",btNum);
 	if(btNum == VK_SW1){
 		g_sensorAppCtx.state = APP_FACTORY_NEW_DOING;
-		zb_factoryReset();
+//		zb_factoryReset();
 	}else if(btNum == VK_SW2){
 
 	}
 }
 
+extern int rd_log_uart(const char *format, ...);
+extern u16 rd_get_short_addr();
+extern u8 rd_get_dstEp();
+
 void buttonShortPressed(u8 btNum){
 	if(btNum == VK_SW1){
+		rd_log_uart("but1 ShortPressed\n");
 		if(zb_isDeviceJoinedNwk()){
+			rd_log_uart("but1 zb_isDeviceJoinedNwk\n");
 			epInfo_t dstEpInfo;
 			memset((u8 *)&dstEpInfo, 0, sizeof(epInfo_t));
 
 			dstEpInfo.dstAddrMode = APS_SHORT_DSTADDR_WITHEP;
-			dstEpInfo.dstEp = SAMPLE_SENSOR_ENDPOINT;
-			dstEpInfo.dstAddr.shortAddr = 0x0000;
+			dstEpInfo.dstEp = rd_get_dstEp();
+			dstEpInfo.dstAddr.shortAddr = rd_get_short_addr();
 			dstEpInfo.profileId = HA_PROFILE_ID;
 
+			rd_log_uart("LOG- dstEp: %d,shortAddr: %d\n",dstEpInfo.dstEp,dstEpInfo.dstAddr.shortAddr);
 			zoneStatusChangeNoti_t statusChangeNotification;
 
 			statusChangeNotification.zoneStatus = ZONE_STATUS_TEST;

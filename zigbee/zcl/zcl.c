@@ -775,6 +775,8 @@ _CODE_ZCL_ status_t zcl_foundationCmdHandler(zclIncoming_t *pCmd)
  *
  * @return  None
  */
+
+extern void rd_save_client(u16 short_addr,u8 dstEp);
 _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 {
 	rd_log_uart("zcl_cmdHandler step 1\n");
@@ -865,6 +867,8 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 		}
 	}
 
+	rd_log_uart("prf: %d,src: %d,des: %d,eps: %d,epd: %d\n",pApsdeInd->indInfo.profile_id,pApsdeInd->indInfo.src_short_addr,pApsdeInd->indInfo.dst_addr,pApsdeInd->indInfo.src_ep,pApsdeInd->indInfo.dst_ep);
+	rd_save_client(pApsdeInd->indInfo.src_short_addr,pApsdeInd->indInfo.src_ep);
 	if(devEnable){
 		if((inMsg.hdr.frmCtrl.bf.disDefResp == 0 || status != ZCL_STA_SUCCESS) && UNICAST_MSG(inMsg.msg) && (status != ZCL_STA_CMD_HAS_RESP)){
 			/* send default response */

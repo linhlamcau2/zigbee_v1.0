@@ -147,7 +147,7 @@ const zclAttrInfo_t identify_attrTbl[] =
 /* IAS Zone */
 zcl_iasZoneAttr_t g_zcl_iasZoneAttrs =
 {
-	.zoneState		= ZONE_STATE_NOT_ENROLLED,
+	.zoneState		= ZONE_STATE_ENROLLED,
 	.zoneType		= ZONE_TYPE_CONTACT_SWITCH,
 	.zoneStatus		= 0x00,
 	.iasCieAddr		= {0x00},

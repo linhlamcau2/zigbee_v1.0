@@ -39,7 +39,7 @@
 #define	KB_LINE_MODE					1
 #endif
 #ifndef	KB_LINE_HIGH_VALID
-#define	KB_LINE_HIGH_VALID				0   //RD_EDIT: hight_valid but
+#define	KB_LINE_HIGH_VALID				1   //RD_EDIT: hight_valid but
 #endif
 #ifndef	KB_KEY_FLASH_PIN_MULTI_USE
 #define	KB_KEY_FLASH_PIN_MULTI_USE		0
@@ -85,7 +85,7 @@ void rd_gpio_init()
 {
 	foreach_arr(i, scan_pins)
 	{
-		gpio_setup_up_down_resistor(scan_pins[i], PM_PIN_PULLDOWN_100K);
+		gpio_setup_up_down_resistor(scan_pins[i], PM_PIN_PULLUP_10K);
 		gpio_set_func(scan_pins[i], AS_GPIO);
 		gpio_set_input_en(scan_pins[i], 1);
 	}

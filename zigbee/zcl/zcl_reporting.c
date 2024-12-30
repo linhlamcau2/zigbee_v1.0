@@ -410,6 +410,15 @@ void rd_save_client(u16 short_addr,u8 dstEp)
 	rd_client.dstEp = dstEp;
 	rd_client.short_addr = short_addr;
 }
+u16 rd_get_short_addr()
+{
+	return rd_client.short_addr;
+}
+
+u8 rd_get_dstEp()
+{
+	return rd_client.dstEp;
+}
 
 _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 {
