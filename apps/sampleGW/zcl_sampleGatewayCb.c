@@ -1014,6 +1014,38 @@ static void sampleGW_zclGetSceneMembershipRspCmdHandler(zclIncomingAddrInfo_t *p
 #endif
 }
 
+static void sampleGW_zcl_noti_sensor(zclIncomingAddrInfo_t *pAddrInfo,zoneStatusChangeNoti_t *payload)
+{
+#if ZBHCI_EN
+	u8 array[64];
+	memset(array, 0, 64);
+
+	u8 *pBuf = array;
+
+	*pBuf++ = HI_UINT16(pAddrInfo->srcAddr);
+	*pBuf++ = LO_UINT16(pAddrInfo->srcAddr);
+	*pBuf++ = pAddrInfo->srcEp;
+	*pBuf++ = pAddrInfo->dstEp;
+	*pBuf++ = pAddrInfo->seqNum;
+
+	*pBuf++ = (payload->zoneStatus) >> 8;
+	*pBuf++ = (payload->zoneStatus) & 0xff;
+	*pBuf++ = payload->extStatus;
+	*pBuf++ = payload->zoneId;
+	*pBuf++ = (payload->delay) >> 8;
+	*pBuf++ = (payload->delay) & 0xff;
+//	zoneStatusChangeNoti_t statusChangeNoti;
+//	statusChangeNoti.zoneStatus = BUILD_U16(pBuf[0], pBuf[1]);
+//	pBuf += 2;
+//	statusChangeNoti.extStatus = *pBuf++;
+//	statusChangeNoti.zoneId = *pData++;
+//	statusChangeNoti.delay = BUILD_U16(pData[0], pData[1]);
+//	pBuf += 2;
+
+	zbhciTx(0x8888, pBuf - array, array);
+#endif
+}
+
 /*********************************************************************
  * @fn      sampleGW_sceneCb
  *
@@ -1125,6 +1157,7 @@ status_t sampleGW_iasZoneCb(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cm
 	if(pAddrInfo->dstEp == SAMPLE_GW_ENDPOINT){
 		if(pAddrInfo->dirCluster == ZCL_FRAME_SERVER_CLIENT_DIR){
 			if(cmdId == ZCL_CMD_ZONE_STATUS_CHANGE_NOTIFICATION){
+				sampleGW_zcl_noti_sensor(pAddrInfo,(zoneStatusChangeNoti_t *)cmdPayload);
 				light_blink_start(5, 250, 250);
 			}
 		}
