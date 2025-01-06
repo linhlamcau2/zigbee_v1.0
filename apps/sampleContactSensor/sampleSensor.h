@@ -85,6 +85,7 @@ typedef struct {
 	u8  zoneState;
 	u16 zoneType;
 	u16 zoneStatus;
+	u8 hangonStatus;
 	extAddr_t  iasCieAddr;
 	u8  zoneId;
 }zcl_iasZoneAttr_t;

@@ -85,18 +85,21 @@ extern "C" {
 *********************8258Dongle with 48 Pins: Start*****************************************************
 *******************************************************************************************************/
 //KEY
-#define	BUTTON1 					GPIO_PD3
+#define	BUTTON1 					GPIO_PB4   //GPIO_PD3  GPIO_PB4
 #define PD6_FUNC					AS_GPIO
 #define PD6_OUTPUT_ENABLE			0
 #define PD6_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PD6			PM_PIN_PULLUP_10K
 
-#define	BUTTON2 					GPIO_PC2
+#define BUTTON2 					DOOR_SENSOR
+#define	DOOR_SENSOR 				GPIO_PB5    //GPIO_PC2  GPIO_PB5
 #define PD5_FUNC					AS_GPIO
 #define PD5_OUTPUT_ENABLE			0
 #define PD5_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PD5			PM_PIN_PULLUP_10K
 
+
+#define ANTI_REMOVAL				GPIO_PC0
 //LED
 #define LED1						GPIO_PC3
 #define PA2_FUNC					AS_GPIO
@@ -144,8 +147,15 @@ enum{
 #define	KB_MAP_FN		KB_MAP_NORMAL
 
 #define KB_DRIVE_PINS	{0}
-#define KB_SCAN_PINS	{BUTTON1, BUTTON2}
+#define KB_SCAN_PINS	{BUTTON1, DOOR_SENSOR,ANTI_REMOVAL}
 
+enum
+{
+	PIN_BUTTON1 = 0,
+	PIN_DOOR_SENSOR,
+	PIN_ANTI_REMOVAL,
+};
+//#define KB_SCAN_PINS	{BUTTON2}
 
 /* Disable C linkage for C++ Compilers: */
 #if defined(__cplusplus)

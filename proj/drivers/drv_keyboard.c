@@ -81,16 +81,6 @@ u32	scan_pin_need;
 static u8 kb_is_fn_pressed = 0;
 kb_k_mp_t *kb_k_mp;
 
-void rd_gpio_init()
-{
-	foreach_arr(i, scan_pins)
-	{
-		gpio_setup_up_down_resistor(scan_pins[i], PM_PIN_PULLUP_10K);
-		gpio_set_func(scan_pins[i], AS_GPIO);
-		gpio_set_input_en(scan_pins[i], 1);
-	}
-}
-
 void kb_rmv_ghost_key(u32 *pressed_matrix){
 	u32 mix_final = 0;
 

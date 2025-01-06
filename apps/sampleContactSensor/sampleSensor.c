@@ -113,11 +113,11 @@ drv_pm_pinCfg_t g_sensorPmCfg[] = {
 	{
 		BUTTON1,
 		PM_WAKEUP_LEVEL
-	},
-	{
-		BUTTON2,
-		PM_WAKEUP_LEVEL
 	}
+//	{
+//		BUTTON2,
+//		PM_WAKEUP_LEVEL
+//	}
 };
 #endif
 /**********************************************************************
@@ -193,7 +193,7 @@ void report_handler(void)
 			reportNoMinLimit();
 
 			//start report timer
-			reportAttrTimerStart(second);
+//			reportAttrTimerStart(second);
 		}else{
 			//stop report timer
 			reportAttrTimerStop();
@@ -201,15 +201,19 @@ void report_handler(void)
 	}
 }
 
+extern u32 last_tick_wakeup ;
 void app_task(void)
 {
 	app_key_handler();
 
 	if(bdb_isIdle()){
 #if PM_ENABLE
-		app_key_handler();
+//		app_key_handler();
 		if(!g_sensorAppCtx.keyPressed){
-			drv_pm_lowPowerEnter();
+			if(clock_time() - last_tick_wakeup > 1 * 1000 * 16  *1000 * 60)
+			{
+				drv_pm_lowPowerEnter();
+			}
 		}
 #endif
 
@@ -276,6 +280,15 @@ void user_init(bool isRetention)
 		}
 
 		/* Initialize BDB */
+
+		u8 reportableChange = 0x00;
+		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_STATUS,
+								0x0000, 0x003c, (u8 *)&reportableChange);
+
+		u8 reportableChange1 = 0x00;
+		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_HANGON_STATUS,
+								0x0000, 0x003c, (u8 *)&reportableChange1);
+
 		u8 repower = drv_pm_deepSleep_flag_get() ? 0 : 1;
 		bdb_init((af_simple_descriptor_t *)&sampleSensor_simpleDesc, &g_bdbCommissionSetting, &g_zbDemoBdbCb, repower);
 	}else{

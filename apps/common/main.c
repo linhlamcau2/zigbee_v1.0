@@ -95,7 +95,7 @@ int main(void){
 //		rd_blink_led();
 //		tl_printf("test: %d %d\n",1,2);
 //		static u32 last_tick = 0;
-//		if(clock_time() - last_tick > 3 * 1000 *1000)
+//		if(clock_time() - last_tick > 3 * 1000 *1000 * 16)
 //		{
 //			rd_log_uart("tesst: %d %d %d\n", 1,2,4);
 //			last_tick = clock_time();
