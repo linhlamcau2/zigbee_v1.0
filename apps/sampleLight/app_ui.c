@@ -55,7 +55,10 @@
 /**********************************************************************
  * LOCAL FUNCTIONS
  */
+void rd_relay_off()
+{
 
+}
 void rd_relay_set(u8 stt)
 {
 	drv_gpio_write(RELAY1_PIN, stt);

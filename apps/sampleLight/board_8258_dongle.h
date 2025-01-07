@@ -232,8 +232,15 @@ extern "C" {
 #define LED_Y						GPIO_PC2	//D3 -- yellow		PWM2
 #define LED_W						GPIO_PB1	//D5 -- white		PWM4
 
-#define RELAY1_PIN					GPIO_PD2
+#define RELAY1_PIN					GPIO_PC1
 
+#define NEMA_LED					GPIO_PB7
+
+
+#define PWM_RELAY_CHANNEL			0
+#define PWM_RELAY_CHANNEL_SET()		do{	\
+										gpio_set_func(LED_W, AS_PWM0); 		\
+									}while(0)
 
 
 #define PWM_Y_CHANNEL				0//PWM2

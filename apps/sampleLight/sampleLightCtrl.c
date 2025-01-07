@@ -38,7 +38,7 @@
 /**********************************************************************
  * LOCAL CONSTANTS
  */
-#define PWM_FREQUENCY					1000	//1KHz
+#define PWM_FREQUENCY					2000	//1KHz
 #define PWM_FULL_DUTYCYCLE				100
 #define PMW_MAX_TICK		            (PWM_CLOCK_SOURCE / PWM_FREQUENCY)
 
