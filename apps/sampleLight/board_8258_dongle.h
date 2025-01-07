@@ -239,7 +239,7 @@ extern "C" {
 
 #define PWM_RELAY_CHANNEL			0
 #define PWM_RELAY_CHANNEL_SET()		do{	\
-										gpio_set_func(LED_W, AS_PWM0); 		\
+										gpio_set_func(RELAY1_PIN, AS_PWM0); 		\
 									}while(0)
 
 
@@ -258,6 +258,7 @@ extern "C" {
 #define WARM_LIGHT_PWM_SET()		PWM_Y_CHANNEL_SET()
 #define COOL_LIGHT_PWM_SET()		PWM_W_CHANNEL_SET()
 
+#define RELAY_NEMA_SET()            PWM_RELAY_CHANNEL_SET()
 //LED_R and LED_G as GPIO.
 #define LED_R						GPIO_PA3
 #define LED_G						GPIO_PC5

@@ -42,7 +42,7 @@
 #define PWM_FULL_DUTYCYCLE				100
 #define PMW_MAX_TICK		            (PWM_CLOCK_SOURCE / PWM_FREQUENCY)
 
-
+u16 rd_pwm_tick = PMW_MAX_TICK;
 /**********************************************************************
  * TYPEDEFS
  */
@@ -110,21 +110,24 @@ void hwLight_init(void)
 {
 	drv_pwm_init();
 
-#if COLOR_RGB_SUPPORT
-	R_LIGHT_PWM_SET();
-	G_LIGHT_PWM_SET();
-	B_LIGHT_PWM_SET();
-	pwmInit(R_LIGHT_PWM_CHANNEL, 0);
-	pwmInit(G_LIGHT_PWM_CHANNEL, 0);
-	pwmInit(B_LIGHT_PWM_CHANNEL, 0);
-#else
-	COOL_LIGHT_PWM_SET();
-	pwmInit(COOL_LIGHT_PWM_CHANNEL, 0);
-#if COLOR_CCT_SUPPORT
-	WARM_LIGHT_PWM_SET();
-	pwmInit(WARM_LIGHT_PWM_CHANNEL, 0);
-#endif
-#endif
+
+	RELAY_NEMA_SET();
+	pwmInit(PWM_RELAY_CHANNEL, 0);
+//#if COLOR_RGB_SUPPORT
+//	R_LIGHT_PWM_SET();
+//	G_LIGHT_PWM_SET();
+//	B_LIGHT_PWM_SET();
+//	pwmInit(R_LIGHT_PWM_CHANNEL, 0);
+//	pwmInit(G_LIGHT_PWM_CHANNEL, 0);
+//	pwmInit(B_LIGHT_PWM_CHANNEL, 0);
+//#else
+//	COOL_LIGHT_PWM_SET();
+//	pwmInit(COOL_LIGHT_PWM_CHANNEL, 0);
+//#if COLOR_CCT_SUPPORT
+//	WARM_LIGHT_PWM_SET();
+//	pwmInit(WARM_LIGHT_PWM_CHANNEL, 0);
+//#endif
+//#endif
 }
 
 /*********************************************************************
@@ -137,33 +140,41 @@ void hwLight_init(void)
  * @return  None
  */
 extern void rd_relay_set(u8 stt);
+extern void rd_relay_off();
 void hwLight_onOffUpdate(u8 onOff)
 {
-	rd_relay_set(onOff);
-//	if(onOff){
-	if(!onOff){							//RD_EDIT: change logic
-#if COLOR_RGB_SUPPORT
-		drv_pwm_start(R_LIGHT_PWM_CHANNEL);
-		drv_pwm_start(G_LIGHT_PWM_CHANNEL);
-		drv_pwm_start(B_LIGHT_PWM_CHANNEL);
-#else
-#if COLOR_CCT_SUPPORT
-		drv_pwm_start(WARM_LIGHT_PWM_CHANNEL);
-#endif
-		drv_pwm_start(COOL_LIGHT_PWM_CHANNEL);
-#endif
-	}else{
-#if COLOR_RGB_SUPPORT
-		drv_pwm_stop(R_LIGHT_PWM_CHANNEL);
-		drv_pwm_stop(G_LIGHT_PWM_CHANNEL);
-		drv_pwm_stop(B_LIGHT_PWM_CHANNEL);
-#else
-#if COLOR_CCT_SUPPORT
-		drv_pwm_stop(WARM_LIGHT_PWM_CHANNEL);
-#endif
-		drv_pwm_stop(COOL_LIGHT_PWM_CHANNEL);
-#endif
+	if(onOff)
+	{
+		rd_relay_set(onOff);
 	}
+	else
+	{
+		rd_relay_off();
+	}
+//	if(onOff){
+//	if(!onOff){							//RD_EDIT: change logic
+//#if COLOR_RGB_SUPPORT
+//		drv_pwm_start(R_LIGHT_PWM_CHANNEL);
+//		drv_pwm_start(G_LIGHT_PWM_CHANNEL);
+//		drv_pwm_start(B_LIGHT_PWM_CHANNEL);
+//#else
+//#if COLOR_CCT_SUPPORT
+//		drv_pwm_start(WARM_LIGHT_PWM_CHANNEL);
+//#endif
+//		drv_pwm_start(COOL_LIGHT_PWM_CHANNEL);
+//#endif
+//	}else{
+//#if COLOR_RGB_SUPPORT
+//		drv_pwm_stop(R_LIGHT_PWM_CHANNEL);
+//		drv_pwm_stop(G_LIGHT_PWM_CHANNEL);
+//		drv_pwm_stop(B_LIGHT_PWM_CHANNEL);
+//#else
+//#if COLOR_CCT_SUPPORT
+//		drv_pwm_stop(WARM_LIGHT_PWM_CHANNEL);
+//#endif
+//		drv_pwm_stop(COOL_LIGHT_PWM_CHANNEL);
+//#endif
+//	}
 }
 
 /*********************************************************************
@@ -374,7 +385,7 @@ void light_adjust(void)
 void light_fresh(void)
 {
 #ifdef ZCL_LIGHT_COLOR_CONTROL
-	sampleLight_updateColor();
+//	sampleLight_updateColor();
 #else
 #ifdef ZCL_LEVEL_CTRL
 	sampleLight_updateLevel();
