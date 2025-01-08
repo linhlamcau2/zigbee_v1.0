@@ -143,13 +143,17 @@ extern void rd_relay_set(u8 stt);
 extern void rd_relay_off();
 void hwLight_onOffUpdate(u8 onOff)
 {
+//	rd_relay_set(onOff);
 	if(onOff)
 	{
-		rd_relay_set(onOff);
+		rd_relay_off();
+//		rd_relay_set(onOff);
+		drv_pwm_start(PWM_RELAY_CHANNEL);
 	}
 	else
 	{
-		rd_relay_off();
+		drv_pwm_stop(PWM_RELAY_CHANNEL);
+//		rd_relay_off();
 	}
 //	if(onOff){
 //	if(!onOff){							//RD_EDIT: change logic

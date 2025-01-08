@@ -61,6 +61,11 @@ void rd_relay_off()
 {
 	drv_pwm_cfg(PWM_RELAY_CHANNEL, rd_pwm_tick/2, rd_pwm_tick);
 }
+
+void rd_relay_on()
+{
+
+}
 void rd_relay_set(u8 stt)
 {
 	drv_gpio_write(RELAY1_PIN, stt);
@@ -74,10 +79,10 @@ void led_off(u32 pin){
 }
 
 void led_init(void){
-//	drv_gpio_func_set(RELAY1_PIN);
-//	drv_gpio_output_en(RELAY1_PIN, 1); 		//enable output
-//	drv_gpio_input_en(RELAY1_PIN, 0);		//disable input
-//	drv_gpio_write(RELAY1_PIN, 0);
+	drv_gpio_func_set(RELAY1_PIN);
+	drv_gpio_output_en(RELAY1_PIN, 1); 		//enable output
+	drv_gpio_input_en(RELAY1_PIN, 0);		//disable input
+	drv_gpio_write(RELAY1_PIN, 0);
 	led_off(LED_POWER);
 	led_off(LED_PERMIT);
 }
