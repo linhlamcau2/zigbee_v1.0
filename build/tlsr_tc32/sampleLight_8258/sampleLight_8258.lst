@@ -44993,7 +44993,7 @@ hwLight_onOffUpdate():
    159a0:	6500      	tpush	{lr}
    159a2:	f600      	tshftls	r0, r0, #24
    159a4:	a800      	tcmp	r0, #0
-   159a6:	c105      	tjne.n	159b4 <hwLight_onOffUpdate+0x14>
+   159a6:	c005      	tjeq.n	159b4 <hwLight_onOffUpdate+0x14>
    159a8:	0b09      	tloadr	r3, [pc, #36]	; (159d0 <hwLight_onOffUpdate+0x30>)
    159aa:	481a      	tloadrb	r2, [r3, #0]
    159ac:	a101      	tmovs	r1, #1

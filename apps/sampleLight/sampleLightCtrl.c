@@ -144,7 +144,7 @@ extern void rd_relay_off();
 void hwLight_onOffUpdate(u8 onOff)
 {
 //	rd_relay_set(onOff);
-	if(onOff)
+	if(!onOff)
 	{
 		rd_relay_off();
 //		rd_relay_set(onOff);
