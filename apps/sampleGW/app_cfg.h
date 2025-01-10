@@ -40,7 +40,7 @@ extern "C" {
  * Product Information
  */
 /* PA */
-#define PA_ENABLE						0
+#define PA_ENABLE						1
 
 /* Debug mode */
 #define	UART_PRINTF_MODE				1		//RD_EDIT: enable debug

@@ -123,8 +123,8 @@ extern "C" {
 
 // UART
 #if ZBHCI_UART
-	#define UART_TX_PIN         	UART_TX_PD7
-	#define UART_RX_PIN         	UART_RX_PA0
+	#define UART_TX_PIN         	UART_TX_PB1
+	#define UART_RX_PIN         	UART_RX_PB7
 
 	#define UART_PIN_CFG()			uart_gpio_set(UART_TX_PIN, UART_RX_PIN);// uart tx/rx pin set
 #endif
@@ -133,6 +133,12 @@ extern "C" {
 #if UART_PRINTF_MODE
 	#define	DEBUG_INFO_TX_PIN	    GPIO_PC6//print
 #endif
+
+#if PA_ENABLE
+	#define PA_TX					GPIO_PD4
+	#define PA_RX					GPIO_PC7
+#endif
+
 /*******************************************************************************************************
 *********************8258Dongle with 48 Pins: End*****************************************************
 *******************************************************************************************************/
