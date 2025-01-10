@@ -39,6 +39,9 @@ extern "C" {
 /**********************************************************************
  * Product Information
  */
+
+#define PA_ENABLE						1
+
 /* Debug mode config */
 #define	UART_PRINTF_MODE				0
 #define USB_PRINTF_MODE         		0

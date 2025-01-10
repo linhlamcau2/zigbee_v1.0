@@ -229,10 +229,10 @@ extern "C" {
 //#define LED_W						GPIO_PB4	//D5 -- white		PWM4
 
 
-#define LED_Y						GPIO_PC2	//D3 -- yellow		PWM2
+#define LED_Y						GPIO_PC3	//D3 -- yellow		PWM2
 #define LED_W						GPIO_PB1	//D5 -- white		PWM4
 
-#define RELAY1_PIN					GPIO_PC1
+#define RELAY1_PIN					GPIO_PB5
 
 #define NEMA_LED					GPIO_PB7
 
@@ -290,6 +290,13 @@ extern "C" {
 #if UART_PRINTF_MODE
 	#define	DEBUG_INFO_TX_PIN	    GPIO_PC6//print
 #endif
+
+//PA
+#if PA_ENABLE
+	#define PA_TX					GPIO_PD4
+	#define PA_RX					GPIO_PD7
+#endif
+
 /*******************************************************************************************************
 *********************8258Dongle with 48 Pins: End*****************************************************
 *******************************************************************************************************/

@@ -294,6 +294,11 @@ void user_init(bool isRetention)
 	/* Adjust light state to default attributes*/
 	light_adjust();
 
+#if PA_ENABLE
+	/* external RF PA used */
+	rf_paInit(PA_TX, PA_RX);
+#endif
+
 	/* User's Task */
 #if ZBHCI_EN
 	zbhciInit();
