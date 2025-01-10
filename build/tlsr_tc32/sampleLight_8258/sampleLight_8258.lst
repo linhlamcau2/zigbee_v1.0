@@ -44976,7 +44976,72 @@ user_init():
    159a0:	00030528 	tandeq	r0, r3, r8, lsr #10
    159a4:	008421c0 	taddeq	r2, r4, r0, asr #3
 
+<<<<<<< HEAD
 000159a8 <light_blink_TimerEvtCb>:
+=======
+00015958 <pwmSetDuty>:
+pwmSetDuty():
+   15958:	6530      	tpush	{r4, r5, lr}
+   1595a:	f605      	tshftls	r5, r0, #24
+   1595c:	fe2d      	tshftrs	r5, r5, #24
+   1595e:	f408      	tshftls	r0, r1, #16
+   15960:	fc00      	tshftrs	r0, r0, #16
+   15962:	0c06      	tloadr	r4, [pc, #24]	; (1597c <pwmSetDuty+0x24>)
+   15964:	0360      	tmuls	r0, r4
+   15966:	0906      	tloadr	r1, [pc, #24]	; (15980 <pwmSetDuty+0x28>)
+   15968:	97eb 9e88 	tjl	167c <__udivsi3>
+   1596c:	f401      	tshftls	r1, r0, #16
+   1596e:	fc09      	tshftrs	r1, r1, #16
+   15970:	ec28      	tadds	r0, r5, #0
+   15972:	ec22      	tadds	r2, r4, #0
+   15974:	97fe 9cfa 	tjl	1436c <drv_pwm_cfg>
+   15978:	6d30      	tpop	{r4, r5, pc}
+   1597a:	46c0      	tnop			; (mov r8, r8)
+   1597c:	00005dc0 	tandeq	r5, r0, r0, asr #27
+   15980:	00006338 	tandeq	r6, r0, r8, lsr r3
+
+00015984 <hwLight_init>:
+hwLight_init():
+   15984:	6500      	tpush	{lr}
+   15986:	97fe 9cef 	tjl	14368 <drv_pwm_init>
+   1598a:	0804      	tloadr	r0, [pc, #16]	; (1599c <hwLight_init+0x18>)
+   1598c:	a114      	tmovs	r1, #20
+   1598e:	9018 9b21 	tjl	2dfd4 <gpio_set_func>
+   15992:	a000      	tmovs	r0, #0
+   15994:	a100      	tmovs	r1, #0
+   15996:	97ff 9fdf 	tjl	15958 <pwmSetDuty>
+   1599a:	6d00      	tpop	{pc}
+   1599c:	00000202 	tandeq	r0, r0, r2, lsl #4
+
+000159a0 <hwLight_onOffUpdate>:
+hwLight_onOffUpdate():
+   159a0:	6500      	tpush	{lr}
+   159a2:	f600      	tshftls	r0, r0, #24
+   159a4:	a800      	tcmp	r0, #0
+   159a6:	c105      	tjne.n	159b4 <hwLight_onOffUpdate+0x14>
+   159a8:	0b09      	tloadr	r3, [pc, #36]	; (159d0 <hwLight_onOffUpdate+0x30>)
+   159aa:	481a      	tloadrb	r2, [r3, #0]
+   159ac:	a101      	tmovs	r1, #1
+   159ae:	038a      	tbclrs	r2, r1
+   159b0:	401a      	tstorerb	r2, [r3, #0]
+   159b2:	6d00      	tpop	{pc}
+   159b4:	97ff 9eda 	tjl	1576c <rd_relay_off>
+   159b8:	0806      	tloadr	r0, [pc, #24]	; (159d4 <hwLight_onOffUpdate+0x34>)
+   159ba:	a100      	tmovs	r1, #0
+   159bc:	9001 9862 	tjl	16a84 <rd_log_uart>
+   159c0:	0b03      	tloadr	r3, [pc, #12]	; (159d0 <hwLight_onOffUpdate+0x30>)
+   159c2:	4819      	tloadrb	r1, [r3, #0]
+   159c4:	a201      	tmovs	r2, #1
+   159c6:	030a      	tors	r2, r1
+   159c8:	f612      	tshftls	r2, r2, #24
+   159ca:	fe12      	tshftrs	r2, r2, #24
+   159cc:	401a      	tstorerb	r2, [r3, #0]
+   159ce:	87f0      	tj.n	159b2 <hwLight_onOffUpdate+0x12>
+   159d0:	00800781 	taddeq	r0, r0, r1, lsl #15
+   159d4:	00030538 	tandeq	r0, r3, r8, lsr r5
+
+000159d8 <light_blink_TimerEvtCb>:
+>>>>>>> parent of f017ac6 (change logic)
 light_blink_TimerEvtCb():
    159a8:	6510      	tpush	{r4, lr}
    159aa:	0c1a      	tloadr	r4, [pc, #104]	; (15a14 <light_blink_TimerEvtCb+0x6c>)
