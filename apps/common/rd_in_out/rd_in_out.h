@@ -11,4 +11,6 @@ void rd_init_gpio();
 void rd_blink_led();
 
 
+
+void rd_handle_input();
 #endif
