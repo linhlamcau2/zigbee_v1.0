@@ -46,7 +46,8 @@
 #endif
 
 #include "../common/rd_log/rd_log.h"
-#include "rd_switch.h"
+#include "../common/rd_in_out/rd_in_out.h"
+
 /**********************************************************************
  * LOCAL CONSTANTS
  */
@@ -161,7 +162,6 @@ void user_app_init(void)
 	/* Register endPoint */
 	af_endpointRegister(SAMPLE_LIGHT_ENDPOINT, (af_simple_descriptor_t *)&sampleLight_simpleDesc, zcl_rx_handler, NULL);
 
-//	af_endpointRegister(RD_SWITCH_ENDPOINT, (af_simple_descriptor_t *)&rd_sw_simpleDesc, zcl_rx_handler, NULL);
 #if AF_TEST_ENABLE
 	/* A sample of AF data handler. */
 	af_endpointRegister(SAMPLE_TEST_ENDPOINT, (af_simple_descriptor_t *)&sampleTestDesc, afTest_rx_handler, afTest_dataSendConfirm);
@@ -231,7 +231,7 @@ void report_handler(void)
 			reportNoMinLimit();
 
 			//start report timer
-			reportAttrTimerStart(second);
+//			reportAttrTimerStart(second);
 		}else{
 			//stop report timer
 			reportAttrTimerStop();
@@ -311,6 +311,9 @@ void user_init(bool isRetention)
     bdb_defaultReportingCfg(SAMPLE_LIGHT_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_GEN_ON_OFF, ZCL_ATTRID_ONOFF,
     						0x0000, 0x003c, (u8 *)&reportableChange);
 
+    rd_sw_init();
+
+//    rd_output_restore();
     /* Initialize BDB */
 	bdb_init((af_simple_descriptor_t *)&sampleLight_simpleDesc, &g_bdbCommissionSetting, &g_zbDemoBdbCb, 1);
 }

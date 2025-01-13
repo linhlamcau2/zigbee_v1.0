@@ -54,10 +54,7 @@ int main(void){
 	user_init(isRetention);
 
 	drv_enable_irq();
-	//////////-------rd_init---------//////////
-//	rd_init_gpio();
 
-//	ev_on_poll(EV_POLL_HCI,rd_test_task);
 #if (MODULE_WATCHDOG_ENABLE)
 	drv_wd_setInterval(600);
     drv_wd_start();
@@ -70,8 +67,11 @@ int main(void){
     rd_log_uart("start prg\n");
 //    extern void rd_print_light(void);
 //    rd_print_light();
-//    extern void rd_print_reporting(void);
-//    rd_print_reporting();
+    extern void rd_print_reporting(void);
+    rd_print_reporting();
+    extern void rd_log_cluster();
+    rd_log_cluster();
+    rd_output_restore();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){
@@ -92,6 +92,7 @@ int main(void){
 
 		tl_zbTaskProcedure();
 
+		rd_process_save_stt_out();
 //		rd_blink_led();
 //		tl_printf("test: %d %d\n",1,2);
 //		static u32 last_tick = 0;

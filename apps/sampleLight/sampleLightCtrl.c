@@ -118,11 +118,11 @@ void hwLight_init(void)
 	pwmInit(G_LIGHT_PWM_CHANNEL, 0);
 	pwmInit(B_LIGHT_PWM_CHANNEL, 0);
 #else
-	COOL_LIGHT_PWM_SET();
-	pwmInit(COOL_LIGHT_PWM_CHANNEL, 0);
+//	COOL_LIGHT_PWM_SET();
+//	pwmInit(COOL_LIGHT_PWM_CHANNEL, 0);
 #if COLOR_CCT_SUPPORT
-	WARM_LIGHT_PWM_SET();
-	pwmInit(WARM_LIGHT_PWM_CHANNEL, 0);
+//	WARM_LIGHT_PWM_SET();
+//	pwmInit(WARM_LIGHT_PWM_CHANNEL, 0);
 #endif
 #endif
 }
@@ -139,7 +139,7 @@ void hwLight_init(void)
 extern void rd_relay_set(u8 stt);
 void hwLight_onOffUpdate(u8 onOff)
 {
-	rd_relay_set(onOff);
+//	rd_relay_set(onOff);
 //	if(onOff){
 	if(!onOff){							//RD_EDIT: change logic
 #if COLOR_RGB_SUPPORT

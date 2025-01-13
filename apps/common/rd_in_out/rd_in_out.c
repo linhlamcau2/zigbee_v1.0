@@ -1,27 +1,14 @@
 #include"rd_in_out.h"
-#include "zb_common.h"
-#include "../rd_log/rd_log.h"
-
-#include "zb_api.h"
-#include "zcl_include.h"
-#include "../sampleLight/sampleLight.h"
-#include "app_ui.h"
-
-#define CYCLE_MODE_PULSE		10
-#define CYCLE_MODE_KEEP		1000
-#define CYCLE_MODE_LEVEL		40
 
 
-#define INPUT1	GPIO_PA1
-#define INPUT2 	GPIO_PC3
-#define RD_SCAN_PINS	{INPUT1, INPUT2}
-static u32 pin_scan[] = RD_SCAN_PINS;
-#define num_pin  sizeof(pin_scan)/sizeof(pin_scan[0])
+u32 pin_scan[] = RD_SCAN_PINS;
+u32 led_out[] = RD_OUTPUT_LED;
 
 void rd_handle_mode_pulse(u8 idx);
 void rd_handle_mode_level(u8 idx);
 void rd_handle_mode_keep(u8 idx);
 
+extern output_t rd_output[NUM_OUTPUT_MAX];
 enum
 {
 	MODE_NONE = 0,
@@ -139,18 +126,38 @@ u8 rd_detect_mode_input(u8 idx,u8 stt)
 
 void rd_gpio_init()
 {
+	memset((void *)pin_inf, 0, sizeof(pin_inf));
+	memset((void *)rd_output, 0, sizeof(rd_output));
 	foreach_arr(i, pin_scan)
 	{
-		gpio_setup_up_down_resistor(pin_scan[i], PM_PIN_UP_DOWN_FLOAT);
+		gpio_setup_up_down_resistor(pin_scan[i], PM_PIN_PULLUP_10K);
 		gpio_set_func(pin_scan[i], AS_GPIO);
 		gpio_set_input_en(pin_scan[i], 1);
-		memset((void *)pin_inf, 0, sizeof(pin_inf_t) * num_pin);
+		rd_register_mode_pin_input(i,MODE_BUTTON);
 	}
+
+	foreach_arr(i, led_out)
+	{
+		gpio_setup_up_down_resistor(led_out[i], PM_PIN_PULLUP_10K);
+		gpio_set_func(led_out[i], AS_GPIO);
+		gpio_set_output_en(led_out[i], 1);
+		gpio_write(led_out[i],0);
+	}
+}
+
+void rd_write_led_out(u8 idx, u8 stt)
+{
+	drv_gpio_write(led_out[idx], stt);
+	rd_output[idx].stt = stt;
 }
 
 u8 rd_read_input(u8 idx)
 {
-	u16 stt = !gpio_read(pin_inf[idx].pin);
+	u16 stt = !gpio_read(pin_scan[idx]);
+//	if(stt > 0)
+//	{
+//		rd_log_uart("but %d active\n",idx);
+//	}
 //	u16 stt = gpio_read(button_pin[id]);
 //	u8 st = (stt && 0xff) && (button_pin[id] & 0xff);
 	return (stt >0);
@@ -162,22 +169,19 @@ void rd_handle_mode_pulse(u8 idx)
 	switch(idx)
 	{
 		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
 		{
-			if(zb_isDeviceJoinedNwk()){
-			zcl_onOffAttr_t *pOnOff = zcl_onoffAttrGet();
-			u8 stt = !pOnOff->onOff;
-			if(stt){
-				sampleLight_onoff(ZCL_ONOFF_STATUS_ON);
-			}else{
-				sampleLight_onoff(ZCL_ONOFF_STATUS_OFF);
-			}
+			if(zb_isDeviceJoinedNwk())
+			{
+				u8 stt = rd_output[idx].stt;
+				rd_write_led_out(idx, !stt);
+				rd_save_stt();
 			}
 			break;
 		}
-		case 1:
-			break;
-		case 2:
-			break;
 		default:
 			break;
 	}

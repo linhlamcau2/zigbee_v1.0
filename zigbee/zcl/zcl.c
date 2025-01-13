@@ -28,6 +28,7 @@
  */
 #include "zcl_include.h"
 
+#include "../apps/common/rd_log/rd_log.h"
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -198,6 +199,10 @@ _CODE_ZCL_ status_t zcl_registerCluster(u8 endpoint, u16 clusterId, u16 manuCode
 	return ZCL_STA_SUCCESS;
 }
 
+void rd_log_cluster()
+{
+	rd_log_uart("clusterNum: %d\n",zcl_vars.clusterNum);
+}
 /*********************************************************************
  * @fn      zcl_getDataTypeLen
  *

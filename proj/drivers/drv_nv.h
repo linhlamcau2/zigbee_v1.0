@@ -358,6 +358,7 @@ typedef enum{
 	NV_ITEM_APP_POWER_CNT,
 	NV_ITEM_APP_GP_TRANS_TABLE,
 
+	NV_ITEM_RD_OUTPUT,
 	NV_ITEM_APS_BINDING_TABLE_V2    = 0x80,  /* mustn't modify it */
 
 	NV_ITEM_ID_MAX					= 0xFF,/* Item id 0xFF should not be used. */
