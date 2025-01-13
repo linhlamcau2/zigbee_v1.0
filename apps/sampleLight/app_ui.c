@@ -83,6 +83,13 @@ void led_init(void){
 	drv_gpio_output_en(RELAY1_PIN, 1); 		//enable output
 	drv_gpio_input_en(RELAY1_PIN, 0);		//disable input
 	drv_gpio_write(RELAY1_PIN, 0);
+
+	drv_gpio_func_set(LED_DIM);
+	drv_gpio_output_en(LED_DIM, 1); 		//enable output
+	drv_gpio_input_en(LED_DIM, 0);		//disable input
+	drv_gpio_write(LED_DIM, 1);
+
+
 	led_off(LED_POWER);
 	led_off(LED_PERMIT);
 }

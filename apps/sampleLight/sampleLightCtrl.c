@@ -185,7 +185,7 @@ void hwLight_onOffUpdate(u8 onOff)
 //#endif
 //		drv_pwm_stop(COOL_LIGHT_PWM_CHANNEL);
 //#endif
-//	}
+	}
 }
 
 /*********************************************************************

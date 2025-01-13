@@ -235,7 +235,7 @@ extern "C" {
 #define RELAY1_PIN					GPIO_PB5
 
 #define NEMA_LED					GPIO_PB7
-
+#define LED_DIM						GPIO_PC0
 
 #define PWM_RELAY_CHANNEL			0
 #define PWM_RELAY_CHANNEL_SET()		do{	\
