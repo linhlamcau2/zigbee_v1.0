@@ -27,7 +27,10 @@
 #include "factory_reset.h"
 #include "zb_api.h"
 
-#define FACTORY_RESET_POWER_CNT_THRESHOLD		10	//times
+#include "rd_log/rd_log.h"
+#include "rd_in_out/rd_in_out.h"
+
+#define FACTORY_RESET_POWER_CNT_THRESHOLD		5	//times
 #define FACTORY_RESET_TIMEOUT					2	//second
 
 ev_timer_event_t *factoryRst_timerEvt = NULL;
@@ -60,6 +63,7 @@ static s32 factoryRst_timerCb(void *arg){
 		factoryRst_exist = TRUE;
 	}
 
+	rd_log_uart("factoryRst_timerCb_counter: %d\n",factoryRst_powerCnt);
 	factoryRst_powerCnt = 0;
 	factoryRst_powerCntSave();
 
@@ -69,8 +73,11 @@ static s32 factoryRst_timerCb(void *arg){
 
 void factoryRst_handler(void){
 	if(factoryRst_exist){
+		rd_log_uart("factoryRst_handler\n");
+		rd_light_factory_rst();
 		factoryRst_exist = FALSE;
 		zb_factoryReset();
+//		SYSTEM_RESET();
 	}
 }
 
@@ -85,3 +92,7 @@ void factoryRst_init(void){
 	factoryRst_timerEvt = TL_ZB_TIMER_SCHEDULE(factoryRst_timerCb, NULL, FACTORY_RESET_TIMEOUT * 1000);
 }
 
+void rd_log_factory_counter()
+{
+	rd_log_uart("factory_counter: %d\n",factoryRst_powerCnt);
+}

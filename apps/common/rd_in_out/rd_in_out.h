@@ -54,6 +54,13 @@ typedef struct
 	u8 mode_start;
 }output_t;
 
+typedef struct{
+	ev_timer_event_t *timerLedEvt;
+	u8 	oriSta;		//original state before blink
+	u8 	sta;		//current state in blink
+	u8 	times;		//blink times
+}rd_ctx_t;
+
 
 extern u32 pin_scan[];
 extern u32 led_out[];
@@ -66,4 +73,6 @@ void rd_sw_report_conf();
 void rd_save_stt();
 nv_sts_t rd_output_restore(void);
 void rd_process_save_stt_out();
+void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx);
+void rd_light_factory_rst();
 #endif

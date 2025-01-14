@@ -4,6 +4,8 @@ static u8 start_save = 0;
 static u32 tick_save = 0;
 output_t rd_output[NUM_OUTPUT_MAX] ;
 
+rd_ctx_t rd_lightcTx[NUM_OUTPUT_MAX];
+
 const u16 rd_sw_inClusterList[] =
 {
 #ifdef ZCL_ON_OFF
@@ -232,6 +234,12 @@ nv_sts_t rd_nvs_save()
 	return st;
 }
 
+void rd_save_default()
+{
+	memset((void *)rd_output, 0 ,sizeof(rd_output));
+	rd_nvs_save();
+}
+
 nv_sts_t rd_output_restore(void)
 {
 	nv_sts_t st = NV_SUCC;
@@ -253,4 +261,42 @@ void rd_process_save_stt_out()
 		rd_nvs_save();
 		start_save = 0;
 	}
+}
+
+s32 rd_light_blink_TimerEvtCb(void *arg)
+{
+//	u8 *id = (u8 *)arg;
+	u8 idx = 1;
+	rd_log_uart("rd_light_blink_TimerEvtCb: %d\n",idx);
+	if(rd_lightcTx[1].sta == rd_lightcTx[idx].oriSta)
+	{
+		if(rd_lightcTx[idx].times)
+		{
+			rd_lightcTx[idx].times -- ;
+			if(rd_lightcTx[idx].times <= 0)
+			{
+				drv_gpio_write(led_out[idx], rd_lightcTx[idx].oriSta);
+				rd_lightcTx[idx].timerLedEvt = NULL;
+				return -1;
+			}
+		}
+	}
+
+	rd_lightcTx[idx].sta = !rd_lightcTx[idx].sta;
+	drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+
+	return 0;
+}
+
+void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx)
+{
+	rd_lightcTx[idx].oriSta = rd_output[idx].stt;
+	rd_lightcTx[idx].times = times;
+	if(!rd_lightcTx[idx].timerLedEvt)
+	{
+		rd_lightcTx[idx].sta = ! rd_lightcTx[idx].oriSta;
+		drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+		rd_lightcTx[idx].timerLedEvt = TL_ZB_TIMER_SCHEDULE(rd_light_blink_TimerEvtCb, NULL, 100 * time_delay_100ms);
+	}
+
 }

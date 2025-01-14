@@ -72,6 +72,8 @@ int main(void){
     extern void rd_log_cluster();
     rd_log_cluster();
     rd_output_restore();
+    extern void rd_log_factory_counter();
+    rd_log_factory_counter();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){
@@ -93,17 +95,6 @@ int main(void){
 		tl_zbTaskProcedure();
 
 		rd_process_save_stt_out();
-//		rd_blink_led();
-//		tl_printf("test: %d %d\n",1,2);
-//		static u32 last_tick = 0;
-//		if(clock_time() - last_tick > 3 * 1000 *1000)
-//		{
-//			rd_log_uart("tesst: %d %d %d\n", 1,2,4);
-//			last_tick = clock_time();
-//		}
-//		drv_uart_tx_start((u8 *)"hi\n",3);
-//		rd_ev_log("hello\n");
-//		sprintf()
 #if	(MODULE_WATCHDOG_ENABLE)
 		drv_wd_clear();
 #endif

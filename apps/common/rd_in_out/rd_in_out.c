@@ -215,7 +215,10 @@ void rd_handle_mode_keep(u8 idx)
 			break;
 		}
 		case 1:
+		{
+			rd_light_blink(4,5,idx);
 			break;
+		}
 		case 2:
 			break;
 		default:
@@ -240,5 +243,24 @@ void rd_handle_input()
 				}
 			}
 		}
+	}
+}
+
+void rd_light_factory_rst()
+{
+	for(u8 i=0; i< 5; i++)
+	{
+		for(u8 j=0; j< NUM_OUTPUT_MAX; j++)
+		{
+			drv_gpio_write(led_out[j], 1);
+		}
+		sleep_ms(300);
+		drv_wd_clear();
+		for(u8 j=0; j< NUM_OUTPUT_MAX; j++)
+		{
+			drv_gpio_write(led_out[j], 0);
+		}
+		sleep_ms(300);
+		drv_wd_clear();
 	}
 }
