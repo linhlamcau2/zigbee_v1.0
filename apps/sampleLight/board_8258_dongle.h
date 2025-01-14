@@ -232,7 +232,7 @@ extern "C" {
 #define LED_Y						GPIO_PC3	//D3 -- yellow		PWM2
 #define LED_W						GPIO_PB1	//D5 -- white		PWM4
 
-#define RELAY1_PIN					GPIO_PB5
+#define RELAY1_PIN					GPIO_PC1
 
 #define NEMA_LED					GPIO_PB7
 #define LED_DIM						GPIO_PC0

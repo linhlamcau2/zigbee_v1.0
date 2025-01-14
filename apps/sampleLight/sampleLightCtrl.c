@@ -111,8 +111,8 @@ void hwLight_init(void)
 	drv_pwm_init();
 
 
-//	RELAY_NEMA_SET();
-//	pwmInit(PWM_RELAY_CHANNEL, 0);
+	RELAY_NEMA_SET();
+	pwmInit(PWM_RELAY_CHANNEL, 0);
 //#if COLOR_RGB_SUPPORT
 //	R_LIGHT_PWM_SET();
 //	G_LIGHT_PWM_SET();
@@ -144,7 +144,7 @@ extern void rd_relay_off();
 void hwLight_onOffUpdate(u8 onOff)
 {
 //	rd_relay_set(onOff);
-	if(onOff)
+	if(!onOff)
 	{
 		rd_relay_off();
 //		rd_relay_set(onOff);
