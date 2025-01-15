@@ -54,7 +54,10 @@ typedef struct
 	u8 mode_start;
 }output_t;
 
+typedef void (*evt_handler_func_t)(void * arg);
+
 typedef struct{
+	ev_timer_callback_t  evt_handler_func;
 	ev_timer_event_t *timerLedEvt;
 	u8 	oriSta;		//original state before blink
 	u8 	sta;		//current state in blink

@@ -217,6 +217,7 @@ void rd_handle_mode_keep(u8 idx)
 		case 1:
 		{
 			rd_light_blink(4,5,idx);
+			rd_light_blink(4,5,2);
 			break;
 		}
 		case 2:

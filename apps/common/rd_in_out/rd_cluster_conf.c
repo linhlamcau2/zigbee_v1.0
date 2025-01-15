@@ -265,10 +265,10 @@ void rd_process_save_stt_out()
 
 s32 rd_light_blink_TimerEvtCb(void *arg)
 {
-//	u8 *id = (u8 *)arg;
-	u8 idx = 1;
+	u8 idx = *(u8 *)arg;
+//	u8 idx = *id;
 	rd_log_uart("rd_light_blink_TimerEvtCb: %d\n",idx);
-	if(rd_lightcTx[1].sta == rd_lightcTx[idx].oriSta)
+	if(rd_lightcTx[idx].sta == rd_lightcTx[idx].oriSta)
 	{
 		if(rd_lightcTx[idx].times)
 		{
@@ -288,6 +288,7 @@ s32 rd_light_blink_TimerEvtCb(void *arg)
 	return 0;
 }
 
+u8 list_led[] = {0,1,2,3,4};
 void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx)
 {
 	rd_lightcTx[idx].oriSta = rd_output[idx].stt;
@@ -296,7 +297,7 @@ void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx)
 	{
 		rd_lightcTx[idx].sta = ! rd_lightcTx[idx].oriSta;
 		drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
-		rd_lightcTx[idx].timerLedEvt = TL_ZB_TIMER_SCHEDULE(rd_light_blink_TimerEvtCb, NULL, 100 * time_delay_100ms);
+		rd_lightcTx[idx].timerLedEvt = TL_ZB_TIMER_SCHEDULE(rd_light_blink_TimerEvtCb, (void *)&list_led[idx], 100 * time_delay_100ms);
 	}
 
 }
