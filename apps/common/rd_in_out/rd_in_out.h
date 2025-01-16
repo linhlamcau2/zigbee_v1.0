@@ -37,12 +37,12 @@
 #define NUM_OUTPUT_MAX 5
 
 
-#define RD_ENDPOINT_MILITONE  0x03
-#define RD_ENDPOINT_1	0x03
-#define RD_ENDPOINT_2	0x04
-#define RD_ENDPOINT_3	0x05
-#define RD_ENDPOINT_4	0x06
-#define RD_ENDPOINT_5	0x07
+#define RD_ENDPOINT_MILITONE  0x01
+#define RD_ENDPOINT_1	0x01
+#define RD_ENDPOINT_2	0x02
+#define RD_ENDPOINT_3	0x03
+#define RD_ENDPOINT_4	0x04
+#define RD_ENDPOINT_5	0x05
 
 #define RD_SW_CB_CLUSTER_NUM  	1
 #define ZCL_RD_SW_ATTR_NUM		2
@@ -54,6 +54,12 @@ typedef struct
 	u8 mode_start;
 }output_t;
 
+enum
+{
+	MODE_START_OFF = 0,
+	MODE_START_ON,
+	MODE_START_RESTORE,
+};
 typedef void (*evt_handler_func_t)(void * arg);
 
 typedef struct{
@@ -78,4 +84,6 @@ nv_sts_t rd_output_restore(void);
 void rd_process_save_stt_out();
 void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx);
 void rd_light_factory_rst();
+
+void rd_save_default();
 #endif

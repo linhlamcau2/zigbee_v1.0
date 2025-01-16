@@ -31,7 +31,7 @@
 /**********************************************************************
  * CONSTANT
  */
-#define SAMPLE_LIGHT_ENDPOINT   0x01
+#define SAMPLE_LIGHT_ENDPOINT   0x06
 #define SAMPLE_TEST_ENDPOINT	0x02
 
 /**********************************************************************

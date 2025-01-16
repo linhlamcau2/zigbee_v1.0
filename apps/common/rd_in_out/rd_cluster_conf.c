@@ -163,19 +163,19 @@ status_t zcl_rd_sw_Cb(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPaylo
 
 const zclAttrInfo_t rd_sw_attrTbl[] =
 {
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[0].stt },
+		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[0].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[0].mode_start},
 
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[1].stt },
+		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[1].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[1].mode_start},
 
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[2].stt },
+		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[2].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[2].mode_start},
 
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[3].stt },
+		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[3].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[3].mode_start},
 
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[4].stt },
+		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[4].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[4].mode_start}
 };
 
@@ -240,17 +240,34 @@ void rd_save_default()
 	rd_nvs_save();
 }
 
+void rd_init_output()
+{
+	for(u8 i=0; i< NUM_OUTPUT_MAX; i++)
+	{
+		if(rd_output[i].mode_start == MODE_START_OFF || rd_output[i].mode_start == MODE_START_ON)
+		{
+			rd_output[i].stt = (rd_output[i].mode_start == MODE_START_OFF) ? 0: 1;
+		}
+		drv_gpio_write(led_out[i], !rd_output[i].stt);
+	}
+
+}
+
 nv_sts_t rd_output_restore(void)
 {
 	nv_sts_t st = NV_SUCC;
 	output_t rd_output_cur[NUM_OUTPUT_MAX] ;
 	st = nv_flashReadNew(1, NV_MODULE_ZCL,  NV_ITEM_RD_OUTPUT, sizeof(rd_output_cur), (u8*)rd_output_cur);
-	rd_log_uart("rd init stt: %d\n",st);
 	if(st == NV_SUCC)
 	{
 		memcpy((void *)rd_output, (void*)rd_output_cur,sizeof(rd_output));
-		rd_log_uart("rd init on/off: %d, start: %d\n",rd_output[0].stt,rd_output[0].mode_start);
+//		rd_log_uart("rd init on/off: %d, start: %d\n",rd_output[0].stt,rd_output[0].mode_start);
 	}
+	else
+	{
+		rd_save_default();
+	}
+	rd_init_output();
 	return st;
 }
 
@@ -266,8 +283,6 @@ void rd_process_save_stt_out()
 s32 rd_light_blink_TimerEvtCb(void *arg)
 {
 	u8 idx = *(u8 *)arg;
-//	u8 idx = *id;
-	rd_log_uart("rd_light_blink_TimerEvtCb: %d\n",idx);
 	if(rd_lightcTx[idx].sta == rd_lightcTx[idx].oriSta)
 	{
 		if(rd_lightcTx[idx].times)

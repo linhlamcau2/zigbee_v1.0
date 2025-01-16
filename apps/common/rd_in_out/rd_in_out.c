@@ -141,13 +141,13 @@ void rd_gpio_init()
 		gpio_setup_up_down_resistor(led_out[i], PM_PIN_PULLUP_10K);
 		gpio_set_func(led_out[i], AS_GPIO);
 		gpio_set_output_en(led_out[i], 1);
-		gpio_write(led_out[i],0);
+//		gpio_write(led_out[i],0);
 	}
 }
 
 void rd_write_led_out(u8 idx, u8 stt)
 {
-	drv_gpio_write(led_out[idx], stt);
+	drv_gpio_write(led_out[idx], !stt);
 	rd_output[idx].stt = stt;
 }
 
@@ -211,13 +211,15 @@ void rd_handle_mode_keep(u8 idx)
 		case 0:
 		{
 			gLightCtx.state = APP_FACTORY_NEW_DOING;
+			rd_save_default();
+			rd_light_factory_rst();
 			zb_factoryReset();
 			break;
 		}
 		case 1:
 		{
-			rd_light_blink(4,5,idx);
-			rd_light_blink(4,5,2);
+//			rd_light_blink(4,5,idx);
+//			rd_light_blink(4,5,2);
 			break;
 		}
 		case 2:
