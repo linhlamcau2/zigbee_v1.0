@@ -130,30 +130,33 @@ void rd_gpio_init()
 	memset((void *)rd_output, 0, sizeof(rd_output));
 	foreach_arr(i, pin_scan)
 	{
-		gpio_setup_up_down_resistor(pin_scan[i], PM_PIN_PULLUP_10K);
+		gpio_setup_up_down_resistor(pin_scan[i], PM_PIN_UP_DOWN_FLOAT);
 		gpio_set_func(pin_scan[i], AS_GPIO);
 		gpio_set_input_en(pin_scan[i], 1);
 		rd_register_mode_pin_input(i,MODE_BUTTON);
 	}
 
-	foreach_arr(i, led_out)
-	{
-		gpio_setup_up_down_resistor(led_out[i], PM_PIN_PULLUP_10K);
-		gpio_set_func(led_out[i], AS_GPIO);
-		gpio_set_output_en(led_out[i], 1);
-//		gpio_write(led_out[i],0);
-	}
+//	foreach_arr(i, led_out)
+//	{
+//		gpio_setup_up_down_resistor(led_out[i], PM_PIN_PULLUP_10K);
+//		gpio_set_func(led_out[i], AS_GPIO);
+//		gpio_set_output_en(led_out[i], 1);
+////		gpio_write(led_out[i],0);
+//	}
+
+	Config_Pin_Led_Lc8823();
 }
 
 void rd_write_led_out(u8 idx, u8 stt)
 {
-	drv_gpio_write(led_out[idx], !stt);
+//	drv_gpio_write(led_out[idx], !stt);
+	ctrl_led(idx,stt);
 	rd_output[idx].stt = stt;
 }
 
 u8 rd_read_input(u8 idx)
 {
-	u16 stt = !gpio_read(pin_scan[idx]);
+	u16 stt = gpio_read(pin_scan[idx]);
 //	if(stt > 0)
 //	{
 //		rd_log_uart("but %d active\n",idx);
@@ -171,11 +174,13 @@ void rd_handle_mode_pulse(u8 idx)
 		case 0:
 		case 1:
 		case 2:
-		case 3:
-		case 4:
+//		case 3:
+//		case 4:
 		{
-			if(zb_isDeviceJoinedNwk())
+//			if(zb_isDeviceJoinedNwk())
+			if(1)
 			{
+				rd_log_uart("but %d pulse\n",idx);
 				u8 stt = rd_output[idx].stt;
 				rd_write_led_out(idx, !stt);
 				rd_save_stt();
@@ -218,8 +223,6 @@ void rd_handle_mode_keep(u8 idx)
 		}
 		case 1:
 		{
-//			rd_light_blink(4,5,idx);
-//			rd_light_blink(4,5,2);
 			break;
 		}
 		case 2:
@@ -253,16 +256,10 @@ void rd_light_factory_rst()
 {
 	for(u8 i=0; i< 5; i++)
 	{
-		for(u8 j=0; j< NUM_OUTPUT_MAX; j++)
-		{
-			drv_gpio_write(led_out[j], 1);
-		}
+		ctrl_all(1);
 		sleep_ms(300);
 		drv_wd_clear();
-		for(u8 j=0; j< NUM_OUTPUT_MAX; j++)
-		{
-			drv_gpio_write(led_out[j], 0);
-		}
+		ctrl_all(0);
 		sleep_ms(300);
 		drv_wd_clear();
 	}

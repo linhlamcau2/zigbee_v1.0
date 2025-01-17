@@ -163,7 +163,7 @@ extern "C" {
 #define PD6_INPUT_ENABLE			1
 #define	PULL_WAKEUP_SRC_PD6			PM_PIN_PULLUP_10K
 
-#define	BUTTON2 					GPIO_PC4
+#define	BUTTON2 					GPIO_PB7
 #define PD5_FUNC					AS_GPIO
 #define PD5_OUTPUT_ENABLE			0
 #define PD5_INPUT_ENABLE			1
@@ -229,8 +229,8 @@ extern "C" {
 //#define LED_W						GPIO_PB4	//D5 -- white		PWM4
 
 
-#define LED_Y						GPIO_PC2	//D3 -- yellow		PWM2
-#define LED_W						GPIO_PC4	//D5 -- white		PWM4
+#define LED_Y						GPIO_PB5	//D3 -- yellow		PWM2
+#define LED_W						GPIO_PB5	//D5 -- white		PWM4
 
 #define RELAY1_PIN					GPIO_PC2
 

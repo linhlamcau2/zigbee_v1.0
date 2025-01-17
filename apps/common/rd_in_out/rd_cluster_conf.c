@@ -61,29 +61,29 @@ const af_simple_descriptor_t rd_sw_simpleDesc[NUM_OUTPUT_MAX] =
 			(u16 *)rd_sw_outClusterList,
 		},
 
-		{
-			HA_PROFILE_ID,                      		/* Application profile identifier */
-			HA_DEV_ONOFF_OUTPUT,
-			RD_ENDPOINT_4,              		/* Endpoint */
-			1,                                  		/* Application device version */
-			0,											/* Reserved */
-			RD_SW_IN_CLUSTER_NUM,           		/* Application input cluster count */
-			RD_SW_OUT_CLUSTER_NUM,          		/* Application output cluster count */
-			(u16 *)rd_sw_inClusterList,    			/* Application input cluster list */
-			(u16 *)rd_sw_outClusterList,
-		},
-
-		{
-			HA_PROFILE_ID,                      		/* Application profile identifier */
-			HA_DEV_ONOFF_OUTPUT,
-			RD_ENDPOINT_5,              		/* Endpoint */
-			1,                                  		/* Application device version */
-			0,											/* Reserved */
-			RD_SW_IN_CLUSTER_NUM,           		/* Application input cluster count */
-			RD_SW_OUT_CLUSTER_NUM,          		/* Application output cluster count */
-			(u16 *)rd_sw_inClusterList,    			/* Application input cluster list */
-			(u16 *)rd_sw_outClusterList,
-		},
+//		{
+//			HA_PROFILE_ID,                      		/* Application profile identifier */
+//			HA_DEV_ONOFF_OUTPUT,
+//			RD_ENDPOINT_4,              		/* Endpoint */
+//			1,                                  		/* Application device version */
+//			0,											/* Reserved */
+//			RD_SW_IN_CLUSTER_NUM,           		/* Application input cluster count */
+//			RD_SW_OUT_CLUSTER_NUM,          		/* Application output cluster count */
+//			(u16 *)rd_sw_inClusterList,    			/* Application input cluster list */
+//			(u16 *)rd_sw_outClusterList,
+//		},
+//
+//		{
+//			HA_PROFILE_ID,                      		/* Application profile identifier */
+//			HA_DEV_ONOFF_OUTPUT,
+//			RD_ENDPOINT_5,              		/* Endpoint */
+//			1,                                  		/* Application device version */
+//			0,											/* Reserved */
+//			RD_SW_IN_CLUSTER_NUM,           		/* Application input cluster count */
+//			RD_SW_OUT_CLUSTER_NUM,          		/* Application output cluster count */
+//			(u16 *)rd_sw_inClusterList,    			/* Application input cluster list */
+//			(u16 *)rd_sw_outClusterList,
+//		},
 };
 
 _CODE_ZCL_ static status_t zcl_rd_sw_clientCmdHandler(zclIncoming_t *pInMsg)
@@ -146,8 +146,8 @@ status_t zcl_rd_sw_Cb(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPaylo
 		case RD_ENDPOINT_1:
 		case RD_ENDPOINT_2:
 		case RD_ENDPOINT_3:
-		case RD_ENDPOINT_4:
-		case RD_ENDPOINT_5:
+//		case RD_ENDPOINT_4:
+//		case RD_ENDPOINT_5:
 		{
 			if(cmdId == ZCL_CMD_ONOFF_ON || cmdId == ZCL_CMD_ONOFF_OFF)
 			{
@@ -172,11 +172,11 @@ const zclAttrInfo_t rd_sw_attrTbl[] =
 		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[2].stt },
 		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[2].mode_start},
 
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[3].stt },
-		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[3].mode_start},
-
-		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[4].stt },
-		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[4].mode_start}
+//		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[3].stt },
+//		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[3].mode_start},
+//
+//		{ZCL_ATTRID_ONOFF,           ZCL_DATA_TYPE_BOOLEAN,ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&rd_output[4].stt },
+//		{ZCL_ATTRID_START_UP_ONOFF,  ZCL_DATA_TYPE_ENUM8,ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)&rd_output[4].mode_start}
 };
 
 const zcl_specClusterInfo_t g_rd_sw_ClusterList[NUM_OUTPUT_MAX] =
@@ -185,8 +185,8 @@ const zcl_specClusterInfo_t g_rd_sw_ClusterList[NUM_OUTPUT_MAX] =
 		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[0],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
 		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[2],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
 		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[4],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
-		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[6],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
-		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[8],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
+//		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[6],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
+//		{ZCL_CLUSTER_GEN_ON_OFF,MANUFACTURER_CODE_NONE,ZCL_RD_SW_ATTR_NUM,	&rd_sw_attrTbl[8],	zcl_rd_sw_register,	zcl_rd_sw_Cb},
 	#endif
 };
 
@@ -204,7 +204,7 @@ void rd_sw_init()
 
 void rd_save_stt()
 {
-	if(!start_save)
+	if(!start_save && zb_isDeviceJoinedNwk())
 	{
 		start_save = 1;
 		tick_save = clock_time();
@@ -248,7 +248,8 @@ void rd_init_output()
 		{
 			rd_output[i].stt = (rd_output[i].mode_start == MODE_START_OFF) ? 0: 1;
 		}
-		drv_gpio_write(led_out[i], !rd_output[i].stt);
+//		drv_gpio_write(led_out[i], !rd_output[i].stt);
+		init_led_data();
 	}
 
 }
@@ -268,12 +269,13 @@ nv_sts_t rd_output_restore(void)
 		rd_save_default();
 	}
 	rd_init_output();
+
 	return st;
 }
 
 void rd_process_save_stt_out()
 {
-	if(start_save && clock_time_exceed(tick_save,3 * 1000 *1000))
+	if(start_save && clock_time_exceed(tick_save,3 * 1000 *1000) && zb_isDeviceJoinedNwk())
 	{
 		rd_nvs_save();
 		start_save = 0;
@@ -290,7 +292,8 @@ s32 rd_light_blink_TimerEvtCb(void *arg)
 			rd_lightcTx[idx].times -- ;
 			if(rd_lightcTx[idx].times <= 0)
 			{
-				drv_gpio_write(led_out[idx], rd_lightcTx[idx].oriSta);
+//				drv_gpio_write(led_out[idx], rd_lightcTx[idx].oriSta);
+				ctrl_led(idx,rd_lightcTx[idx].oriSta);
 				rd_lightcTx[idx].timerLedEvt = NULL;
 				return -1;
 			}
@@ -298,12 +301,14 @@ s32 rd_light_blink_TimerEvtCb(void *arg)
 	}
 
 	rd_lightcTx[idx].sta = !rd_lightcTx[idx].sta;
-	drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+//	drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+	ctrl_led(idx,rd_lightcTx[idx].sta);
 
 	return 0;
 }
 
-u8 list_led[] = {0,1,2,3,4};
+//u8 list_led[] = {0,1,2,3,4};
+u8 list_led[] = {0,1,2};
 void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx)
 {
 	rd_lightcTx[idx].oriSta = rd_output[idx].stt;
@@ -311,7 +316,8 @@ void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx)
 	if(!rd_lightcTx[idx].timerLedEvt)
 	{
 		rd_lightcTx[idx].sta = ! rd_lightcTx[idx].oriSta;
-		drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+//		drv_gpio_write(led_out[idx], rd_lightcTx[idx].sta);
+		ctrl_led(idx,rd_lightcTx[idx].sta);
 		rd_lightcTx[idx].timerLedEvt = TL_ZB_TIMER_SCHEDULE(rd_light_blink_TimerEvtCb, (void *)&list_led[idx], 100 * time_delay_100ms);
 	}
 

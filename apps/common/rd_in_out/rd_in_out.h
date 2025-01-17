@@ -14,9 +14,10 @@
 #define CYCLE_MODE_LEVEL		40
 
 
-#define INPUT1	GPIO_PD3
-#define INPUT2 	GPIO_PD4
-#define INPUT3	GPIO_PA0
+#define		INPUT1						GPIO_PC2
+#define		INPUT2						GPIO_PD3
+#define		INPUT3						GPIO_PC1
+
 #define INPUT4 	GPIO_PA1
 #define INPUT5	GPIO_PC2
 
@@ -28,21 +29,20 @@
 #define OUTPUT_5					GPIO_PC3
 
 
-#define RD_SCAN_PINS	{INPUT1, INPUT2,INPUT3,INPUT4,INPUT5}
+#define RD_SCAN_PINS	{INPUT1, INPUT2,INPUT3}
 
 #define RD_OUTPUT_LED	{OUTPUT_1, OUTPUT_2,OUTPUT_3,OUTPUT_4,OUTPUT_5}
 #define num_pin  sizeof(pin_scan)/sizeof(pin_scan[0])
 
 
-#define NUM_OUTPUT_MAX 5
-
+#define NUM_OUTPUT_MAX 3
 
 #define RD_ENDPOINT_MILITONE  0x01
 #define RD_ENDPOINT_1	0x01
 #define RD_ENDPOINT_2	0x02
 #define RD_ENDPOINT_3	0x03
-#define RD_ENDPOINT_4	0x04
-#define RD_ENDPOINT_5	0x05
+//#define RD_ENDPOINT_4	0x04
+//#define RD_ENDPOINT_5	0x05
 
 #define RD_SW_CB_CLUSTER_NUM  	1
 #define ZCL_RD_SW_ATTR_NUM		2
@@ -86,4 +86,10 @@ void rd_light_blink(u8 times, u8 time_delay_100ms, u8 idx);
 void rd_light_factory_rst();
 
 void rd_save_default();
+
+void Config_Pin_Led_Lc8823(void);
+void init_led_data();
+void ctrl_led(u8 id, u8 level);
+void ctrl_all(u8 level);
+
 #endif

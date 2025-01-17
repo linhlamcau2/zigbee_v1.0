@@ -36,6 +36,8 @@
 #include "sampleLight.h"
 #include "sampleLightCtrl.h"
 
+#include "../common/rd_in_out/rd_in_out.h"
+
 /**********************************************************************
  * LOCAL CONSTANTS
  */
@@ -176,7 +178,10 @@ void zbdemo_bdbCommissioningCb(u8 status, void *arg){
 		case BDB_COMMISSION_STA_SUCCESS:
 			heartInterval = 1000;
 
-			light_blink_start(2, 200, 200);
+//			light_blink_start(2, 200, 200);
+			rd_light_blink(4,4,0);
+			rd_light_blink(4,4,1);
+			rd_light_blink(4,4,2);
 
 			if(steerTimerEvt){
 				TL_ZB_TIMER_CANCEL(&steerTimerEvt);
@@ -282,8 +287,10 @@ s32 sampleLight_softReset(void *arg){
 void sampleLight_leaveCnfHandler(nlme_leave_cnf_t *pLeaveCnf)
 {
     if(pLeaveCnf->status == SUCCESS){
-    	light_blink_start(3, 200, 200);
-
+//    	light_blink_start(3, 200, 200);
+    	rd_light_blink(4,4,0);
+		rd_light_blink(4,4,1);
+		rd_light_blink(4,4,2);
     	//waiting blink over
     	TL_ZB_TIMER_SCHEDULE(sampleLight_softReset, NULL, 2 * 1000);
     }
