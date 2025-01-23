@@ -538,6 +538,10 @@ _CODE_ZCL_ void reportNoMinLimit(void)
  *
  * @return	0 -- continue; -1 -- cancel
  */
+
+extern u32 RD_ReadLightSensor(void);
+extern void rd_set_lux_level(u32 level);
+
 _CODE_ZCL_ s32 reportAttrTimerCb(void *arg)
 {
 	if(zcl_reportingEntryActiveNumGet()){
@@ -552,6 +556,11 @@ _CODE_ZCL_ s32 reportAttrTimerCb(void *arg)
 				}
 
 				if(pEntry->maxInterval && !pEntry->maxIntCnt){
+					if(pEntry ->clusterID == ZCL_CLUSTER_SS_IAS_ZONE && pEntry-> attrID == ZCL_ATTRID_ZONE_LUX_STATUS)
+					{
+						u32 lux = RD_ReadLightSensor();
+						rd_set_lux_level(lux);
+					}
 					reportAttr(pEntry);
 
 					pEntry->minIntCnt = pEntry->minInterval;
@@ -602,9 +611,10 @@ _CODE_ZCL_ void reportAttrTimerStart(u16 seconds)
 		for(u8 i = 0; i < ZCL_REPORTING_TABLE_NUM; i++){
 			reportCfgInfo_t *pEntry = &reportingTab.reportCfgInfo[i];
 			if(pEntry->used && (pEntry->minInterval || (pEntry->maxInterval && (pEntry->maxInterval != 0xFFFF)))){
-				if(zb_bindingTblSearched(pEntry->clusterID, pEntry->endPoint)){
-					reportAttrTimerEvt = TL_ZB_TIMER_SCHEDULE(reportAttrTimerCb, NULL, seconds * 101);
-					break;
+//				if(zb_bindingTblSearched(pEntry->clusterID, pEntry->endPoint)){
+				if(1){
+					reportAttrTimerEvt = TL_ZB_TIMER_SCHEDULE(reportAttrTimerCb, NULL, seconds * 1000);
+//					break;
 				}
 			}
 		}

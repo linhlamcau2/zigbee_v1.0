@@ -41,7 +41,7 @@
 #ifndef ZCL_BASIC_MODEL_ID
 //#define ZCL_BASIC_MODEL_ID	   {8,'T','L','S','R','8','2','x','x'}
 
-#define ZCL_BASIC_MODEL_ID	   {15,'r','a','l','.','s','e','n','s','o','r','.','d','o','o','r'}
+#define ZCL_BASIC_MODEL_ID	   {15,'r','a','l','.','s','e','n','s','o','r','.','c','b','1','0'}
 #endif
 
 
@@ -151,8 +151,8 @@ zcl_iasZoneAttr_t g_zcl_iasZoneAttrs =
 {
 	.zoneState		= ZONE_STATE_ENROLLED,
 	.zoneType		= ZONE_TYPE_CONTACT_SWITCH,
-	.zoneStatus		= 0x00,
-	.hangonStatus   = 0x00,
+	.zoneMotionStatus		= 0x00,
+	.zoneLuxStatus   = 0x00000000,
 	.iasCieAddr		= {0x00},
 	.zoneId 		= ZCL_ZONE_ID_INVALID,
 };
@@ -161,8 +161,8 @@ const zclAttrInfo_t iasZone_attrTbl[] =
 {
 	{ ZCL_ATTRID_ZONE_STATE,   ZCL_DATA_TYPE_ENUM8,     ACCESS_CONTROL_READ,  						(u8*)&g_zcl_iasZoneAttrs.zoneState },
 	{ ZCL_ATTRID_ZONE_TYPE,    ZCL_DATA_TYPE_ENUM16,    ACCESS_CONTROL_READ,  						(u8*)&g_zcl_iasZoneAttrs.zoneType },
-	{ ZCL_ATTRID_ZONE_STATUS,  ZCL_DATA_TYPE_BITMAP16,  ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&g_zcl_iasZoneAttrs.zoneStatus },
-	{ ZCL_ATTRID_ZONE_HANGON_STATUS,  ZCL_DATA_TYPE_ENUM8,  ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&g_zcl_iasZoneAttrs.hangonStatus },
+	{ ZCL_ATTRID_ZONE_MOTION_STATUS,  ZCL_DATA_TYPE_BITMAP8,  ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&g_zcl_iasZoneAttrs.zoneMotionStatus },
+	{ ZCL_ATTRID_ZONE_LUX_STATUS,  ZCL_DATA_TYPE_UINT32,  ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, (u8*)&g_zcl_iasZoneAttrs.zoneLuxStatus },
 	{ ZCL_ATTRID_IAS_CIE_ADDR, ZCL_DATA_TYPE_IEEE_ADDR, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, (u8*)g_zcl_iasZoneAttrs.iasCieAddr },
 	{ ZCL_ATTRID_ZONE_ID,	   ZCL_DATA_TYPE_UINT8,     ACCESS_CONTROL_READ,  						(u8*)&g_zcl_iasZoneAttrs.zoneId},
 

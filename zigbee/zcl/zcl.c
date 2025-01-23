@@ -300,7 +300,7 @@ _CODE_ZCL_ bool zcl_analogDataType(u8 dataType)
 		case ZCL_DATA_TYPE_UINT8:
 		case ZCL_DATA_TYPE_UINT16:
 		case ZCL_DATA_TYPE_UINT24:
-		case ZCL_DATA_TYPE_UINT32:
+//		case ZCL_DATA_TYPE_UINT32:
 		case ZCL_DATA_TYPE_UINT40:
 		case ZCL_DATA_TYPE_UINT48:
 		case ZCL_DATA_TYPE_UINT56:

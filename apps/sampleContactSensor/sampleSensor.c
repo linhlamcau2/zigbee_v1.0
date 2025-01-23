@@ -188,12 +188,12 @@ void report_handler(void)
 {
 	if(zb_isDeviceJoinedNwk()){
 		if(zcl_reportingEntryActiveNumGet()){
-			u16 second = 1;//TODO: fix me
+			u16 second = 2;//TODO: fix me
 
 			reportNoMinLimit();
 
 			//start report timer
-//			reportAttrTimerStart(second);
+			reportAttrTimerStart(second);
 		}else{
 			//stop report timer
 			reportAttrTimerStop();
@@ -201,7 +201,7 @@ void report_handler(void)
 	}
 }
 
-extern u32 last_tick_wakeup ;
+u32 last_tick_wakeup ;
 void app_task(void)
 {
 	app_key_handler();
@@ -209,12 +209,12 @@ void app_task(void)
 	if(bdb_isIdle()){
 #if PM_ENABLE
 //		app_key_handler();
-		if(!g_sensorAppCtx.keyPressed){
-			if(clock_time() - last_tick_wakeup > 1 * 1000 * 16  *1000 * 60)
-			{
-				drv_pm_lowPowerEnter();
-			}
-		}
+//		if(!g_sensorAppCtx.keyPressed){
+//			if(clock_time() - last_tick_wakeup > 1 * 1000 * 16  *1000 * 60)
+//			{
+//				drv_pm_lowPowerEnter();
+//			}
+//		}
 #endif
 
 		report_handler();
@@ -254,7 +254,7 @@ void user_init(bool isRetention)
 #endif
 
 #if PM_ENABLE
-	drv_pm_wakeupPinConfig(g_sensorPmCfg, sizeof(g_sensorPmCfg)/sizeof(drv_pm_pinCfg_t));
+//	drv_pm_wakeupPinConfig(g_sensorPmCfg, sizeof(g_sensorPmCfg)/sizeof(drv_pm_pinCfg_t));
 #endif
 
 	if(!isRetention){
@@ -282,12 +282,12 @@ void user_init(bool isRetention)
 		/* Initialize BDB */
 
 		u8 reportableChange = 0x00;
-		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_STATUS,
-								0x0000, 0x003c, (u8 *)&reportableChange);
+		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_MOTION_STATUS,
+								0x0000, 0x0096, (u8 *)&reportableChange);
 
 		u8 reportableChange1 = 0x00;
-		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_HANGON_STATUS,
-								0x0000, 0x003c, (u8 *)&reportableChange1);
+		bdb_defaultReportingCfg(SAMPLE_SENSOR_ENDPOINT, HA_PROFILE_ID, ZCL_CLUSTER_SS_IAS_ZONE, ZCL_ATTRID_ZONE_LUX_STATUS,
+								0x0000, 0x0096, (u8 *)&reportableChange1);
 
 		u8 repower = drv_pm_deepSleep_flag_get() ? 0 : 1;
 		bdb_init((af_simple_descriptor_t *)&sampleSensor_simpleDesc, &g_bdbCommissionSetting, &g_zbDemoBdbCb, repower);

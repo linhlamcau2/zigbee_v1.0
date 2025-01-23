@@ -52,8 +52,8 @@
 /* Attribute ID */
 #define ZCL_ATTRID_ZONE_STATE                             		0x0000
 #define ZCL_ATTRID_ZONE_TYPE                              		0x0001
-#define ZCL_ATTRID_ZONE_STATUS                            		0x0002
-#define ZCL_ATTRID_ZONE_HANGON_STATUS                           0x0003
+#define ZCL_ATTRID_ZONE_MOTION_STATUS                           0x0002
+#define ZCL_ATTRID_ZONE_LUX_STATUS                           	0x0003
 #define ZCL_ATTRID_IAS_CIE_ADDR                           		0x0010
 #define ZCL_ATTRID_ZONE_ID								  		0x0011
 

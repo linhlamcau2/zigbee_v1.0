@@ -165,7 +165,7 @@ extern "C" {
 #define FLASH_PROTECT_ENABLE						1
 
 /* Watch dog module */
-#define MODULE_WATCHDOG_ENABLE						0
+#define MODULE_WATCHDOG_ENABLE						1
 
 /* UART module */
 #define	MODULE_UART_ENABLE							0
