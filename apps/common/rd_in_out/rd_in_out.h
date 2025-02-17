@@ -9,44 +9,78 @@
 #include "app_ui.h"
 #include "tl_common.h"
 
+#define CTCU_1	1
+#define CTCU_2	2
+#define CTCU_3	3
+#define CTCU_4	4
+
+#define TYPE_CTCU	CTCU_4
+
 #define CYCLE_MODE_PULSE		10
 #define CYCLE_MODE_KEEP			1000
 #define CYCLE_MODE_LEVEL		40
 
-
-#define		INPUT1						GPIO_PC2
-#define		INPUT2						GPIO_PD3
-#define		INPUT3						GPIO_PC1
-
-#define INPUT4 	GPIO_PA1
-#define INPUT5	GPIO_PC2
+#define	INPUT1				GPIO_PC2
+#define	INPUT2				GPIO_PD3
+#define	INPUT3				GPIO_PC1
+#define INPUT4 				GPIO_PD4
 
 
-#define OUTPUT_1					GPIO_PD2
-#define OUTPUT_2					GPIO_PB1
-#define OUTPUT_3					GPIO_PB5
-#define OUTPUT_4					GPIO_PC1
-#define OUTPUT_5					GPIO_PC3
+
+#define OUTPUT_1					GPIO_PC0
+#define OUTPUT_2					GPIO_PB7
+#define OUTPUT_3					GPIO_PB6
+#define OUTPUT_4					GPIO_PB5
+
+#if(TYPE_CTCU == CTCU_1)
+	#define RD_SCAN_PINS	{INPUT1}
+	#define NUM_OUTPUT_MAX 1
+#endif
+
+#if(TYPE_CTCU == CTCU_2)
+	#define RD_SCAN_PINS	{INPUT1,INPUT2}
+	#define NUM_OUTPUT_MAX 2
+#endif
+
+#if(TYPE_CTCU == CTCU_3)
+	#define RD_SCAN_PINS	{INPUT1,INPUT2,INPUT3}
+	#define NUM_OUTPUT_MAX 3
+#endif
+
+#if(TYPE_CTCU == CTCU_4)
+	#define RD_SCAN_PINS	{INPUT1,INPUT2,INPUT3,INPUT4}
+	#define NUM_OUTPUT_MAX 4
+#endif
 
 
-#define RD_SCAN_PINS	{INPUT1, INPUT2,INPUT3}
-
-#define RD_OUTPUT_LED	{OUTPUT_1, OUTPUT_2,OUTPUT_3,OUTPUT_4,OUTPUT_5}
+#define RD_OUTPUT_RELAY	{OUTPUT_1, OUTPUT_2,OUTPUT_3,OUTPUT_4}
 #define num_pin  sizeof(pin_scan)/sizeof(pin_scan[0])
 
 
-#define NUM_OUTPUT_MAX 3
+#define FREQ_LED 25000
+#if(TYPE_CTCU == CTCU_1)
+	#define NUM_LED_DATA (2*2*NUM_OUTPUT_MAX)
+#else
+	#define NUM_LED_DATA (2*NUM_OUTPUT_MAX)
+#endif
+
+#define NUM_BYTE_FRAME_DATA  (4 * NUM_LED_DATA)
+
 
 #define RD_ENDPOINT_MILITONE  0x01
 #define RD_ENDPOINT_1	0x01
 #define RD_ENDPOINT_2	0x02
 #define RD_ENDPOINT_3	0x03
-//#define RD_ENDPOINT_4	0x04
-//#define RD_ENDPOINT_5	0x05
+#define RD_ENDPOINT_4	0x04
+
 
 #define RD_SW_CB_CLUSTER_NUM  	1
 #define ZCL_RD_SW_ATTR_NUM		2
 
+
+#define LED_DI GPIO_PC4
+#define LED_CI GPIO_PC3
+#define RESET_TOUCH_PIN				GPIO_PA1
 
 typedef struct
 {
@@ -72,7 +106,7 @@ typedef struct{
 
 
 extern u32 pin_scan[];
-extern u32 led_out[];
+extern u32 relay_out[];
 
 void rd_write_led_out(u8 idx, u8 stt);
 void rd_handle_input();

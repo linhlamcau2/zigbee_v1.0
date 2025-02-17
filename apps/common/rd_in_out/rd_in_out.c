@@ -2,7 +2,7 @@
 
 
 u32 pin_scan[] = RD_SCAN_PINS;
-u32 led_out[] = RD_OUTPUT_LED;
+u32 relay_out[] = RD_OUTPUT_RELAY;
 
 void rd_handle_mode_pulse(u8 idx);
 void rd_handle_mode_level(u8 idx);
@@ -135,21 +135,11 @@ void rd_gpio_init()
 		gpio_set_input_en(pin_scan[i], 1);
 		rd_register_mode_pin_input(i,MODE_BUTTON);
 	}
-
-//	foreach_arr(i, led_out)
-//	{
-//		gpio_setup_up_down_resistor(led_out[i], PM_PIN_PULLUP_10K);
-//		gpio_set_func(led_out[i], AS_GPIO);
-//		gpio_set_output_en(led_out[i], 1);
-////		gpio_write(led_out[i],0);
-//	}
-
 	Config_Pin_Led_Lc8823();
 }
 
 void rd_write_led_out(u8 idx, u8 stt)
 {
-//	drv_gpio_write(led_out[idx], !stt);
 	ctrl_led(idx,stt);
 	rd_output[idx].stt = stt;
 }
@@ -168,14 +158,12 @@ u8 rd_read_input(u8 idx)
 
 void rd_handle_mode_pulse(u8 idx)
 {
-	rd_log_uart("but %d pulse\n",idx);
 	switch(idx)
 	{
 		case 0:
 		case 1:
 		case 2:
-//		case 3:
-//		case 4:
+		case 3:
 		{
 //			if(zb_isDeviceJoinedNwk())
 			if(1)

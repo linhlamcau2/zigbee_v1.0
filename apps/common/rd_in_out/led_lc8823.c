@@ -1,13 +1,5 @@
 #include"rd_in_out.h"
 
-#define LED_DI GPIO_PC4
-#define LED_CI GPIO_PC3
-#define RESET_TOUCH_PIN				GPIO_PA1
-
-#define FREQ_LED 25000
-#define NUM_LED_DATA (2*NUM_OUTPUT_MAX)
-#define NUM_BYTE_FRAME_DATA  (4 * NUM_LED_DATA)
-
 extern output_t rd_output[NUM_OUTPUT_MAX];
 
 static u8 frame_led_data[NUM_BYTE_FRAME_DATA] = {0};
@@ -90,7 +82,19 @@ void ctrl_led(u8 id, u8 level)
 	{
 		u8 state = (level > 0) ? DIM_100: DIM_20;
 		u8 stt = set_dim(state);
+#if(TYPE_CTCU == CTCU_1)
+		frame_led_data[0] = stt;
+		frame_led_data[4] = stt;
+		frame_led_data[8] = stt;
+		frame_led_data[12] = stt;
+#endif
 
+#if(TYPE_CTCU == CTCU_2)
+		frame_led_data[8 * id] = stt;
+		frame_led_data[8 * id + 4] = stt;
+#endif
+
+#if(TYPE_CTCU == CTCU_3)
 		if( id == 0)
 		{
 			frame_led_data[0] = stt;
@@ -106,6 +110,17 @@ void ctrl_led(u8 id, u8 level)
 			frame_led_data[8] = stt;
 			frame_led_data[12] = stt;
 		}
+#endif
+
+#if(TYPE_CTCU == CTCU_4)
+		int idx = 0;
+		if(id == 0) {idx = 0;}
+		else if(id == 1) {idx = 3;}
+		else if(id == 2) {idx = 1;}
+		else if(id == 3) {idx = 2;}
+		frame_led_data[8 * idx] = stt;
+		frame_led_data[8 * idx + 4] = stt;
+#endif
 		write_frame_data();
 	}
 }
@@ -133,6 +148,17 @@ void init_led_data()
 		u8 data[4] = {0};
 		data[0] = stt;
 		data[1] = 0xff;
+#if(TYPE_CTCU == CTCU_1)
+		memcpy((void *)&frame_led_data[0],(void *)data,sizeof(data));
+		memcpy((void *)&frame_led_data[4],(void *)data,sizeof(data));
+		memcpy((void *)&frame_led_data[8],(void *)data,sizeof(data));
+		memcpy((void *)&frame_led_data[12],(void *)data,sizeof(data));
+#endif
+#if(TYPE_CTCU == CTCU_2)
+		memcpy((void *)&frame_led_data[8*i],(void *)data,sizeof(data));
+		memcpy((void *)&frame_led_data[8*i+4],(void *)data,sizeof(data));
+#endif
+#if(TYPE_CTCU == CTCU_3)
 		if( i== 0)
 		{
 			memcpy((void *)&frame_led_data[0],(void *)data,sizeof(data));
@@ -148,6 +174,16 @@ void init_led_data()
 			memcpy((void *)&frame_led_data[8],(void *)data,sizeof(data));
 			memcpy((void *)&frame_led_data[12],(void *)data,sizeof(data));
 		}
+#endif
+#if(TYPE_CTCU == CTCU_4)
+		int idx = 0;
+		if(i == 0) {idx = 0;}
+		else if(i == 1) {idx = 3;}
+		else if(i == 2) {idx = 1;}
+		else if(i == 3) {idx = 2;}
+		memcpy((void *)&frame_led_data[8*idx],(void *)data,sizeof(data));
+		memcpy((void *)&frame_led_data[8*idx+4],(void *)data,sizeof(data));
+#endif
 	}
 	write_frame_data();
 }

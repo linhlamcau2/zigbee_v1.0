@@ -292,7 +292,7 @@ void sampleLight_leaveCnfHandler(nlme_leave_cnf_t *pLeaveCnf)
 		rd_light_blink(4,4,1);
 		rd_light_blink(4,4,2);
     	//waiting blink over
-    	TL_ZB_TIMER_SCHEDULE(sampleLight_softReset, NULL, 2 * 1000);
+    	TL_ZB_TIMER_SCHEDULE(sampleLight_softReset, NULL, 4 * 1000);
     }
 }
 

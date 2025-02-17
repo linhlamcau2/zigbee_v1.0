@@ -33,7 +33,7 @@
 #include "sampleLight.h"
 
 #include "../common/rd_log/rd_log.h"
-
+#include "../common/rd_in_out/rd_in_out.h"
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -43,7 +43,17 @@
 #endif
 #ifndef ZCL_BASIC_MODEL_ID
 //#define ZCL_BASIC_MODEL_ID	   		{13,'r','a','l','.','l','i','g','h','t','.','c','c','t'}
-#define ZCL_BASIC_MODEL_ID	   		{12,'r','a','l','.','s','w','i','t','c','h','.','3'}
+
+#if(TYPE_CTCU == CTCU_1)
+	#define ZCL_BASIC_MODEL_ID	   		{10,'r','a','l','.','c','t','c','u','.','1'}
+#elif(TYPE_CTCU == CTCU_2)
+	#define ZCL_BASIC_MODEL_ID	   		{10,'r','a','l','.','c','t','c','u','.','2'}
+#elif(TYPE_CTCU == CTCU_3)
+	#define ZCL_BASIC_MODEL_ID	   		{10,'r','a','l','.','c','t','c','u','.','3'}
+#elif(TYPE_CTCU == CTCU_4)
+	#define ZCL_BASIC_MODEL_ID	   		{10,'r','a','l','.','c','t','c','u','.','4'}
+#endif
+
 #endif
 #ifndef ZCL_BASIC_SW_BUILD_ID
 #define ZCL_BASIC_SW_BUILD_ID     	{10,'0','1','2','2','0','5','2','0','1','7'}
