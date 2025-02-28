@@ -15401,7 +15401,7 @@ zcl_rd_sw():
     6aec:	3202      	tstorer	r2, [sp, #8]
     6aee:	3403      	tstorer	r4, [sp, #12]
     6af0:	3304      	tstorer	r3, [sp, #16]
-    6af2:	a308      	tmovs	r3, #8
+    6af2:	a332      	tmovs	r3, #50	; 0x32
     6af4:	3305      	tstorer	r3, [sp, #20]
     6af6:	3b09      	tloadr	r3, [sp, #36]	; 0x24
     6af8:	3306      	tstorer	r3, [sp, #24]

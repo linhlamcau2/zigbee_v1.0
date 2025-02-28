@@ -77,7 +77,7 @@
 #define ZCL_CLUSTER_GEN_KEEP_ALIVE		                  0x0025
 #define ZCL_CLUSTER_GEN_DIAGNOSTICS                       0x0B05
 
-#define ZCL_CLUSTER_RD_SW								0x00C0
+#define ZCL_CLUSTER_RD_SW								0x00C0			//RD_EDIT: define ZCL_CLUSTER_RD_SW
 // Closures Clusters
 #define ZCL_CLUSTER_CLOSURES_SHADE_CONFIG                 0x0100
 #define ZCL_CLUSTER_CLOSURES_DOOR_LOCK                    0x0101
