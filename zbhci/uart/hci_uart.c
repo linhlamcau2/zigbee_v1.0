@@ -31,7 +31,7 @@
 
 
 #include "../common/rd_log/rd_log.h"
-
+#include "../common/rd_com/rd_uart.h"
 
 #define UART_TX_BUF_SIZE    128
 #define UART_RX_BUF_SIZE    128
@@ -45,6 +45,53 @@ typedef struct{
 
 __attribute__((aligned(4))) u8 uartTxBuf[UART_TX_BUF_SIZE] = {0};
 __attribute__((aligned(4))) u8 uartRxBuf[UART_RX_BUF_SIZE] = {0};
+
+typedef struct
+{
+//	u16 header;
+//	u8 length;
+	u16 opcode;
+	u8 par[1];
+}rd_zbhci_msg_t;
+
+void zbhci_clusterSceneHandle(void *arg)
+{
+//	zbhci_cmdHandler_t *cmdInfo = arg;
+	rd_zbhci_msg_t *cmdInfo = arg;
+
+	u16 opcode = cmdInfo->opcode;
+	u8 *pCmd = cmdInfo->par;
+
+	switch(opcode)
+	{
+		case OP_GET_COOR_PAR:
+			break;
+		default:
+			break;
+	}
+
+	ev_buf_free(arg);
+}
+void rd_uart_data_handler(void *arg)
+{
+	u8 st = SUCCESS;
+
+	uart_rxData_t *rxData = (uart_rxData_t *)uartRxBuf;
+	u8 *msg = rxData->dataPayload;
+
+	u16 header = (msg[0] << 8) & (msg[1]);
+	if(header == 0x55aa)
+	{
+		u8 len = msg[2];
+		u16 opcode = (msg[3] << 8) & (msg[4]);
+		rd_zbhci_msg_t *cmdInfo = (rd_zbhci_msg_t*)ev_buf_allocate(len);
+
+		memcpy(cmdInfo->par, msg + 5, len);
+
+		TL_SCHEDULE_TASK(rd_handle_uart, cmdInfo);
+	}
+
+}
 
 void uart_data_handler(void *arg){
 
@@ -87,16 +134,12 @@ void uart_data_handler(void *arg){
 			st = ZBHCI_MSG_STATUS_ERROR_START_CHAR;
 		}
 	}
-//	rd_log_uart("st: %d\n",st);
+
 	u16 pktLen = (msg->msgLen16H << 8) | msg->msgLen16L;
 	u16 msgType = (msg->msgType16H<<8) + msg->msgType16L;
-	
+
 	if(st == SUCCESS){
 	    u8 crc8 = crc8Calculate(msgType, pktLen, msg->pData);
-//	    for(u8 i =0; i< rxData->dataLen; i++)
-//		{
-//			drv_uart_tx_start(&(rxData->dataPayload[i]),1);
-//		}
 	    if((msgType == ZBHCI_CMD_OTA_START_REQUEST) || (msgType == ZBHCI_CMD_OTA_BLOCK_RESPONSE)){
 	    	if(crc8 != msg->checkSum){
 	    		st = ZBHCI_MSG_STATUS_CRC_ERROR;

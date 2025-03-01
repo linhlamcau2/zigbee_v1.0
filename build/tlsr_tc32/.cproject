@@ -85,7 +85,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -2584,7 +2584,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|apps/sampleGW|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|apps/sampleSwitch|apps/bootLoader|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -5082,7 +5082,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleContactSensor|apps/sampleGW|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|apps/bootLoader|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -7583,7 +7583,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|platform/chip_826x|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -10080,7 +10080,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleContactSensor|platform/chip_826x|apps/sampleGW|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/bootLoader|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -12581,7 +12581,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|platform/chip_826x|apps/sampleGW|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -15081,7 +15081,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|platform/chip_826x|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -17581,7 +17581,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -20078,7 +20078,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/bootLoader|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -22576,7 +22576,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleGW|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleGW|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -25073,7 +25073,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|platform/chip_826x|apps/sampleGW|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleGW|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -27570,7 +27570,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleGW|platform/chip_826x|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleGW|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|apps/sampleLight|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -30058,7 +30058,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/common/factory_reset.c|apps/common/module_test.c|zigbee|zbhci|apps/sampleLight|apps/common/main.c|apps/sampleSwitch|apps/sampleContactSensor|platform/chip_826x|apps/sampleGW|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="zigbee|apps/sampleContactSensor|zbhci|apps/common/main.c|apps/sampleGW|platform/chip_826x|apps/common/factory_reset.c|apps/sampleSwitch|apps/sampleLight|platform/chip_8278|apps/common/module_test.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -32547,7 +32547,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/common/factory_reset.c|apps/common/module_test.c|zigbee|zbhci|apps/sampleLight|apps/common/main.c|apps/sampleSwitch|apps/sampleContactSensor|apps/sampleGW|platform/chip_8278|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="zigbee|apps/sampleContactSensor|zbhci|apps/common/main.c|apps/sampleGW|apps/common/factory_reset.c|apps/sampleSwitch|apps/sampleLight|platform/chip_8278|platform/chip_8258|apps/common/module_test.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -35035,7 +35035,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/common/factory_reset.c|apps/common/module_test.c|zigbee|zbhci|apps/sampleLight|apps/common/main.c|apps/sampleSwitch|apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|platform/chip_8258" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="zigbee|apps/sampleContactSensor|zbhci|apps/common/main.c|apps/sampleGW|platform/chip_826x|apps/common/factory_reset.c|apps/sampleSwitch|apps/sampleLight|platform/chip_8258|apps/common/module_test.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -37536,7 +37536,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="apps/bootLoader|apps/sampleSwitch|apps/sampleContactSensor|platform/chip_826x|apps/sampleGW|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="apps/sampleContactSensor|apps/sampleGW|platform/chip_826x|apps/sampleSwitch|apps/bootLoader|platform/chip_8278" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
