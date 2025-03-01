@@ -35,6 +35,16 @@
 /*
  * main:
  * */
+
+void rd_log_mac()
+{
+	rd_log_uart("mac: ");
+	for(int i=0; i<8; i++)
+	{
+		rd_log_uart("%d ",*((u8 *)&g_zbMacPib.extAddress + i));
+	}
+	rd_log_uart("\n");
+}
 int main(void){
 	startup_state_e state = drv_platform_init();
 
@@ -72,6 +82,7 @@ int main(void){
 //    rd_print_light();
 //    extern void rd_print_reporting(void);
 //    rd_print_reporting();
+    rd_log_mac();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){
