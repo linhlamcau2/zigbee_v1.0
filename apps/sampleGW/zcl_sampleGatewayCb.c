@@ -375,7 +375,7 @@ static void sampleGW_zclReportCmd(zclIncoming_t *pInMsg)
 		memcpy(pData, pReportCmd->attrList[i].attrData, dataLen);
 		if( (pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_LONG_CHAR_STR) && (pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_LONG_OCTET_STR) &&
 			(pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_CHAR_STR) && (pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_OCTET_STR) &&
-			(pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_STRUCT) ){
+			(pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_STRUCT) && (pReportCmd->attrList[i].dataType != ZCL_DATA_TYPE_RD_NEMA)){
 				ZB_LEBESWAP(pData, dataLen);
 		}
 		pData += dataLen;

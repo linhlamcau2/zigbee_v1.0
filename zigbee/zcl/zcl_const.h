@@ -77,7 +77,7 @@
 #define ZCL_CLUSTER_GEN_KEEP_ALIVE		                  0x0025
 #define ZCL_CLUSTER_GEN_DIAGNOSTICS                       0x0B05
 
-#define ZCL_CLUSTER_RD_SW								0x00C0			//RD_EDIT: define ZCL_CLUSTER_RD_SW
+#define ZCL_CLUSTER_RD_NEMA								0x00C0			//RD_EDIT: define ZCL_CLUSTER_RD_NEMA
 // Closures Clusters
 #define ZCL_CLUSTER_CLOSURES_SHADE_CONFIG                 0x0100
 #define ZCL_CLUSTER_CLOSURES_DOOR_LOCK                    0x0101
@@ -220,6 +220,8 @@
 #define ZCL_DATA_TYPE_IEEE_ADDR                          0xf0
 #define ZCL_DATA_TYPE_128_BIT_SEC_KEY                    0xf1
 #define ZCL_DATA_TYPE_UNKNOWN                            0xff
+
+#define ZCL_DATA_TYPE_RD_NEMA							0xca
 /** @} end of group zcl_data_types */
 
 

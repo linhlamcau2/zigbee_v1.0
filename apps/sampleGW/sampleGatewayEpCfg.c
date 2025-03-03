@@ -99,6 +99,7 @@ const u16 sampleGW_outClusterList[] =
 #ifdef ZCL_POLL_CTRL
 	ZCL_CLUSTER_GEN_POLL_CONTROL,
 #endif
+	ZCL_CLUSTER_RD_NEMA,
 };
 
 /**
