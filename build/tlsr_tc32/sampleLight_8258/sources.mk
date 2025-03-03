@@ -58,6 +58,6 @@ platform/boot/8258 \
 . \
 apps/sampleLight \
 apps/common/rd_log \
-apps/common/rd_in_out \
+apps/common/rd_com \
 apps/common \
 

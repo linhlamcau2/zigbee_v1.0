@@ -355,6 +355,8 @@ _CODE_ZCL_ u16 zcl_getAttrSize(u8 dataType, u8 *pData)
 			u8 lenTemp = zcl_getDataTypeLen(dtUnion);
 			dataLen += (lenTemp + 1);
 		}
+	}else if(dataType == ZCL_DATA_TYPE_RD_NEMA){
+		dataLen += pData[2] + 2 + 1; 						//RD_EDIT: fix len + header+ len(length)
 	}else{
 		dataLen = zcl_getDataTypeLen(dataType);
 	}
@@ -1674,6 +1676,30 @@ _CODE_ZCL_ status_t zcl_report(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefault
 	memcpy(pBuf, pData, attrSize);
 
 	u8 status = zcl_sendCmd(srcEp, pDstEpInfo, clusterId, ZCL_CMD_REPORT, FALSE, direction, disableDefaultRsp, manuCode, seqNo, len, buf);
+
+	ev_buf_free(buf);
+
+	return status;
+}
+
+_CODE_ZCL_ status_t rd_zcl_report(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 direction, u8 seqNo, u16 manuCode, u16 clusterId, u16 attrID, u8 dataType, u8 *pData)
+{
+	u16 len = zcl_getAttrSize(dataType, pData);
+	u16 length = len + 3; //attrID + data type
+
+	u8 *buf = (u8 *)ev_buf_allocate(length);
+	if(!buf){
+		return ZCL_STA_INSUFFICIENT_SPACE;
+	}
+
+	u8 *pBuf = buf;
+
+	*pBuf++ = LO_UINT16(attrID);
+	*pBuf++ = HI_UINT16(attrID);
+	*pBuf++ = dataType;
+	memcpy(pBuf, pData, len);
+
+	u8 status = zcl_sendCmd(srcEp, pDstEpInfo, clusterId, ZCL_CMD_REPORT, FALSE, direction, disableDefaultRsp, manuCode, seqNo, length, buf);
 
 	ev_buf_free(buf);
 

@@ -4,6 +4,7 @@
 #define RD_TX_LEN_MAX 100
 #define RD_RX_LEN_MAX 100
 
+#include "zb_common.h"
 //typedef struct
 //{
 //	u8 length;

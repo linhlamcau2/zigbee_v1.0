@@ -459,6 +459,26 @@ _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 //					  pEntry->clusterID, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
 }
 
+_CODE_ZCL_ void rd_nema_report(u8* p_data)
+{
+	epInfo_t dstEpInfo;
+	TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+	dstEpInfo.dstAddrMode = APS_SHORT_DSTADDR_WITHEP;
+	dstEpInfo.profileId = HA_PROFILE_ID;
+	dstEpInfo.dstAddr.shortAddr = rd_client.short_addr;
+	dstEpInfo.dstEp = rd_client.dstEp;
+	dstEpInfo.txOptions |= APS_TX_OPT_ACK_TX;
+
+	u8 srcEp = 0x01;
+	u16 clusterId = 0x0000;
+	u16 attr_id = 0x0001;
+	u8 type = ZCL_DATA_TYPE_RD_NEMA;
+	rd_zcl_send_reportCmd(srcEp, &dstEpInfo,  TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
+						  clusterId, attr_id, type, p_data);
+}
+
+
 /*********************************************************************
  * @fn      reportNoMinLimit
  *

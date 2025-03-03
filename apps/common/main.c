@@ -25,7 +25,6 @@
 
 #include "zb_common.h"
 
-#include "rd_in_out/rd_in_out.h"
 #include "rd_log/rd_log.h"
 #include "../proj/os/ev_poll.h"
 #include "string.h"
@@ -35,7 +34,12 @@
 /*
  * main:
  * */
+u8 rd_par_test[60] = {0};
 
+void rd_send_report_test()
+{
+	rd_par_test[2] = 0x39;
+}
 void rd_log_mac()
 {
 	rd_log_uart("mac: ");

@@ -50,7 +50,7 @@ RM := rm -rf
 -include platform/boot/8258/subdir.mk
 -include apps/sampleLight/subdir.mk
 -include apps/common/rd_log/subdir.mk
--include apps/common/rd_in_out/subdir.mk
+-include apps/common/rd_com/subdir.mk
 -include apps/common/subdir.mk
 -include objects.mk
 

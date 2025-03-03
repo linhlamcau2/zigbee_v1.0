@@ -49,7 +49,7 @@ __attribute__((aligned(4))) u8 uartRxBuf[UART_RX_BUF_SIZE] = {0};
 typedef struct
 {
 //	u16 header;
-//	u8 length;
+	u8 length;
 	u16 opcode;
 	u8 par[1];
 }rd_zbhci_msg_t;
@@ -59,6 +59,7 @@ void zbhci_clusterSceneHandle(void *arg)
 //	zbhci_cmdHandler_t *cmdInfo = arg;
 	rd_zbhci_msg_t *cmdInfo = arg;
 
+	u8 len = cmdInfo ->length;
 	u16 opcode = cmdInfo->opcode;
 	u8 *pCmd = cmdInfo->par;
 
@@ -86,6 +87,8 @@ void rd_uart_data_handler(void *arg)
 		u16 opcode = (msg[3] << 8) & (msg[4]);
 		rd_zbhci_msg_t *cmdInfo = (rd_zbhci_msg_t*)ev_buf_allocate(len);
 
+		cmdInfo ->length = len;
+		cmdInfo ->opcode = opcode;
 		memcpy(cmdInfo->par, msg + 5, len);
 
 		TL_SCHEDULE_TASK(rd_handle_uart, cmdInfo);
