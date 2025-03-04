@@ -224,10 +224,10 @@ extern "C" {
 //PWM configuration, LED_Y as warm light, LED_W as cool light.
 //#define LED_Y						GPIO_PB1	//D3 -- yellow		PWM2
 //#define LED_W						GPIO_PC1	//D5 -- white		PWM4
-#define LED_Y						GPIO_PB5	//D3 -- yellow		PWM2
-#define LED_W						GPIO_PB4	//D5 -- white		PWM4
+#define LED_Y						GPIO_PC1	//D3 -- yellow		PWM2
+#define LED_W						GPIO_PC0	//D5 -- white		PWM4
 
-#define RELAY1_PIN					GPIO_PD2
+#define RELAY1_PIN					GPIO_PA0
 
 #define PWM_Y_CHANNEL				5//PWM2
 #define PWM_Y_CHANNEL_SET()			do{	\

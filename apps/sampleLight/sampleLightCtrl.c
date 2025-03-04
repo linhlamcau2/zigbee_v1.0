@@ -139,31 +139,31 @@ void hwLight_init(void)
 extern void rd_relay_set(u8 stt);
 void hwLight_onOffUpdate(u8 onOff)
 {
-//	rd_relay_set(!onOff);
+	rd_relay_set(onOff);
 //	if(onOff){
-	if(onOff){							//RD_EDIT: change logic
-#if COLOR_RGB_SUPPORT
-		drv_pwm_start(R_LIGHT_PWM_CHANNEL);
-		drv_pwm_start(G_LIGHT_PWM_CHANNEL);
-		drv_pwm_start(B_LIGHT_PWM_CHANNEL);
-#else
-#if COLOR_CCT_SUPPORT
-		drv_pwm_start(WARM_LIGHT_PWM_CHANNEL);
-#endif
-		drv_pwm_start(COOL_LIGHT_PWM_CHANNEL);
-#endif
-	}else{
-#if COLOR_RGB_SUPPORT
-		drv_pwm_stop(R_LIGHT_PWM_CHANNEL);
-		drv_pwm_stop(G_LIGHT_PWM_CHANNEL);
-		drv_pwm_stop(B_LIGHT_PWM_CHANNEL);
-#else
-#if COLOR_CCT_SUPPORT
-		drv_pwm_stop(WARM_LIGHT_PWM_CHANNEL);
-#endif
-		drv_pwm_stop(COOL_LIGHT_PWM_CHANNEL);
-#endif
-	}
+//	if(onOff){							//RD_EDIT: change logic
+//#if COLOR_RGB_SUPPORT
+//		drv_pwm_start(R_LIGHT_PWM_CHANNEL);
+//		drv_pwm_start(G_LIGHT_PWM_CHANNEL);
+//		drv_pwm_start(B_LIGHT_PWM_CHANNEL);
+//#else
+//#if COLOR_CCT_SUPPORT
+//		drv_pwm_start(WARM_LIGHT_PWM_CHANNEL);
+//#endif
+//		drv_pwm_start(COOL_LIGHT_PWM_CHANNEL);
+//#endif
+//	}else{
+//#if COLOR_RGB_SUPPORT
+//		drv_pwm_stop(R_LIGHT_PWM_CHANNEL);
+//		drv_pwm_stop(G_LIGHT_PWM_CHANNEL);
+//		drv_pwm_stop(B_LIGHT_PWM_CHANNEL);
+//#else
+//#if COLOR_CCT_SUPPORT
+//		drv_pwm_stop(WARM_LIGHT_PWM_CHANNEL);
+//#endif
+//		drv_pwm_stop(COOL_LIGHT_PWM_CHANNEL);
+//#endif
+//	}
 }
 
 /*********************************************************************

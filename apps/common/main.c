@@ -35,6 +35,8 @@
 /*
  * main:
  * */
+extern void rd_relay_set(u8 stt);
+extern void rd_log_fac_reset();
 int main(void){
 	startup_state_e state = drv_platform_init();
 
@@ -72,6 +74,8 @@ int main(void){
 //    rd_print_light();
 //    extern void rd_print_reporting(void);
 //    rd_print_reporting();
+    rd_log_fac_reset();
+//    rd_relay_set(1);
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){

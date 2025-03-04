@@ -5,7 +5,7 @@
 
 
 #define RD_UART_TX_PIN		GPIO_PD7
-#define RD_UART_RX_PIN		GPIO_PA0
+#define RD_UART_RX_PIN		GPIO_PA1
 
 #define UART_PIN_INIT()		do{	\
 									drv_uart_pin_set(RD_UART_TX_PIN, RD_UART_RX_PIN);	\

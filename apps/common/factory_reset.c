@@ -27,7 +27,7 @@
 #include "factory_reset.h"
 #include "zb_api.h"
 
-#define FACTORY_RESET_POWER_CNT_THRESHOLD		10	//times
+#define FACTORY_RESET_POWER_CNT_THRESHOLD		5	//times
 #define FACTORY_RESET_TIMEOUT					2	//second
 
 ev_timer_event_t *factoryRst_timerEvt = NULL;
@@ -66,14 +66,21 @@ static s32 factoryRst_timerCb(void *arg){
 	factoryRst_timerEvt = NULL;
 	return -1;
 }
+extern int rd_log_uart(const char *format, ...);
 
 void factoryRst_handler(void){
 	if(factoryRst_exist){
 		factoryRst_exist = FALSE;
+		rd_log_uart("factoryRst_handler\n");
 		zb_factoryReset();
 	}
 }
 
+
+void rd_log_fac_reset()
+{
+	rd_log_uart("fac reset: %d\n",factoryRst_powerCnt);
+}
 void factoryRst_init(void){
 	factoryRst_powerCntRestore();
 	factoryRst_powerCnt++;
