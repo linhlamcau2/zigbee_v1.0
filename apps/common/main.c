@@ -34,11 +34,22 @@
 /*
  * main:
  * */
+
+extern void rd_nema_report(u8* p_data);
+
 u8 rd_par_test[60] = {0};
 
 void rd_send_report_test()
 {
 	rd_par_test[2] = 0x39;
+	static u32 last_tick = 0;
+	if(clock_time() - last_tick > 5 * 1000 *1000 * 16)
+	{
+		rd_nema_report(rd_par_test);
+		rd_log_uart("send report\n");
+		last_tick = clock_time();
+	}
+
 }
 void rd_log_mac()
 {
@@ -107,6 +118,7 @@ int main(void){
 
 		tl_zbTaskProcedure();
 
+		rd_send_report_test();
 //		rd_blink_led();
 //		tl_printf("test: %d %d\n",1,2);
 //		static u32 last_tick = 0;
