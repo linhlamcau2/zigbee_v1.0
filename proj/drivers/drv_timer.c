@@ -251,6 +251,10 @@ hw_timer_sts_t drv_hwTmr_set(u8 tmrIdx, u32 t_us, timerCb_t func, void *arg)
 void drv_timer_irq0_handler(void)
 {
 	drv_hwTmr_irq_process(TIMER_IDX_0);
+	
+	// Call uptime callback if enabled
+	extern void drv_uptime_timer_callback(void);
+	drv_uptime_timer_callback();
 }
 
 void drv_timer_irq1_handler(void)

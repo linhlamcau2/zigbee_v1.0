@@ -35,7 +35,7 @@
 		#define	BIT_INTERVAL	 			(CLOCK_SYS_CLOCK_HZ / BAUDRATE)
 #elif defined(MCU_CORE_8258) || defined(MCU_CORE_8278) || defined(MCU_CORE_B91)
 	#ifndef	BAUDRATE
-		#define BAUDRATE					1000000//1M
+		#define BAUDRATE					9600//1M
 	#endif
 		#define	BIT_INTERVAL	 			((16*1000*1000) / BAUDRATE)
 #elif defined(MCU_CORE_B92) || defined(MCU_CORE_TL721X) || defined(MCU_CORE_TL321X)

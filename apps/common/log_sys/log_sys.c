@@ -3,7 +3,7 @@
 #include "../proj/os/ev_poll.h"
 #include "string.h"
 #include "tl_common.h"
-
+#include "../drivers/drv_uptime.h"
 #include "../drivers/drv_putchar.h"
 
 typedef char *va_list;
@@ -131,8 +131,8 @@ void log_output(const char *level, const char *fmt, ...)
 
     /* ---- prefix: [time][level]: ---- */
     p += user_sprintf(p,
-                    "[%d][%s]: ",
-                    (unsigned long)clock_time(),
+                    "[%d ms][%s]: ",
+                    (unsigned long)drv_uptime_get_ms(),
                     level);
 
     /* ---- log content ---- */
