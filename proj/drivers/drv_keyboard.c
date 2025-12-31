@@ -195,22 +195,22 @@ static u32 kb_key_pressed(u8 *gpio)
 	if(gpio[0] != stt1)
 	{
 		stt1 = gpio[0];
-		rd_log_uart("port A: %d\n",stt1);
+		// rd_log_uart("port A: %d\n",stt1);
 	}
 	if(gpio[1] != stt2)
 	{
 		stt2 = gpio[1];
-		rd_log_uart("port B: %d\n",stt2);
+		// rd_log_uart("port B: %d\n",stt2);
 	}
 	if(gpio[2] != stt3)
 	{
 		stt3 = gpio[2];
-		rd_log_uart("port C: %d\n",stt3);
+		// rd_log_uart("port C: %d\n",stt3);
 	}
 	if(gpio[3] != stt4)
 	{
 		stt4 = gpio[3];
-		rd_log_uart("port D: %d\n",stt4);
+		// rd_log_uart("port D: %d\n",stt4);
 	}
 	u32 ret = 0;
 	static u8 release_cnt = 0;

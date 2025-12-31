@@ -189,7 +189,7 @@ void app_task(void)
 {
 	static bool assocPermit = 0;
 	if(assocPermit != zb_getMacAssocPermit()){
-		rd_log_uart("assocPermit: %d\n", assocPermit);
+		// rd_log_uart("assocPermit: %d\n", assocPermit);
 		assocPermit = zb_getMacAssocPermit();
 		if(assocPermit){
 			led_on(LED_PERMIT);
@@ -203,7 +203,7 @@ void app_task(void)
 	if(BDB_STATE_GET() != bdb_cr)
 	{
 		bdb_cr = BDB_STATE_GET();
-		rd_log_uart("BDB_STATE_GET: %d\n", bdb_cr);
+		// rd_log_uart("BDB_STATE_GET: %d\n", bdb_cr);
 	}
 
 	if(BDB_STATE_GET() == BDB_STATE_IDLE){

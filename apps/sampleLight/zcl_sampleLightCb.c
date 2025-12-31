@@ -94,7 +94,7 @@ static ev_timer_event_t *identifyTimerEvt = NULL;
  */
 void sampleLight_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
 {
-	rd_log_uart("sampleLight_zclProcessIncomingMsg\n");
+	// rd_log_uart("sampleLight_zclProcessIncomingMsg\n");
 
 	switch(pInHdlrMsg->hdr.cmd)
 	{

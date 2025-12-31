@@ -46,19 +46,19 @@ void rd_send_report_test()
 	if(clock_time() - last_tick > 5 * 1000 *1000 * 16)
 	{
 		rd_nema_report(rd_par_test);
-		rd_log_uart("send report\n");
+		// rd_log_uart("send report\n");
 		last_tick = clock_time();
 	}
 
 }
 void rd_log_mac()
 {
-	rd_log_uart("mac: ");
-	for(int i=0; i<8; i++)
-	{
-		rd_log_uart("%d ",*((u8 *)&g_zbMacPib.extAddress + i));
-	}
-	rd_log_uart("\n");
+	// rd_log_uart("mac: ");
+	// for(int i=0; i<8; i++)
+	// {
+	// 	rd_log_uart("%d ",*((u8 *)&g_zbMacPib.extAddress + i));
+	// }
+	// rd_log_uart("\n");
 }
 int main(void){
 	startup_state_e state = drv_platform_init();
@@ -92,7 +92,7 @@ int main(void){
     u32 tick = clock_time();
 #endif
     drv_uart_tx_start((u8 *)"hi\n",3);
-    rd_log_uart("start prg\n");
+    // rd_log_uart("start prg\n");
 //    extern void rd_print_light(void);
 //    rd_print_light();
 //    extern void rd_print_reporting(void);

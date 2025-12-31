@@ -90,13 +90,13 @@ int rd_log_uart(const char *format, ...){
 
 int rd_log_data_with_len(u8 *data, u8 len)
 {
-	rd_log_uart("data: ");
-	for(u8 i=0; i<len; i++)
-	{
-		rd_log_uart("%d ",data[i]);
-	}
-	rd_log_uart("\n");
-	return 0;
+	// rd_log_uart("data: ");
+	// for(u8 i=0; i<len; i++)
+	// {
+	// 	rd_log_uart("%d ",data[i]);
+	// }
+	// rd_log_uart("\n");
+	// return 0;
 }
 
 __attribute__((aligned(4))) u8 moduleTest_uartTxBuf[4] = {0};

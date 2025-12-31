@@ -95,7 +95,7 @@ void sampleLight_onoff(u8 cmd)
 {
 	zcl_onOffAttr_t *pOnOff = zcl_onoffAttrGet();
 
-	rd_log_uart("setlightonoff: %d\n",cmd);
+	// rd_log_uart("setlightonoff: %d\n",cmd);
 	if(cmd == ZCL_CMD_ONOFF_ON){
 		pOnOff->globalSceneControl = TRUE;
 

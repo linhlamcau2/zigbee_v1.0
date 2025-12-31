@@ -180,7 +180,7 @@ extern int rd_log_uart(const char *format, ...);
 static inline void pwm_start(pwm_id id)
 {
 
-	rd_log_uart("pwm_start: %d\n",id);
+	// rd_log_uart("pwm_start: %d\n",id);
 	if(PWM0_ID == id)
 	{
 		BM_SET(reg_pwm0_enable, BIT(0));

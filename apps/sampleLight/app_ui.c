@@ -84,7 +84,7 @@ void localPermitJoinState(void){
 void buttonKeepPressed(u8 btNum){
 	if(btNum == VK_SW1){
 		gLightCtx.state = APP_FACTORY_NEW_DOING;
-		rd_log_uart("but keep reset\n");
+		// rd_log_uart("but keep reset\n");
 		zb_factoryReset();
 	}else if(btNum == VK_SW2){
 

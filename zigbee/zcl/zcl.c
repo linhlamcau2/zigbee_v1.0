@@ -646,7 +646,7 @@ _CODE_ZCL_ status_t zcl_sendCmd(u8 srcEp, epInfo_t *pDstEpInfo, u16 clusterId, u
 
 	u8 status = af_dataSend(srcEp, pDstEpInfo, clusterId, asdulength, asdu, &apsCnt);
 
-	rd_log_uart("send af data: %d\n",status);
+	// rd_log_uart("send af data: %d\n",status);
 	ev_buf_free(asdu);
 
 	return (status == RET_OK) ? ZCL_STA_SUCCESS : ZCL_STA_INSUFFICIENT_SPACE;
@@ -779,7 +779,7 @@ _CODE_ZCL_ status_t zcl_foundationCmdHandler(zclIncoming_t *pCmd)
  */
 _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 {
-	rd_log_uart("zcl_cmdHandler step 1\n");
+	// rd_log_uart("zcl_cmdHandler step 1\n");
 	apsdeDataInd_t *pApsdeInd = (apsdeDataInd_t*)pCmd;
 	u8 status = ZCL_STA_SUCCESS;
 	u8 toAppFlg = 0;
@@ -810,7 +810,7 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 			inMsg.pData = &pApsdeInd->asdu[3];
 			inMsg.dataLen = pApsdeInd->asduLen - 3;
 
-			rd_log_uart("type: %d,byte: %d,seqNum: %d,cmd: %d,dataLen: %d\n",inMsg.hdr.frmCtrl.bf.type,inMsg.hdr.frmCtrl.byte,inMsg.hdr.seqNum,inMsg.hdr.cmd,pApsdeInd->asduLen);
+			// rd_log_uart("type: %d,byte: %d,seqNum: %d,cmd: %d,dataLen: %d\n",inMsg.hdr.frmCtrl.bf.type,inMsg.hdr.frmCtrl.byte,inMsg.hdr.seqNum,inMsg.hdr.cmd,pApsdeInd->asduLen);
 		}else{
 			status = ZCL_STA_FAILURE;
 		}
@@ -870,7 +870,7 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 	if(devEnable){
 		if((inMsg.hdr.frmCtrl.bf.disDefResp == 0 || status != ZCL_STA_SUCCESS) && UNICAST_MSG(inMsg.msg) && (status != ZCL_STA_CMD_HAS_RESP)){
 			/* send default response */
-			rd_log_uart("MSG res, dir: %d\n",inMsg.hdr.frmCtrl.bf.dir);
+			// rd_log_uart("MSG res, dir: %d\n",inMsg.hdr.frmCtrl.bf.dir);
 			zcl_sendDfltRsp(&inMsg, inMsg.hdr.cmd, status);
 		}
 	}
@@ -2217,7 +2217,7 @@ _CODE_ZCL_ status_t zcl_sendDfltRsp(zclIncoming_t *inMsg, u8 cmdId, u8 status)
 	dstEp.txOptions |= APS_TX_OPT_ACK_TX;
 
 	rd_save_client(dstEp.dstAddr.shortAddr,dstEp.dstEp);
-	rd_log_uart("dstAddrMode: %d,shortAddr: %d,dstEp: %d,profileId: %d,txOptions: %d\n",dstEp.dstAddrMode,dstEp.dstAddr.shortAddr,dstEp.dstEp,dstEp.profileId,dstEp.txOptions);
+	// rd_log_uart("dstAddrMode: %d,shortAddr: %d,dstEp: %d,profileId: %d,txOptions: %d\n",dstEp.dstAddrMode,dstEp.dstAddr.shortAddr,dstEp.dstEp,dstEp.profileId,dstEp.txOptions);
 	if(inMsg->msg->indInfo.security_status & SECURITY_IN_APSLAYER){
 		dstEp.txOptions |= APS_TX_OPT_SECURITY_ENABLED;
 	}
