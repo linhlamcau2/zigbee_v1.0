@@ -11,18 +11,16 @@
  * @date 2025
  */
 
+
+//note: must enable UART_PRINTF_MODE
+
+
 #ifndef USER_LOG_SYSTEM_H_
 #define USER_LOG_SYSTEM_H_
 
-#include "proj/tl_common.h"
-#include "vendor/mesh/app.h"
-#include "vendor/mesh_lpn/app.h"
-#include "vendor/mesh_provision/app.h"
-#include "vendor/mesh_switch/app.h"
-#include "vendor/common/sensors_model.h"
-#include "proj_lib/mesh_crypto/sha256_telink.h"
-#include "vendor/common/app_heartbeat.h"
-#include "vendor/common/scene.h"
+#include "zb_common.h"
+#include "../proj/os/ev_poll.h"
+#include "string.h"
 
 // ============================================================================
 // Log System Configuration
