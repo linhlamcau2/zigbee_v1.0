@@ -27,7 +27,10 @@
 
 #include "rd_log/rd_log.h"
 #include "../proj/os/ev_poll.h"
+#include "../proj/drivers/drv_uptime.h"
 #include "string.h"
+#include "log_sys/log_sys.h"
+#include "user_utils/task.h"
 
 //#include "../sampleLight/sampleLight.h"
 
@@ -35,21 +38,15 @@
  * main:
  * */
 
+ u8 rd_par_test[60] = {0};
 extern void rd_nema_report(u8* p_data);
 
-u8 rd_par_test[60] = {0};
-
-void rd_send_report_test()
+int rd_send_report_test(void *param)
 {
 	rd_par_test[2] = 0x39;
-	static u32 last_tick = 0;
-	if(clock_time() - last_tick > 5 * 1000 *1000 * 16)
-	{
-		rd_nema_report(rd_par_test);
-		// rd_log_uart("send report\n");
-		last_tick = clock_time();
-	}
-
+	rd_nema_report(rd_par_test);
+	LOGI("Test");
+	return 1;
 }
 void rd_log_mac()
 {
@@ -63,6 +60,7 @@ void rd_log_mac()
 int main(void){
 	startup_state_e state = drv_platform_init();
 
+	drv_uptime_init();
 	u8 isRetention = (state == SYSTEM_DEEP_RETENTION) ? 1 : 0;
 
 	os_init(isRetention);
@@ -72,16 +70,14 @@ int main(void){
 	moduleTest_start();
 #else
 
-	rd_init_uart();
-	extern void rd_gpio_init();
-	rd_gpio_init();   //RD_EDIT: GPIO_INIT
+	// rd_init_uart();
+	// extern void rd_gpio_init();
+	// rd_gpio_init();   //RD_EDIT: GPIO_INIT
 	extern void user_init(bool isRetention);
 	user_init(isRetention);
 
 	drv_enable_irq();
-	//////////-------rd_init---------//////////
-//	rd_init_gpio();
-
+	log_init();
 //	ev_on_poll(EV_POLL_HCI,rd_test_task);
 #if (MODULE_WATCHDOG_ENABLE)
 	drv_wd_setInterval(600);
@@ -91,13 +87,15 @@ int main(void){
 #if VOLTAGE_DETECT_ENABLE
     u32 tick = clock_time();
 #endif
-    drv_uart_tx_start((u8 *)"hi\n",3);
+    // drv_uart_tx_start((u8 *)"hi\n",3);
     // rd_log_uart("start prg\n");
 //    extern void rd_print_light(void);
 //    rd_print_light();
 //    extern void rd_print_reporting(void);
-//    rd_print_reporting();
-    rd_log_mac();
+   rd_print_reporting();
+    // rd_log_mac();
+	TASK_INIT();
+	TASK_ADD(rd_send_report_test, NULL, 5000, 1000); // every 5s ,delay 2s
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){
@@ -117,8 +115,8 @@ int main(void){
 #endif
 
 		tl_zbTaskProcedure();
-
-		rd_send_report_test();
+		TASK_RUN();
+//		rd_send_report_test();
 //		rd_blink_led();
 //		tl_printf("test: %d %d\n",1,2);
 //		static u32 last_tick = 0;
