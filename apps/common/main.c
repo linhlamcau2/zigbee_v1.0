@@ -95,7 +95,7 @@ int main(void){
    rd_print_reporting();
     // rd_log_mac();
 	TASK_INIT();
-	TASK_ADD(rd_send_report_test, NULL, 5000, 1000); // every 5s ,delay 2s
+	TASK_ADD(rd_send_report_test, NULL, 10000, 1000); // every 5s ,delay 2s
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){

@@ -27,6 +27,7 @@
  * INCLUDES
  */
 #include "zcl_include.h"
+#include "../../apps/common/log_sys/log_sys.h"
 
 
 /**********************************************************************
@@ -816,7 +817,8 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 		}
 	}
 
-	rd_log_data_with_len(inMsg.pData, inMsg.dataLen);
+	LOGI("zcl_cmdHandler");
+	LOGD_HEX(inMsg.pData, inMsg.dataLen);
 
 	if(status == ZCL_STA_FAILURE){
 		ev_buf_free(pCmd);
