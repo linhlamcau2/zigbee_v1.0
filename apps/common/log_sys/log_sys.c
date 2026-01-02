@@ -106,8 +106,8 @@ int user_vsprintf(char *buf, const char *format, va_list ap)
         }
     }
 
-    *p = '\0';   // kết thúc chuỗi
-    return (p - buf);   // số ký tự ghi
+    *p = '\0'; 
+    return (p - buf);   
 }
 
 int user_sprintf(char *buf, const char *format, ...)
@@ -132,7 +132,7 @@ void log_output(const char *level, const char *fmt, ...)
     /* ---- prefix: [time][level]: ---- */
     p += user_sprintf(p,
                     "[%d ms][%s]: ",
-                    (unsigned long)drv_uptime_get_ms(),
+                    drv_uptime_get_ms(),
                     level);
 
     /* ---- log content ---- */

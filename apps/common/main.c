@@ -40,12 +40,17 @@
 
  u8 rd_par_test[60] = {0};
 extern void rd_nema_report(u8* p_data);
-
+u8 data_test[50] ={1,2,3,4,5,6,7,8,9,10,
+					11,12,13,14,15,16,17,18,19,20,
+					21,22,23,24,25,26,27,28,29,30,
+					31,32,33,34,35,36,37,38,39,40,
+					41,42,43,44,45,46,47,48,49,50};
 int rd_send_report_test(void *param)
 {
 	rd_par_test[2] = 0x39;
 	rd_nema_report(rd_par_test);
 	LOGI("Test");
+	// LOGD_HEX(data_test,50);
 	return 1;
 }
 void rd_log_mac()

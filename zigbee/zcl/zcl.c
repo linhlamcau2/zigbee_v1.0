@@ -790,6 +790,7 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 	TL_SETSTRUCTCONTENT(inMsg,0);
 	inMsg.msg = pApsdeInd;
 
+	// LOGI("recv: %d %d",pApsdeInd->asdu[0],pApsdeInd->asduLen);
 	/* Parse Header */
 	if(pApsdeInd->asdu[0] & ZCL_FRAME_CONTROL_MANU_SPECIFIC){
 		if(pApsdeInd->asduLen >= 5){
@@ -817,8 +818,10 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 		}
 	}
 
+	// LOGI("len : %d",inMsg.dataLen);
 	LOGI("zcl_cmdHandler");
-	LOGD_HEX(inMsg.pData, inMsg.dataLen);
+	int len_buf = inMsg.dataLen;
+	LOGD_HEX(inMsg.pData, len_buf);
 
 	if(status == ZCL_STA_FAILURE){
 		ev_buf_free(pCmd);
