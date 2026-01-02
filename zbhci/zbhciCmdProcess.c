@@ -1390,9 +1390,11 @@ void zbhciCmdHandler(u16 msgType, u16 msgLen, u8 *p){
 				break;
 
 			case ZBHCI_CMD_RD_ON_OFF_SWITCH:
+			{
+				cmdInfo->payloadLen = msgLen;
 				TL_SCHEDULE_TASK(zbhci_rd_sw_CmdHandle, cmdInfo);
 				break;
-
+			}
 			default:
 				ev_buf_free((u8*)cmdInfo);
 				st = ZBHCI_MSG_STATUS_UNHANDLED_COMMAND;

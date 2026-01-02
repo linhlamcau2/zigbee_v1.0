@@ -334,15 +334,17 @@ void zbhci_rd_sw_CmdHandle(void *arg){ //(u8 *p, u8 *seqNum){
 	zbhci_cmdHandler_t *cmdInfo = arg;
 //	u16 cmdId = cmdInfo->cmdId;
 	u8 *p = cmdInfo->payload;
-
+	u16 len = cmdInfo->payloadLen - 5;
 	u8 *ptr = p;
+	// p[6] = len >> 8;
+	// p[7] = len & 0xff;
 	epInfo_t dstEpInfo;
 	u8 srcEp;
 	TL_SETSTRUCTCONTENT(dstEpInfo, 0);
 
 	zbhciTxClusterCmdAddrResolve(&dstEpInfo,&srcEp,&ptr);
 
-	zcl_rd_sw_Cmd(srcEp,&dstEpInfo,0,ptr);
+	zcl_rd_sw_Cmd(srcEp,&dstEpInfo,0,len,ptr);
 
 	ev_buf_free(arg);
 }
