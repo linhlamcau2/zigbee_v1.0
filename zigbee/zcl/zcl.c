@@ -779,6 +779,7 @@ _CODE_ZCL_ status_t zcl_foundationCmdHandler(zclIncoming_t *pCmd)
  *
  * @return  None
  */
+extern int forward_data_via_uart(u8 *data, u8 len);
 _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 {
 	// rd_log_uart("zcl_cmdHandler step 1\n");
@@ -819,10 +820,17 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 		}
 	}
 
+///USER Add funcfion here	
 	// LOGI("len : %d",inMsg.dataLen);
-	LOGI("zcl_cmdHandler: %d", inMsg.hdr.cmd);
+	LOGI("zcl_cmdHandler: %d %d", inMsg.hdr.cmd,pApsdeInd->indInfo.cluster_id);
 	int len_buf = inMsg.dataLen;
 	LOGD_HEX(inMsg.pData, len_buf);
+
+	if(pApsdeInd->indInfo.cluster_id == ZCL_CLUSTER_RD_NEMA_LIGHTING){
+		forward_data_via_uart(inMsg.pData, len_buf);
+	}
+///////////////////////////////
+
 
 	if(status == ZCL_STA_FAILURE){
 		ev_buf_free(pCmd);

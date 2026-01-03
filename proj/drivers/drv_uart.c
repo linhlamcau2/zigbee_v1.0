@@ -83,10 +83,10 @@ u8 drv_uart_init(u32 baudrate, u8 *rxBuf, u16 rxBufLen, uart_irq_callback uartRe
 	uart_init_baudrate(baudrate, UART_CLOCK_SOURCE, PARITY_NONE, STOP_BIT_ONE);
 
 	// dma mode
-	uart_dma_enable(1, 1); 	//uart data in hardware buffer moved by dma, so we need enable them first
+	uart_dma_enable(1, 0); 	//uart data in hardware buffer moved by dma, so we need enable them first
 	irq_set_mask(FLD_IRQ_DMA_EN);
 	dma_chn_irq_enable(FLD_DMA_CHN_UART_RX | FLD_DMA_CHN_UART_TX, 1); 	//uart Rx/Tx dma irq enable
-	uart_irq_enable(0, 1);  	//uart Rx/Tx irq no need, disable them
+	uart_irq_enable(0, 0);  	//uart Rx/Tx irq no need, disable them
 #elif defined(MCU_CORE_B91) || defined(MCU_CORE_B92) || defined(MCU_CORE_TL721X) || defined(MCU_CORE_TL321X)
 	u16 div = 0;
 	u8 bwpc = 0;

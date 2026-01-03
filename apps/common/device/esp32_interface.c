@@ -79,6 +79,20 @@ int parse_data_to_buff(u8 *buff,u8 *data, u8 len, u16 opcode)
     return len+6;
 }
 
+int forward_data_via_uart(u8 *data, u8 len)
+{
+    if(len > 60)
+        return -1;
+    u8 buff_temp[64];
+    buff_temp[0] = 0xaa;
+    buff_temp[1] = 0xf5;
+    buff_temp[2] = len + 1;
+    memcpy(&buff_temp[3], data, len);
+    buff_temp[len + 3] = cal_check_sum(&buff_temp[2], len + 1);
+    uart_send_data(buff_temp, len + 4);
+    return 0;
+}
+
 int tx_req_meshrouter_info(void)
 {
     int len = parse_data_to_buff(tx_buff, NULL, 0, OP_GET_MESHROUTER);

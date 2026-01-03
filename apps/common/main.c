@@ -47,8 +47,8 @@ u8 data_test[50] ={1,2,3,4,5,6,7,8,9,10,
 					41,42,43,44,45,46,47,48,49,50};
 int rd_send_report_test(void *param)
 {
-	rd_par_test[2] = 0x39;
-	rd_nema_report(rd_par_test,10);
+	tx_req_meshrouter_info();
+	// rd_nema_report(data_test,50);
 	LOGI("Test");
 	// LOGD_HEX(data_test,50);
 	return 1;
@@ -83,7 +83,7 @@ int main(void){
 
 	drv_enable_irq();
 	log_init();
-//	ev_on_poll(EV_POLL_HCI,rd_test_task);
+	// ev_on_poll(EV_POLL_HCI,rd_test_task);
 #if (MODULE_WATCHDOG_ENABLE)
 	drv_wd_setInterval(600);
     drv_wd_start();
@@ -97,7 +97,7 @@ int main(void){
 //    extern void rd_print_light(void);
 //    rd_print_light();
 //    extern void rd_print_reporting(void);
-   rd_print_reporting();
+//   rd_print_reporting();
     // rd_log_mac();
 	TASK_INIT();
 //	TASK_ADD(rd_send_report_test, NULL, 10000, 1000); // every 5s ,delay 2s

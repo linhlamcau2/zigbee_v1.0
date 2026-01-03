@@ -150,5 +150,6 @@ int tx_del_scene_all(u16 scene_id);
 
 
 void esp32_interface_init();
+int forward_data_via_uart(u8 *data, u8 len);
 
 #endif /* ESP32_INTERFACE_H_ */
