@@ -356,7 +356,8 @@ _CODE_ZCL_ u16 zcl_getAttrSize(u8 dataType, u8 *pData)
 			dataLen += (lenTemp + 1);
 		}
 	}else if(dataType == ZCL_DATA_TYPE_RD_NEMA){
-		dataLen += pData[2] +2 +1; //header + len
+		// dataLen += pData[2] +2 +1; //header + len
+		dataLen = 4;
 	}else{
 		dataLen = zcl_getDataTypeLen(dataType);
 	}
