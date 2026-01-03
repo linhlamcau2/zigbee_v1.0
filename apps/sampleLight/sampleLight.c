@@ -45,7 +45,6 @@
 #include "wwah.h"
 #endif
 
-#include "../common/rd_log/rd_log.h"
 #include "rd_switch.h"
 /**********************************************************************
  * LOCAL CONSTANTS

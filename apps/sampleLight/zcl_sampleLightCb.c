@@ -35,8 +35,6 @@
 #include "sampleLight.h"
 #include "sampleLightCtrl.h"
 
-#include "../common/rd_log/rd_log.h"
-
 /**********************************************************************
  * LOCAL CONSTANTS
  */

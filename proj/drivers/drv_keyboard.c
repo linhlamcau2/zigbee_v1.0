@@ -24,7 +24,6 @@
  *******************************************************************************************************/
 
 #include "../tl_common.h"
-#include "../common/rd_log/rd_log.h"
 
 #if (defined(KB_DRIVE_PINS) && defined(KB_SCAN_PINS))
 

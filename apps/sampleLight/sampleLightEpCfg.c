@@ -32,7 +32,6 @@
 #include "zcl_include.h"
 #include "sampleLight.h"
 
-#include "../common/rd_log/rd_log.h"
 
 
 /**********************************************************************

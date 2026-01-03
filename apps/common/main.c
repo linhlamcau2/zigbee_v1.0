@@ -25,12 +25,12 @@
 
 #include "zb_common.h"
 
-#include "rd_log/rd_log.h"
 #include "../proj/os/ev_poll.h"
 #include "../proj/drivers/drv_uptime.h"
 #include "string.h"
 #include "log_sys/log_sys.h"
 #include "user_utils/task.h"
+#include "device/esp32_interface.h"
 
 //#include "../sampleLight/sampleLight.h"
 
@@ -39,7 +39,7 @@
  * */
 
  u8 rd_par_test[60] = {0};
-extern void rd_nema_report(u8* p_data);
+extern void rd_nema_report(u8* p_data,u8 len);
 u8 data_test[50] ={1,2,3,4,5,6,7,8,9,10,
 					11,12,13,14,15,16,17,18,19,20,
 					21,22,23,24,25,26,27,28,29,30,
@@ -48,7 +48,7 @@ u8 data_test[50] ={1,2,3,4,5,6,7,8,9,10,
 int rd_send_report_test(void *param)
 {
 	rd_par_test[2] = 0x39;
-	rd_nema_report(rd_par_test);
+	rd_nema_report(rd_par_test,10);
 	LOGI("Test");
 	// LOGD_HEX(data_test,50);
 	return 1;
@@ -100,7 +100,8 @@ int main(void){
    rd_print_reporting();
     // rd_log_mac();
 	TASK_INIT();
-	TASK_ADD(rd_send_report_test, NULL, 10000, 1000); // every 5s ,delay 2s
+//	TASK_ADD(rd_send_report_test, NULL, 10000, 1000); // every 5s ,delay 2s
+	esp32_interface_init();
 	while(1){
 #if VOLTAGE_DETECT_ENABLE
 		if(clock_time_exceed(tick, 200 * 1000)){

@@ -28,7 +28,7 @@
  */
 #include "zcl_include.h"
 #include "../../apps/common/log_sys/log_sys.h"
-
+#include "../../apps/common/log_sys/log_sys.h"
 
 /**********************************************************************
  * LOCAL CONSTANTS
@@ -643,6 +643,7 @@ _CODE_ZCL_ status_t zcl_sendCmd(u8 srcEp, epInfo_t *pDstEpInfo, u16 clusterId, u
 	memcpy(pAsdu, cmdPld, cmdPldLen);
 	u16 asdulength = pAsdu - asdu + cmdPldLen;
 
+	LOGI("adus len: %d", asdulength);
 	u8 apsCnt = 0;
 
 	u8 status = af_dataSend(srcEp, pDstEpInfo, clusterId, asdulength, asdu, &apsCnt);
@@ -1687,11 +1688,10 @@ _CODE_ZCL_ status_t zcl_report(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefault
 	return status;
 }
 
-_CODE_ZCL_ status_t rd_zcl_report(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 direction, u8 seqNo, u16 manuCode, u16 clusterId, u16 attrID, u8 dataType, u8 *pData)
+_CODE_ZCL_ status_t rd_zcl_report(u8 srcEp, epInfo_t *pDstEpInfo, u8 disableDefaultRsp, u8 direction, u8 seqNo, u16 manuCode, u16 clusterId, u16 attrID, u8 dataType,u8 len, u8 *pData)
 {
-	u16 len = zcl_getAttrSize(dataType, pData);
 	u16 length = len + 3; //attrID + data type
-
+	LOGI("rd_zcl_report: len=%d", length);
 	u8 *buf = (u8 *)ev_buf_allocate(length);
 	if(!buf){
 		return ZCL_STA_INSUFFICIENT_SPACE;

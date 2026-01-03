@@ -76,8 +76,8 @@ void rd_log_full_report()
 }
 void rd_print_reporting(void)
 {
-	rd_log_uart("reportNum: %d\n",reportingTab.reportNum);
-	rd_log_full_report();
+//	rd_log_uart("reportNum: %d\n",reportingTab.reportNum);
+//	rd_log_full_report();
 }
 
 _CODE_ZCL_ void zcl_reportingTabInit(void)
@@ -459,7 +459,7 @@ _CODE_ZCL_ void reportAttr(reportCfgInfo_t *pEntry)
 //					  pEntry->clusterID, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
 }
 
-_CODE_ZCL_ void rd_nema_report(u8* p_data)
+_CODE_ZCL_ void rd_nema_report(u8* p_data, u8 len)
 {
 	epInfo_t dstEpInfo;
 	TL_SETSTRUCTCONTENT(dstEpInfo, 0);
@@ -475,7 +475,7 @@ _CODE_ZCL_ void rd_nema_report(u8* p_data)
 	u16 attr_id = 0x0001;
 	u8 type = ZCL_DATA_TYPE_RD_NEMA;
 	rd_zcl_send_reportCmd(srcEp, &dstEpInfo,  TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
-						  clusterId, attr_id, type, p_data);
+						  clusterId, attr_id, type,len, p_data);
 }
 
 

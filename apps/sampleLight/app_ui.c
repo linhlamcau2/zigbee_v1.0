@@ -35,8 +35,6 @@
 #include "app_ui.h"
 #include "gp.h"
 
-#include "../common/rd_log/rd_log.h"
-
 /**********************************************************************
  * LOCAL CONSTANTS
  */
