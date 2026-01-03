@@ -473,7 +473,7 @@ _CODE_ZCL_ void rd_nema_report(u8* p_data, u8 len)
 	u8 srcEp = 0x01;
 	u16 clusterId = 0x0000;
 	u16 attr_id = 0x0001;
-	u8 type = ZCL_DATA_TYPE_RD_NEMA;
+	u8 type = ZCL_DATA_TYPE_CHAR_STR;
 	rd_zcl_send_reportCmd(srcEp, &dstEpInfo,  TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
 						  clusterId, attr_id, type,len, p_data);
 }

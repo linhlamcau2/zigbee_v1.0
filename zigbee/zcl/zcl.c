@@ -643,7 +643,7 @@ _CODE_ZCL_ status_t zcl_sendCmd(u8 srcEp, epInfo_t *pDstEpInfo, u16 clusterId, u
 	memcpy(pAsdu, cmdPld, cmdPldLen);
 	u16 asdulength = pAsdu - asdu + cmdPldLen;
 
-	LOGI("adus len: %d", asdulength);
+	// LOGI("adus len: %d", asdulength);
 	u8 apsCnt = 0;
 
 	u8 status = af_dataSend(srcEp, pDstEpInfo, clusterId, asdulength, asdu, &apsCnt);
@@ -820,7 +820,7 @@ _CODE_ZCL_ void zcl_cmdHandler(void *pCmd)
 	}
 
 	// LOGI("len : %d",inMsg.dataLen);
-	LOGI("zcl_cmdHandler");
+	LOGI("zcl_cmdHandler: %d", inMsg.hdr.cmd);
 	int len_buf = inMsg.dataLen;
 	LOGD_HEX(inMsg.pData, len_buf);
 

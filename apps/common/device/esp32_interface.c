@@ -283,7 +283,7 @@ void handle_rx_uart(void){
 	u32 user_uartPktRecvSeqNo = rxData->dataPayload[0];
 	if(1){
         int len = rxData->dataLen;
-        LOGD_HEX(rxData->dataPayload, len);
+        // LOGD_HEX(rxData->dataPayload, len);
         for(int i=0; i< len; i++)
         {
             uart_rx_callback(rxData->dataPayload[i]);
@@ -309,7 +309,8 @@ int handle_msg_rx(int *param)
         // if (crc == crc_temp)
         {
             LOGI("oke: %d",len);
-            rd_nema_report(par + 3, len - 1);
+            par[2] = len-1;
+            rd_nema_report(par + 2, len);
             //Todo: send via zigbee
         }
     }
